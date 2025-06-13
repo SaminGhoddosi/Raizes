@@ -1,0 +1,46 @@
+﻿using ApiRaizes.DTO;
+using ApiRaizes.Entity;
+using ApiRaizes.Repository;
+using Microsoft.AspNetCore.Mvc;
+using ApiRaizes.Contracts.Services;
+using ApiRaizes.Response;
+using ApiRaizes.Services;
+
+namespace ApiRaizes.Controllers
+{
+    [ApiController]
+    [Route("[controller]")]
+    public class HarvestStorageController : ControllerBase
+    {
+        private IHarvestStorageService _service;
+        public HarvestStorageController()
+        {
+            _service = new HarvestStorageService();
+        }
+        [HttpGet]
+        public async Task<ActionResult<HarvestStorageGetAllResponse>> Get()
+        {
+            return Ok(await _service.GetAll());
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<HarvestStorageEntity>> GetById(int id)
+        {
+            return Ok(await _service.GetById(id));
+        }
+        [HttpPost]
+        public async Task<ActionResult<MessageResponse>> Post(HarvestStorageInsertDTO harvestStorage)
+        {
+            return Ok(await _service.Post(harvestStorage));
+        }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<MessageResponse>> Delete(int id)
+        {
+            return Ok(await _service.Delete(id));
+        }
+        [HttpPut]
+        public async Task<ActionResult<MessageResponse>> Update(HarvestStorageEntity harvestStorage)
+        {
+            return Ok(await _service.Update(harvestStorage));
+        }
+    }
+}
