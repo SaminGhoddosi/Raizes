@@ -14,14 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\Services\" />
-    <Folder Include="Contracts\Repository\" />
-    <Folder Include="DTO\" />
-    <Folder Include="Entity\" />
-    <Folder Include="Services\" />
-    <Folder Include="Response\" />
     <Folder Include="Request\" />
-    <Folder Include="Repository\" />
   </ItemGroup>
 
 </Project>
