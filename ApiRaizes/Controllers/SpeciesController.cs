@@ -14,9 +14,9 @@ namespace ApiRaizes.Controllers
     public class SpeciesController : ControllerBase
     {
         private ISpeciesService _service;
-        public SpeciesController()
+        public SpeciesController(ISpeciesService service)
         {
-            _service = new SpeciesService();
+            _service = service;
         }
         [HttpGet]
         public async Task<ActionResult<SpeciesGetAllResponse>> Get()

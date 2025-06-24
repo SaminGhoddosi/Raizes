@@ -16,8 +16,8 @@ namespace MinhaPrimeiraApi
     public class Program
     {
         public static void Main(string[] args)
-
         {
+
             var builder = WebApplication.CreateBuilder(args);
             //DEPENDENCE HARVEST
             builder.Services.AddSingleton<IConnection, Connection>();

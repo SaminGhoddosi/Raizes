@@ -13,9 +13,9 @@ namespace ApiRaizes.Controllers
     public class SaleController : ControllerBase
     {
         private ISaleService _service;
-        public SaleController()
+        public SaleController(ISaleService service)
         {
-            _service = new SaleService();
+            _service = service;
         }
         [HttpGet]
         public async Task<ActionResult<SaleGetAllResponse>> Get()

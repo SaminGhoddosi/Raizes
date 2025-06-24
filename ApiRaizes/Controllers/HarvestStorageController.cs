@@ -13,9 +13,9 @@ namespace ApiRaizes.Controllers
     public class HarvestStorageController : ControllerBase
     {
         private IHarvestStorageService _service;
-        public HarvestStorageController()
+        public HarvestStorageController(IHarvestStorageService service)
         {
-            _service = new HarvestStorageService();
+            _service = service;
         }
         [HttpGet]
         public async Task<ActionResult<HarvestStorageGetAllResponse>> Get()
