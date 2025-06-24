@@ -1,0 +1,14 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.cache
+
+# Build
+bin/
+obj/
+
+# Other unnecessary files
+*.log
+*.tmp
+*.DS_Store
