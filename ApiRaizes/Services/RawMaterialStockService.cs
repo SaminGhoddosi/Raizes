@@ -14,7 +14,7 @@ namespace ApiRaizes.Services
             await _repository.Delete(id);
             return new MessageResponse
             {
-                Message = "Colheita excluída com sucesso!"
+                Message = "Insumo excluído do estoque com sucesso!"
             };
         }
 
@@ -38,7 +38,7 @@ namespace ApiRaizes.Services
             await _repository.Insert(rawMaterialStock);
             return new MessageResponse
             {
-                Message = "Colheita inserida com sucesso!"
+                Message = "Insumo inserido no estoque com sucesso!"
             };
 
         }
@@ -49,7 +49,7 @@ namespace ApiRaizes.Services
             await _repository.Update(rawMaterialStock);
             return new MessageResponse
             {
-                Message = "Colheita alterada com sucesso"
+                Message = "Insumo do estoque alterado com sucesso"
             };
         }
     }

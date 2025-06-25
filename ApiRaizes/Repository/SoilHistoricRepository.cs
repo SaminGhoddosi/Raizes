@@ -12,31 +12,74 @@ using System.Threading.Tasks;
 
 namespace ApiRaizes.Repository
 {
-    public class SoilHistoricRepository : ISoilHistoricRepository
+    class SoilHistoricRepository : ISoilHistoricRepository
     {
-        public Task Delete(int id)
+        public async Task<IEnumerable<SoilHistoricEntity>> GetAll()
         {
-            throw new NotImplementedException();
+            Connection _connection = new Connection();
+            using (MySqlConnection con = _connection.GetConnection())
+            {
+                string sql = @$"
+                          SELECT ID     AS {nameof(SoilHistoricEntity.Id)},
+                          TIPOSOLOID AS {nameof(SoilHistoricEntity.TipoSoloId)},
+                          DATALEITURA AS {nameof(SoilHistoricEntity.DataLeitura)},
+                          UMIDADE AS {nameof(SoilHistoricEntity.Umidade)},
+                          OBSERVACOES AS {nameof(SoilHistoricEntity.Observacoes)},
+                          PROPRIEDADEID AS {nameof(SoilHistoricEntity.PropriedadeId)}
+                                      FROM HISTORICOSOLO
+                ";
+                IEnumerable<SoilHistoricEntity> soilHistoric = await con.QueryAsync<SoilHistoricEntity>(sql);
+                return soilHistoric;
+            }
         }
-
-        public Task<IEnumerable<SoilHistoricEntity>> GetAll()
+        public async Task Insert(SoilHistoricInsertDTO sale)
         {
-            throw new NotImplementedException();
+            Connection _connection = new Connection();
+            string sql = @$"
+                INSERT INTO HISTORICOSOLO (TIPOSOLOID,DATALEITURA,UMIDADE,OBSERVACOES,PROPRIEDADEID)
+                VALUES (@TipoSoloId,@DataLeitura,@Umidade,@Observacoes,@PropriedadeId)                                                         
+            ";
+            await _connection.Execute(sql, sale);
         }
-
-        public Task<SoilHistoricEntity> GetById(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            Connection _connection = new Connection();
+            string sql = "DELETE FROM HISTORICOSOLO WHERE ID = @id";
+            await _connection.Execute(sql, new { id });
         }
-
-        public Task Insert(SoilHistoricInsertDTO harvest)
+        public async Task<SoilHistoricEntity> GetById(int id)
         {
-            throw new NotImplementedException();
+            Connection _connection = new Connection();
+            using (MySqlConnection con = _connection.GetConnection())
+            {
+                string sql = @$"
+                              SELECT ID     AS {nameof(SoilHistoricEntity.Id)},
+                              TIPOSOLOID    AS {nameof(SoilHistoricEntity.TipoSoloId)},
+                              DATALEITURA   AS {nameof(SoilHistoricEntity.DataLeitura)},
+                              UMIDADE       AS {nameof(SoilHistoricEntity.Umidade)},
+                              OBSERVACOES   AS {nameof(SoilHistoricEntity.Observacoes)},
+                              PROPRIEDADEID AS {nameof(SoilHistoricEntity.PropriedadeId)}
+                                            FROM HISTORICOSOLO
+                                            WHERE ID = @Id
+                              
+                            ";
+                SoilHistoricEntity soilHistoric = await con.QueryFirstAsync<SoilHistoricEntity>(sql, new { id });
+                return soilHistoric;
+            }
         }
-
-        public Task Update(SoilHistoricEntity harvest)
+        public async Task Update(SoilHistoricEntity soilHistoric)
         {
-            throw new NotImplementedException();
+            Connection _connection = new Connection();
+            string sql = @$"
+                             UPDATE HISTORICOSOLO
+                                 SET TIPOSOLOID   = @TipoSoloId,
+                                      DATALEITURA = @DataLeitura,
+                                     UMIDADE      = @Umidade,
+                                  OBSERVACOES     = @Observacoes,
+                                  PROPRIEDADEID   = @PropriedadeId
+                                       WHERE ID   = @Id;
+                          ";
+            await _connection.Execute(sql, soilHistoric);
         }
     }
 }

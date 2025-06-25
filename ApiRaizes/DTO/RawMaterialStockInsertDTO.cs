@@ -6,7 +6,6 @@
         public int InsumoId { get; set; }
         public decimal Quantidade { get; set; }
         public decimal PrecoUnitario { get; set; }
-        public decimal PrecoTotal { get; set; }
         public DateTime DataMovimentacao { get; set; }
     }
 }

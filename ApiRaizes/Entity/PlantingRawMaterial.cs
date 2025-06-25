@@ -8,11 +8,11 @@ namespace ApiRaizes.Entity
 {
     public class PlantingRawMaterialEntity
     {
-        public int? Id { get; set; }
-        public string? PlantioId { get; set; }
-        public string? InsumoId { get; set; }
-        public double? Quantidade { get; set; }
-        public DateTime? DataAplicacao { get; set; }
+        public int Id { get; set; }
+        public int PlantioId { get; set; }
+        public int InsumoId { get; set; }
+        public decimal Quantidade { get; set; }
+        public DateTime DataAplicacao { get; set; }
 
     }
 }

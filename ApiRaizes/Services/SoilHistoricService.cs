@@ -14,7 +14,7 @@ namespace ApiRaizes.Services
             await _repository.Delete(id);
             return new MessageResponse
             {
-                Message = "Historico Solo excluído com sucesso!"
+                Message = "Historico do solo excluído com sucesso!"
             };
         }
 
@@ -38,7 +38,7 @@ namespace ApiRaizes.Services
             await _repository.Insert(soilHistoric);
             return new MessageResponse
             {
-                Message = "Colheita inserida com sucesso!"
+                Message = "Histórico do solo inserido com sucesso!"
             };
 
         }
@@ -49,7 +49,7 @@ namespace ApiRaizes.Services
             await _repository.Update(soilHistoric);
             return new MessageResponse
             {
-                Message = "Colheita alterada com sucesso"
+                Message = "Histórico do solo alterado com sucesso!"
             };
         }
     }

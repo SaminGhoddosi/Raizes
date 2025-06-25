@@ -17,7 +17,7 @@ namespace ApiRaizes.Repository
         public async Task Delete(int id)
         {
             Connection _connection = new Connection();
-            string sql = "DELETE FROM CIDADE WHERE ID = @id";
+            string sql = "DELETE FROM FORNECEDOR WHERE ID = @id";
 
             await _connection.Execute(sql, new { id });
         }
@@ -29,11 +29,10 @@ namespace ApiRaizes.Repository
             {
                 string sql = $@"
                     SELECT Id AS {nameof(SupplierEntity.Id)},
-                            Nome AS{nameof(SupplierEntity.Nome)},
-                            CNPJ AS{nameof(SupplierEntity.CNPJ)},
-                            Telefone{nameof(SupplierEntity.Telefone)}
-                            Email{nameof(SupplierEntity.Email)},
-                            CriadoEm{nameof(SupplierEntity.CriadoEm)}
+                            Nome AS {nameof(SupplierEntity.Nome)},
+                            CNPJ AS {nameof(SupplierEntity.CNPJ)},
+                            Telefone AS {nameof(SupplierEntity.Telefone)},
+                            Email AS {nameof(SupplierEntity.Email)}
                     FROM FORNECEDOR
                 ";
                 IEnumerable<SupplierEntity> supplierlist = await con.QueryAsync<SupplierEntity>(sql);
@@ -49,12 +48,11 @@ namespace ApiRaizes.Repository
             {
                 string sql = @$"
                     SELECT Id AS {nameof(SupplierEntity.Id)},
-                            Nome AS{nameof(SupplierEntity.Nome)},
-                            CNPJ AS{nameof(SupplierEntity.CNPJ)},
-                            Telefone{nameof(SupplierEntity.Telefone)}
-                            Email{nameof(SupplierEntity.Email)},
-                            CriadoEm{nameof(SupplierEntity.CriadoEm)}
-                    FROM fornecedor
+                            Nome AS {nameof(SupplierEntity.Nome)},
+                            CNPJ AS {nameof(SupplierEntity.CNPJ)},
+                            Telefone AS {nameof(SupplierEntity.Telefone)},
+                            Email AS {nameof(SupplierEntity.Email)}
+                    FROM FORNECEDOR
                     WHERE ID = @id
                 ";
 
@@ -69,7 +67,7 @@ namespace ApiRaizes.Repository
             Connection _connection = new Connection();
             string sql = @"
                 INSERT INTO FORNECEDOR(NOME,CNPJ,TELEFONE,EMAIL)
-                                    VALUE(@Nome,@CNPJ,@Telefone,@Email
+                                    VALUES(@Nome,@CNPJ,@Telefone,@Email)
             ";
             await _connection.Execute(sql, supplier);
         }
@@ -79,10 +77,13 @@ namespace ApiRaizes.Repository
             Connection _connection = new Connection();
             string sql = @"
                 UPDATE FORNECEDOR
-                    SET Nome = @Nome
+                SET Nome = @Nome,
+                    CNPJ = @CNPJ,
+                    Telefone = @Telefone,
+                    Email = @Email
                 WHERE ID = @id
             ";
-            await _connection.Execute(sql,supplier);
+            await _connection.Execute(sql, supplier);
         }
     }
 }

@@ -30,7 +30,7 @@ namespace ApiRaizes.Repository
                 string sql = $@"
                     SELECT Id AS {nameof(MeasureUnitEntity.Id)},
                            Nome AS {nameof(MeasureUnitEntity.Nome)},
-                           Sigla AS {nameof(MeasureUnitEntity.Sigla)},
+                           Sigla AS {nameof(MeasureUnitEntity.Sigla)}
                     FROM UNIDADEMEDIDA
                 ";
                 IEnumerable<MeasureUnitEntity> measureList = await con.QueryAsync<MeasureUnitEntity>(sql);
@@ -46,7 +46,7 @@ namespace ApiRaizes.Repository
                 string sql = $@"
                     SELECT Id AS {nameof(MeasureUnitEntity.Id)},
                            Nome AS {nameof(MeasureUnitEntity.Nome)},
-                           Sigla AS {nameof(MeasureUnitEntity.Sigla)},                  
+                           Sigla AS {nameof(MeasureUnitEntity.Sigla)}                 
                     FROM UNIDADEMEDIDA
                     WHERE ID = @id
                 ";

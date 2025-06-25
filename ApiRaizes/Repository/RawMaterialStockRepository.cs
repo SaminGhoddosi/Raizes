@@ -27,7 +27,7 @@ namespace ApiRaizes.Repository
                                PRECOUNITARIO AS {nameof(RawMaterialStockEntity.PrecoUnitario)},
                                   PRECOTOTAL AS {nameof(RawMaterialStockEntity.PrecoTotal)},
                             DATAMOVIMENTACAO AS {nameof(RawMaterialStockEntity.DataMovimentacao)}
-                    FROM ESTOQUEINSUMO
+                    FROM INSUMOESTOQUE
 ";
 
                 IEnumerable<RawMaterialStockEntity> rawMaterialStockList = await con.QueryAsync<RawMaterialStockEntity>(sql);
@@ -38,8 +38,8 @@ namespace ApiRaizes.Repository
         {
             Connection _connection = new Connection();
             string sql = @$"
-                 INSERT INTO ESTOQUEINSUMO (PROPRIEDADEID, INSUMOID, QUANTIDADE, PRECOUNITARIO, PRECOTOTAL, DATAMOVIMENTACAO)
-                                 VALUES (@PropriedadeId, @InsumoId, @Quantidade, @PrecoUnitario, @PrecoTotal, @DataMovimentacao)                                                         
+                 INSERT INTO INSUMOESTOQUE (PROPRIEDADEID, INSUMOID, QUANTIDADE, PRECOUNITARIO, DATAMOVIMENTACAO)
+                                 VALUES (@PropriedadeId, @InsumoId, @Quantidade, @PrecoUnitario, @DataMovimentacao)                                                         
             ";
 
             await _connection.Execute(sql, rawMaterialStock);
@@ -63,7 +63,7 @@ namespace ApiRaizes.Repository
                              PRECOUNITARIO AS {nameof(RawMaterialStockEntity.PrecoUnitario)},
                              PRECOTOTAL AS {nameof(RawMaterialStockEntity.PrecoTotal)},
                              DATAMOVIMENTACAO AS {nameof(RawMaterialStockEntity.DataMovimentacao)}
-                        FROM ESTOQUEINSUMO
+                        FROM INSUMOESTOQUE
                        WHERE ID = @Id
                 ";
 
@@ -75,12 +75,11 @@ namespace ApiRaizes.Repository
         {
             Connection _connection = new Connection();
             string sql = @$"
-                               UPDATE ESTOQUEINSUMO
+                               UPDATE INSUMOESTOQUE
                           SET PROPRIEDADEID = @PropriedadeId,
                               INSUMOID = @InsumoId,
                               QUANTIDADE = @Quantidade,
                               PRECOUNITARIO = @PrecoUnitario,
-                              PRECOTOTAL = @PrecoTotal,
                               DATAMOVIMENTACAO = @DataMovimentacao
                             WHERE ID = @Id
                  ";

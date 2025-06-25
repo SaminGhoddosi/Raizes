@@ -1,7 +1,6 @@
 ﻿using ApiRaizes.DTO;
 using ApiRaizes.Entity;
 using ApiRaizes.Response;
-using ApiRaizes.DTO;
 
 namespace ApiRaizes.Contracts.Services
 {

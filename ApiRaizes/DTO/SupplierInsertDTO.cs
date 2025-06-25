@@ -12,7 +12,6 @@ namespace ApiRaizes.DTO
         public string CNPJ { get; set; }
         public int Telefone { get; set; }
         public string Email { get; set; }
-        public int CriadoEm { get; set; }
 
     }
 }

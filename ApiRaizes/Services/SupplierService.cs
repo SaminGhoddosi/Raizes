@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using ApiRaizes.Contracts.Services;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
-using ApiRaizes.Repository;
-using ApiRaizes.Response;
 
 namespace ApiRaizes.Services
 {

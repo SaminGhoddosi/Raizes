@@ -85,7 +85,10 @@ namespace ApiRaizes.Repository
 
             string sql = @"
                 UPDATE PLANTIOINSUMO
-                   SET Quantidade = @Quantidade
+                   SET PlantioId = @PlantioId,
+                   InsumoId = @InsumoId,
+                  Quantidade = @Quantidade,
+                  DataAplicacao = @DataAplicacao
                  WHERE ID = @Id
             ";
 
