@@ -15,48 +15,42 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 
-
 namespace ApiRaizes.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class HarvestController : ControllerBase
+    public class CityController : ControllerBase
     {
-        private IHarvestService _service;
 
-        public HarvestController(IHarvestService service)
+        private ICityService _service;
+        public CityController(ICityService service)
         {
             _service = service;
         }
-
         [HttpGet]
-        public async Task<ActionResult<HarvestGetAllResponse>> Get()
+        public async Task<ActionResult<CityGetAllResponse>> Get()
         {
             return Ok(await _service.GetAll());
         }
-
         [HttpGet("{id}")]
-        public async Task<ActionResult<HarvestEntity>> GetById(int id)
+        public async Task<ActionResult<CityEntity>> GetById(int id)
         {
             return Ok(await _service.GetById(id));
         }
-
         [HttpPost]
-        public async Task<ActionResult<MessageResponse>> Post(HarvestInsertDTO harvest)
+        public async Task<ActionResult<MessageResponse>> Post(CityInsertDTO city)
         {
-            return Ok(await _service.Post(harvest));
+            return Ok(await _service.Post(city));
         }
-
         [HttpDelete("{id}")]
         public async Task<ActionResult<MessageResponse>> Delete(int id)
         {
             return Ok(await _service.Delete(id));
         }
-
         [HttpPut]
-        public async Task<ActionResult<MessageResponse>> Update(HarvestEntity harvest)
+        public async Task<ActionResult<MessageResponse>> Update(CityEntity city)
         {
-            return Ok(await _service.Update(harvest));
+            return Ok(await _service.Update(city));
         }
     }
 }

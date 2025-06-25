@@ -15,48 +15,42 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 
-
 namespace ApiRaizes.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class HarvestController : ControllerBase
+    public class SupplierController : ControllerBase
     {
-        private IHarvestService _service;
 
-        public HarvestController(IHarvestService service)
+        private ISupplierService _service;
+        public SupplierController(ISupplierService service)
         {
             _service = service;
         }
-
         [HttpGet]
-        public async Task<ActionResult<HarvestGetAllResponse>> Get()
+        public async Task<ActionResult<SupplierGetAllResponse>> Get()
         {
             return Ok(await _service.GetAll());
         }
-
         [HttpGet("{id}")]
-        public async Task<ActionResult<HarvestEntity>> GetById(int id)
+        public async Task<ActionResult<SupplierEntity>> GetById(int id)
         {
             return Ok(await _service.GetById(id));
         }
-
         [HttpPost]
-        public async Task<ActionResult<MessageResponse>> Post(HarvestInsertDTO harvest)
+        public async Task<ActionResult<MessageResponse>> Post(SupplierInsertDTO supplier)
         {
-            return Ok(await _service.Post(harvest));
+            return Ok(await _service.Post(supplier));
         }
-
         [HttpDelete("{id}")]
         public async Task<ActionResult<MessageResponse>> Delete(int id)
         {
             return Ok(await _service.Delete(id));
         }
-
         [HttpPut]
-        public async Task<ActionResult<MessageResponse>> Update(HarvestEntity harvest)
+        public async Task<ActionResult<MessageResponse>> Update(SupplierEntity supplier)
         {
-            return Ok(await _service.Update(harvest));
+            return Ok(await _service.Update(supplier));
         }
     }
 }

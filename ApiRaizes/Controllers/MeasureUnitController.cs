@@ -15,48 +15,42 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 
-
 namespace ApiRaizes.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class HarvestController : ControllerBase
+    public class MeasureUnitController : ControllerBase
     {
-        private IHarvestService _service;
 
-        public HarvestController(IHarvestService service)
+        private IMeasureUnitService _service;
+        public MeasureUnitController(IMeasureUnitService service)
         {
             _service = service;
         }
-
         [HttpGet]
-        public async Task<ActionResult<HarvestGetAllResponse>> Get()
+        public async Task<ActionResult<MeasureUnitGetAllResponse>> Get()
         {
             return Ok(await _service.GetAll());
         }
-
         [HttpGet("{id}")]
-        public async Task<ActionResult<HarvestEntity>> GetById(int id)
+        public async Task<ActionResult<MeasureUnitEntity>> GetById(int id)
         {
             return Ok(await _service.GetById(id));
         }
-
         [HttpPost]
-        public async Task<ActionResult<MessageResponse>> Post(HarvestInsertDTO harvest)
+        public async Task<ActionResult<MessageResponse>> Post(MeasureUnitInsertDTO measureUnit)
         {
-            return Ok(await _service.Post(harvest));
+            return Ok(await _service.Post(measureUnit));
         }
-
         [HttpDelete("{id}")]
         public async Task<ActionResult<MessageResponse>> Delete(int id)
         {
             return Ok(await _service.Delete(id));
         }
-
         [HttpPut]
-        public async Task<ActionResult<MessageResponse>> Update(HarvestEntity harvest)
+        public async Task<ActionResult<MessageResponse>> Update(MeasureUnitEntity measureUnit)
         {
-            return Ok(await _service.Update(harvest));
+            return Ok(await _service.Update(measureUnit));
         }
     }
 }

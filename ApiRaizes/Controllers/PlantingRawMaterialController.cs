@@ -20,31 +20,31 @@ namespace ApiRaizes.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class HarvestController : ControllerBase
+    public class PlantingRawMaterialController : ControllerBase
     {
-        private IHarvestService _service;
+        private IPlantingRawMaterialService _service;
 
-        public HarvestController(IHarvestService service)
+        public PlantingRawMaterialController(IPlantingRawMaterialService service)
         {
             _service = service;
         }
 
         [HttpGet]
-        public async Task<ActionResult<HarvestGetAllResponse>> Get()
+        public async Task<ActionResult<PlantingRawMaterialGetAllResponse>> Get()
         {
             return Ok(await _service.GetAll());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<HarvestEntity>> GetById(int id)
+        public async Task<ActionResult<PlantingRawMaterialEntity>> GetById(int id)
         {
             return Ok(await _service.GetById(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<MessageResponse>> Post(HarvestInsertDTO harvest)
+        public async Task<ActionResult<MessageResponse>> Post(PlantingRawMaterialInsertDTO plantingRawMaterial)
         {
-            return Ok(await _service.Post(harvest));
+            return Ok(await _service.Post(plantingRawMaterial));
         }
 
         [HttpDelete("{id}")]
@@ -54,9 +54,9 @@ namespace ApiRaizes.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<MessageResponse>> Update(HarvestEntity harvest)
+        public async Task<ActionResult<MessageResponse>> Update(PlantingRawMaterialEntity plantingRawMaterial)
         {
-            return Ok(await _service.Update(harvest));
+            return Ok(await _service.Update(plantingRawMaterial));
         }
     }
 }

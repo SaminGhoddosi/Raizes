@@ -1,0 +1,102 @@
+﻿using ApiRaizes.Contracts.Repository;
+using ApiRaizes.DTO;
+using ApiRaizes.Entity;
+using ApiRaizes.Infrastructure;
+using Dapper;
+using ApiRaizes.DTO;
+using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace ApiRaizes.Repository
+{
+    public class PlantingRawMaterialRepository : IPlantingRawMaterialRepository
+    {
+        public async Task Delete(int id)
+        {
+
+            Connection _connection = new Connection();
+            string sql = "DELETE FROM PLANTIOINSUMO WHERE ID = @id";
+            await _connection.Execute(sql, new { id });
+        }
+
+        public async Task<IEnumerable<PlantingRawMaterialEntity>> GetAll()
+        {
+            Connection _connection = new Connection();
+
+            using (MySqlConnection con = _connection.GetConnection())
+            {
+                string sql = @$"
+                        SELECT ID AS {nameof(PlantingRawMaterialEntity.Id)},
+                                PlantioId AS {nameof(PlantingRawMaterialEntity.PlantioId)},
+                                InsumoId AS {nameof(PlantingRawMaterialEntity.InsumoId)},
+                                Quantidade AS {nameof(PlantingRawMaterialEntity.Quantidade)},
+                                DataAplicacao AS {nameof(PlantingRawMaterialEntity.DataAplicacao)}
+                                FROM PLANTIOINSUMO
+                    ";
+
+
+                var plantingRawMateriallist = await con.QueryAsync<PlantingRawMaterialEntity>(sql);
+                return plantingRawMateriallist;
+            }
+        }
+
+        public async Task<PlantingRawMaterialEntity> GetById(int id)
+        {
+            Connection _connection = new Connection();
+
+            using (MySqlConnection con = _connection.GetConnection())
+            {
+
+
+                string sql = @$"
+                     SELECT ID AS {nameof(PlantingRawMaterialEntity.Id)},
+                                PlantioId AS {nameof(PlantingRawMaterialEntity.PlantioId)},
+                                InsumoId AS {nameof(PlantingRawMaterialEntity.InsumoId)},
+                                Quantidade AS {nameof(PlantingRawMaterialEntity.Quantidade)},
+                                DataAplicacao AS {nameof(PlantingRawMaterialEntity.DataAplicacao)}
+                                FROM PLANTIOINSUMO    
+                                    WHERE ID = @id
+
+            ";
+                var plantingRawMateriallist = await con.QueryFirstAsync<PlantingRawMaterialEntity>(sql, new { id });
+                return plantingRawMateriallist;
+
+            }
+
+        }
+
+        public async Task Insert(PlantingRawMaterialInsertDTO plantingRawMaterial)
+        {
+            Connection _connection = new Connection();
+            string sql = @"
+                INSERT INTO PLANTIOINSUMO (PlantioId, InsumoId, Quantidade, DataAplicacao)
+                            VALUE (@PlantioId, @InsumoId, @Quantidade, @DataAplicacao)
+            ";
+
+            await _connection.Execute(sql, plantingRawMaterial);
+        }
+
+        public async Task Update(PlantingRawMaterialEntity plantingRawMaterial)
+        {
+            Connection _connection = new Connection();
+
+            string sql = @"
+                UPDATE PLANTIOINSUMO
+                   SET Quantidade = @Quantidade
+                 WHERE ID = @Id
+            ";
+
+            await _connection.Execute(sql, plantingRawMaterial);
+        }
+    }
+
+
+}
+//Id int AI PK 
+//PlantioId int 
+//InsumoId int 
+//Quantidade decimal(10,2) 
+//DataAplicacao date
