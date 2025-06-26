@@ -2,19 +2,21 @@
 using ApiRaizes.Contracts.Services;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
-using ApiRaizes.Repository;
-using ApiRaizes.Repository;
 using ApiRaizes.Response;
-using ApiRaizes.Response;
-using Microsoft.AspNetCore.Mvc;
 
 namespace ApiRaizes.Services
 {
     public class MeasureUnitService : IMeasureUnitService
     {
+        private readonly IMeasureUnitRepository _repository;
+
+        public MeasureUnitService(IMeasureUnitRepository repository)
+        {
+            _repository = repository;
+        }
+
         public async Task<MessageResponse> Delete(int id)
         {
-            MeasureUnitRepository _repository = new MeasureUnitRepository();
             await _repository.Delete(id);
             return new MessageResponse
             {
@@ -24,33 +26,29 @@ namespace ApiRaizes.Services
 
         public async Task<MeasureUnitGetAllResponse> GetAll()
         {
-            MeasureUnitRepository _repository = new MeasureUnitRepository();
             return new MeasureUnitGetAllResponse
             {
                 Data = await _repository.GetAll()
             };
         }
+
         public async Task<MeasureUnitEntity> GetById(int id)
         {
-            MeasureUnitRepository _repository = new MeasureUnitRepository();
             return await _repository.GetById(id);
         }
 
-        public async Task<MessageResponse> Post(MeasureUnitInsertDTO measure)
+        public async Task<MessageResponse> Post(MeasureUnitInsertDTO measureUnit)
         {
-            MeasureUnitRepository _repository = new MeasureUnitRepository();
-            await _repository.Insert(measure);
+            await _repository.Insert(measureUnit);
             return new MessageResponse
             {
                 Message = "Unidade de medida inserida com sucesso!"
             };
-
         }
 
-        public async Task<MessageResponse> Update(MeasureUnitEntity measure)
+        public async Task<MessageResponse> Update(MeasureUnitEntity measureUnit)
         {
-            MeasureUnitRepository _repository = new MeasureUnitRepository();
-            await _repository.Update(measure);
+            await _repository.Update(measureUnit);
             return new MessageResponse
             {
                 Message = "Unidade de medida alterada com sucesso"

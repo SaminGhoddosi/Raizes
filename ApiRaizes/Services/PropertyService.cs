@@ -1,19 +1,22 @@
-﻿using ApiRaizes.Response;
-using ApiRaizes.Repository;
-using Microsoft.AspNetCore.Mvc;
+﻿using ApiRaizes.Contracts.Repository;
 using ApiRaizes.Contracts.Services;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
-using ApiRaizes.Repository;
 using ApiRaizes.Response;
 
 namespace ApiRaizes.Services
 {
     public class PropertyService : IPropertyService
     {
+        private readonly IPropertyRepository _repository;
+
+        public PropertyService(IPropertyRepository repository)
+        {
+            _repository = repository;
+        }
+
         public async Task<MessageResponse> Delete(int id)
         {
-            PropertyRepository _repository = new PropertyRepository();
             await _repository.Delete(id);
             return new MessageResponse
             {
@@ -23,38 +26,33 @@ namespace ApiRaizes.Services
 
         public async Task<PropertyGetAllResponse> GetAll()
         {
-            PropertyRepository _repository = new PropertyRepository();
             return new PropertyGetAllResponse
             {
                 Data = await _repository.GetAll()
             };
         }
+
         public async Task<PropertyEntity> GetById(int id)
         {
-            PropertyRepository _repository = new PropertyRepository();
             return await _repository.GetById(id);
         }
 
-        public async Task<MessageResponse> Post(PropertyInsertDTO property)
+        public async Task<MessageResponse> Post(PropertyInsertDTO Property)
         {
-            PropertyRepository _repository = new PropertyRepository();
-            await _repository.Insert(property);
+            await _repository.Insert(Property);
             return new MessageResponse
             {
                 Message = "Propriedade inserida com sucesso!"
             };
-
         }
 
-        public async Task<MessageResponse> Update(PropertyEntity property)
+        public async Task<MessageResponse> Update(PropertyEntity Property)
         {
-            PropertyRepository _repository = new PropertyRepository();
-            await _repository.Update(property);
+            await _repository.Update(Property);
             return new MessageResponse
             {
                 Message = "Propriedade alterada com sucesso"
             };
         }
     }
-
 }

@@ -1,17 +1,22 @@
-﻿using ApiRaizes.Response;
-using ApiRaizes.Repository;
-using Microsoft.AspNetCore.Mvc;
+﻿using ApiRaizes.Contracts.Repository;
 using ApiRaizes.Contracts.Services;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
+using ApiRaizes.Response;
 
 namespace ApiRaizes.Services
 {
     public class SupplierService : ISupplierService
     {
+        private readonly ISupplierRepository _repository;
+
+        public SupplierService(ISupplierRepository repository)
+        {
+            _repository = repository;
+        }
+
         public async Task<MessageResponse> Delete(int id)
         {
-            SupplierRepository _repository = new SupplierRepository();
             await _repository.Delete(id);
             return new MessageResponse
             {
@@ -21,33 +26,29 @@ namespace ApiRaizes.Services
 
         public async Task<SupplierGetAllResponse> GetAll()
         {
-            SupplierRepository _repository = new SupplierRepository();
             return new SupplierGetAllResponse
             {
                 Data = await _repository.GetAll()
             };
         }
+
         public async Task<SupplierEntity> GetById(int id)
         {
-            SupplierRepository _repository = new SupplierRepository();
             return await _repository.GetById(id);
         }
 
-        public async Task<MessageResponse> Post(SupplierInsertDTO supplier)
+        public async Task<MessageResponse> Post(SupplierInsertDTO Supplier)
         {
-            SupplierRepository _repository = new SupplierRepository();
-            await _repository.Insert(supplier);
+            await _repository.Insert(Supplier);
             return new MessageResponse
             {
                 Message = "Fornecedor inserido com sucesso!"
             };
-
         }
 
-        public async Task<MessageResponse> Update(SupplierEntity supplier)
+        public async Task<MessageResponse> Update(SupplierEntity Supplier)
         {
-            SupplierRepository _repository = new SupplierRepository();
-            await _repository.Update(supplier);
+            await _repository.Update(Supplier);
             return new MessageResponse
             {
                 Message = "Fornecedor alterado com sucesso"

@@ -1,60 +1,59 @@
-﻿using ApiRaizes.Contracts.Services;
+﻿using ApiRaizes.Contracts.Repository;
+using ApiRaizes.Contracts.Services;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
-using ApiRaizes.Repository;
-using ApiRaizes.Repository;
 using ApiRaizes.Response;
-using ApiRaizes.Response;
-using ApiRaizes.DTO;
-using Microsoft.AspNetCore.Mvc;
 
 namespace ApiRaizes.Services
 {
     public class RawMaterialService : IRawMaterialService
     {
+        private readonly IRawMaterialRepository _repository;
+
+        public RawMaterialService(IRawMaterialRepository repository)
+        {
+            _repository = repository;
+        }
+
         public async Task<MessageResponse> Delete(int id)
         {
-            RawMaterialRepository _repository = new RawMaterialRepository();
             await _repository.Delete(id);
             return new MessageResponse
             {
-                Message = "Insumo excluído com sucesso!"
+                Message = "Insumo excluída com sucesso!"
             };
         }
 
         public async Task<RawMaterialGetAllResponse> GetAll()
         {
-            RawMaterialRepository _repository = new RawMaterialRepository();
             return new RawMaterialGetAllResponse
             {
                 Data = await _repository.GetAll()
             };
         }
+
         public async Task<RawMaterialEntity> GetById(int id)
         {
-            RawMaterialRepository _repository = new RawMaterialRepository();
             return await _repository.GetById(id);
         }
 
-        public async Task<MessageResponse> Post(RawMaterialInsertDTO rawMaterial)
+        public async Task<MessageResponse> Post(RawMaterialInsertDTO RawMaterial)
         {
-            RawMaterialRepository _repository = new RawMaterialRepository();
-            await _repository.Insert(rawMaterial);
+            await _repository.Insert(RawMaterial);
             return new MessageResponse
             {
-                Message = "Insumo inserido com sucesso!"
+                Message = "Insumo inserida com sucesso!"
             };
-
         }
 
-        public async Task<MessageResponse> Update(RawMaterialEntity rawMaterial)
+        public async Task<MessageResponse> Update(RawMaterialEntity RawMaterial)
         {
-            RawMaterialRepository _repository = new RawMaterialRepository();
-            await _repository.Update(rawMaterial);
+            await _repository.Update(RawMaterial);
             return new MessageResponse
             {
-                Message = "Insumo alterado com sucesso"
+                Message = "Insumo alterada com sucesso"
             };
         }
     }
 }
+

@@ -1,17 +1,22 @@
-﻿using ApiRaizes.Response;
-using ApiRaizes.Repository;
-using Microsoft.AspNetCore.Mvc;
+﻿using ApiRaizes.Contracts.Repository;
 using ApiRaizes.Contracts.Services;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
+using ApiRaizes.Response;
 
 namespace ApiRaizes.Services
 {
     public class PlantingService : IPlantingService
     {
+        private readonly IPlantingRepository _repository;
+
+        public PlantingService(IPlantingRepository repository)
+        {
+            _repository = repository;
+        }
+
         public async Task<MessageResponse> Delete(int id)
         {
-            PlantingRepository _repository = new PlantingRepository();
             await _repository.Delete(id);
             return new MessageResponse
             {
@@ -21,38 +26,33 @@ namespace ApiRaizes.Services
 
         public async Task<PlantingGetAllResponse> GetAll()
         {
-            PlantingRepository _repository = new PlantingRepository();
             return new PlantingGetAllResponse
             {
                 Data = await _repository.GetAll()
             };
         }
+
         public async Task<PlantingEntity> GetById(int id)
         {
-            PlantingRepository _repository = new PlantingRepository();
             return await _repository.GetById(id);
         }
 
-        public async Task<MessageResponse> Post(PlantingInsertDTO planting)
+        public async Task<MessageResponse> Post(PlantingInsertDTO Planting)
         {
-            PlantingRepository _repository = new PlantingRepository();
-            await _repository.Insert(planting);
+            await _repository.Insert(Planting);
             return new MessageResponse
             {
                 Message = "Plantio inserido com sucesso!"
             };
-
         }
 
-        public async Task<MessageResponse> Update(PlantingEntity planting)
+        public async Task<MessageResponse> Update(PlantingEntity Planting)
         {
-            PlantingRepository _repository = new PlantingRepository();
-            await _repository.Update(planting);
+            await _repository.Update(Planting);
             return new MessageResponse
             {
                 Message = "Plantio alterado com sucesso"
             };
         }
     }
-
 }

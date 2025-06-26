@@ -3,16 +3,12 @@ using ApiRaizes.Entity;
 
 namespace ApiRaizes.Contracts.Repository
 {
-    interface ISaleRepository
+    public interface ISaleRepository
     {
         Task<IEnumerable<SaleEntity>> GetAll();
-
         Task<SaleEntity> GetById(int id);
-
-        Task Insert(SaleInsertDTO sale);
-
+        Task Insert(SaleInsertDTO Sale);
+        Task Update(SaleEntity Sale);
         Task Delete(int id);
-
-        Task Update(SaleEntity sale);
     }
 }

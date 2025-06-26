@@ -3,17 +3,12 @@ using ApiRaizes.Entity;
 
 namespace ApiRaizes.Contracts.Repository
 {
-    interface ISpeciesRepository
+    public interface ISpeciesRepository
     {
         Task<IEnumerable<SpeciesEntity>> GetAll();
-
         Task<SpeciesEntity> GetById(int id);
-
-        Task Insert(SpeciesInsertDTO species);
-
+        Task Insert(SpeciesInsertDTO Species);
+        Task Update(SpeciesEntity Species);
         Task Delete(int id);
-
-        Task Update(SpeciesEntity species);
     }
 }
-
