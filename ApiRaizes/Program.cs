@@ -71,7 +71,10 @@ namespace MinhaPrimeiraApi
             builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IRawMaterialService, RawMaterialService>();
             builder.Services.AddScoped<IRawMaterialRepository, RawMaterialRepository>();
-
+            // DEPENDENCE PLANTING
+            builder.Services.AddScoped<IConnection, Connection>();
+            builder.Services.AddScoped<IPlantingService, PlantingService>();
+            builder.Services.AddScoped<IPlantingRepository, PlantingRepository>();
 
 
 
