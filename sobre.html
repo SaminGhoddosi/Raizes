@@ -5,9 +5,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sobre - Raízes</title>
   <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="font-sans text-gray-800 bg-white p-6">
-  <h1 class="text-3xl font-bold mb-4">Sobre o Projeto Raízes</h1>
-  <p class="text-lg max-w-3xl">Aqui você pode colocar as informações sobre o projeto, missão, visão, equipe, etc.</p>
-</body>
-</html>
+</head>   
+    
+    <!-- NAVBAR -->
+    <nav class="text-white py-5 relative" style="background-color: #31572C;">
+        <div class="w-full px-6 flex items-center justify-between">
+  
+          <!-- Logo colada à esquerda -->
+          <div class="flex-shrink-0">
+            <img src="assets/logo raizes.png" alt="Logo Raízes" class="h-10" />
+          </div>
+  
+          <!-- Menu centralizado -->
+          <div class="absolute left-1/2 transform -translate-x-1/2 flex space-x-8 text-lg font-sans">
+            <a href="index.html" class="px-2 py-1 rounded hover:bg-white hover:text-[#31572C] transition">Home</a>
+            <a href="sobre.html" class="px-2 py-1 rounded hover:bg-white hover:text-[#31572C] transition">Sobre</a>
+            <a href="aplicativo.html" class="px-2 py-1 rounded hover:bg-white hover:text-[#31572C] transition">Aplicativo</a>
+            <a href="solucoes.html" class="px-2 py-1 rounded hover:bg-white hover:text-[#31572C] transition">Soluções</a>
+            <a href="#" class="px-2 py-1 rounded hover:bg-white hover:text-[#31572C] transition">Contato</a>
+          </div>
+  
+          <!-- Botão login colado à direita -->
+          <button
+            class="border border-white px-4 py-1 rounded hover:bg-white hover:text-[#31572C] transition font-bold text-white"
+          >
+            LOGIN
+          </button>
+        </div>
+    </nav>
+
+    <section class="relative w-full h-[700px]">
+      <!-- Imagem de fundo -->
+      <img
+        src="assets/img campo.jpg"
+        alt="sistema para plantação"
+        class="w-full h-full object-cover absolute inset-0 z-0"
+      />
+    
+      <!-- Camada escura (overlay) -->
+      <div class="absolute inset-0 bg-black bg-opacity-40 z-10"></div>
+    
+      <!-- Texto por cima da imagem -->
+      <div class="relative z-20 flex flex-col items-center justify-center h-full text-center text-white px-6">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">Sobre a Raízes</h1>
+        <p class="text-lg md:text-2xl font-semibold max-w-2xl">
+          Senta aqui um pouquinho, deixa eu te contar nossa história...
+        </p>
+      </div>
+    </section>
+
+    
+    <section class="py-20" style="background-color: #31572C;">
+      <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+
+        <!-- APP -->
+        <div class="space-y-6">
+          <p class="text-lg text-white leading-relaxed">
+            O Raízes nasceu do desejo de aproximar o produtor rural da tecnologia de forma simples, prática e acessível.          </p>
+
+          <div class="space-y-4">
+            <p class="text-lg text-white leading-relaxed">
+              Acreditamos que, com as ferramentas certas, os pequenos produtores e as famílias que vivem da terra podem tomar decisões mais seguras e colher melhores resultados. Nossa plataforma foi pensada especialmente para quem vive o campo todos os dias, carrega a lavoura no coração e busca evoluir sem perder suas raízes.
+            </p>
+          </div>        
+        </div>
+
+        <!-- Imagem do aplicativo -->
+        <div class="grid grid-cols-1 gap-4">
+          <img
+            src="assets/Mockup-BoosterAGRO-App1.png"
+            alt="Previsão do Tempo"
+            class="rounded-lg"
+            style="max-width: 90%; height: auto; margin: 0 auto"
+          />
+        </div>
+      </div>
+    </section>
+    <!-- -->
+
+
+
+</html>    
