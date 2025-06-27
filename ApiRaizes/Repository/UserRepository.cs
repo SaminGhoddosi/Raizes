@@ -1,8 +1,9 @@
-﻿using ApiRaizes.Infrastructure;
-using Dapper;
+﻿using ApiRaizes.Contracts.Infrastructure;
 using ApiRaizes.Contracts.Repository;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
+using ApiRaizes.Infrastructure;
+using Dapper;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,14 @@ namespace ApiRaizes.Repository
 {
     public class UserRepository : IUserRepository
     {
+        private IConnection _connection;
+
+        public UserRepository(IConnection connection)
+        {
+            _connection = connection;
+        }
         public async Task<IEnumerable<UserEntity>> GetAll()
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -36,7 +42,6 @@ namespace ApiRaizes.Repository
         }
         public async Task Insert(UserInsertDTO user)
         {
-            Connection _connection = new Connection();
             string sql = @$"
                  INSERT INTO USUARIO (NOME, SOBRENOME, CPF, EMAIL, SENHA, STATUS)
                                  VALUES (@Nome, @Sobrenome, @Cpf, @Email, @Senha, @Status)                                                         
@@ -46,13 +51,11 @@ namespace ApiRaizes.Repository
         }
         public async Task Delete(int id)
         {
-            Connection _connection = new Connection();
             string sql = "DELETE FROM USUARIO WHERE ID = @id";
             await _connection.Execute(sql, new { id });
         }
         public async Task<UserEntity> GetById(int id)
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -73,7 +76,6 @@ namespace ApiRaizes.Repository
         }
         public async Task Update(UserEntity user)
         {
-            Connection _connection = new Connection();
             string sql = @$"
                                         UPDATE USUARIO
                                    SET NOME = @Nome,
@@ -86,6 +88,23 @@ namespace ApiRaizes.Repository
                           ";
 
             await _connection.Execute(sql, user);
+        }
+        public async Task<UserEntity> Login(UserLoginDTO user)
+        {
+            using (MySqlConnection con = _connection.GetConnection())
+            {
+                string sql = @$"
+                    SELECT ID AS {nameof(UserEntity.Id)},
+                           NOME AS {nameof(UserEntity.Nome)},
+                           EMAIL AS {nameof(UserEntity.Email)}
+                      FROM USUARIO
+                     WHERE EMAIL = @Email AND SENHA = @Senha
+                ";
+
+                return await con.QueryFirstOrDefaultAsync<UserEntity>(sql, user);
+
+            }
+
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿using ApiRaizes.Infrastructure;
-using Dapper;
+﻿using ApiRaizes.Contracts.Infrastructure;
 using ApiRaizes.Contracts.Repository;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
+using ApiRaizes.Infrastructure;
+using Dapper;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,14 @@ namespace ApiRaizes.Repository
 {
     class SpeciesRepository : ISpeciesRepository
     {
+        private IConnection _connection;
+
+        public SpeciesRepository(IConnection connection)
+        {
+            _connection = connection;
+        }
         public async Task<IEnumerable<SpeciesEntity>> GetAll()
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -24,7 +30,7 @@ namespace ApiRaizes.Repository
                           NOMECOMUM AS {nameof(SpeciesEntity.NomeComum)},
                      NOMECIENTIFICO AS {nameof(SpeciesEntity.NomeCientifico)},
                           VARIEDADE AS {nameof(SpeciesEntity.Variedade)},
-                    EPOCADEPLANTIO AS {nameof(SpeciesEntity.EpocaDePlantio)},
+                     EPOCADEPLANTIO AS {nameof(SpeciesEntity.EpocaDePlantio)},
                     EPOCADECOLHEITA AS {nameof(SpeciesEntity.EpocaDeColheita)},
                     TEMPODECOLHEITA AS {nameof(SpeciesEntity.TempoDeColheita)},
                     TIPOSOLOIDEALID AS {nameof(SpeciesEntity.TipoSoloIdealId)},
@@ -39,7 +45,6 @@ namespace ApiRaizes.Repository
         }
         public async Task Insert(SpeciesInsertDTO sale)
         {
-            Connection _connection = new Connection();
             string sql = @$"
                 INSERT INTO ESPECIE (NOMECOMUM,NOMECIENTIFICO,VARIEDADE,EPOCADEPLANTIO,EPOCADECOLHEITA,TEMPODECOLHEITA,TIPOSOLOIDEALID,IDEALUMIDADEMIN,IDEALUMIDADEMAX,CARACTERISTICAS)
                 VALUES (@NomeComum,@NomeCientifico,@Variedade,@EpocaDePlantio,@EpocaDeColheita,@TempoDeColheita,@TipoSoloIdealId,@IdealUmidadeMin,@IdealUmidadeMax,@Caracteristicas)                                                         
@@ -48,13 +53,11 @@ namespace ApiRaizes.Repository
         }
         public async Task Delete(int id)
         {
-            Connection _connection = new Connection();
             string sql = "DELETE FROM ESPECIE WHERE ID = @id";
             await _connection.Execute(sql, new { id });
         }
         public async Task<SpeciesEntity> GetById(int id)
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -79,20 +82,19 @@ namespace ApiRaizes.Repository
         }
         public async Task Update(SpeciesEntity especie)
         {
-            Connection _connection = new Connection();
             string sql = @$"
-                                         UPDATE   ESPECIE
-                                  SET NOMECOMUM = @NomeComum,
-                                 NOMECIENTIFICO = @NomeCientifico,
-                                      VARIEDADE = @Variedade,
-                                 EPOCADEPLANTIO = @EpocaDePlantio,
-                                EPOCADECOLHEITA = @EpocaDeColheita,
-                                TEMPODECOLHEITA = @TempoDeColheita,
-                                TIPOSOLOIDEALID = @TipoSoloIdealId,
-                                IDEALUMIDADEMIN = @IdealUmidadeMin,
-                                IDEALUMIDADEMAX = @IdealUmidadeMax,
-                                CARACTERISTICAS = @Caracteristicas
-                                       WHERE ID = @Id;
+                          UPDATE ESPECIE
+                             SET NOMECOMUM       = @NomeComum,
+                                 NOMECIENTIFICO  = @NomeCientifico,
+                                 VARIEDADE       = @Variedade,
+                                 EPOCADEPLANTIO  = @EpocaDePlantio,
+                                 EPOCADECOLHEITA = @EpocaDeColheita,
+                                 TEMPODECOLHEITA = @TempoDeColheita,
+                                 TIPOSOLOIDEALID = @TipoSoloIdealId,
+                                 IDEALUMIDADEMIN = @IdealUmidadeMin,
+                                 IDEALUMIDADEMAX = @IdealUmidadeMax,
+                                 CARACTERISTICAS = @Caracteristicas
+                           WHERE ID              = @Id;
                           ";
             await _connection.Execute(sql, especie);
         }

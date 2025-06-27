@@ -1,8 +1,9 @@
-﻿using ApiRaizes.Infrastructure;
-using Dapper;
+﻿using ApiRaizes.Contracts.Infrastructure;
 using ApiRaizes.Contracts.Repository;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
+using ApiRaizes.Infrastructure;
+using Dapper;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,14 @@ namespace ApiRaizes.Repository
 {
     public class MeasureUnitRepository : IMeasureUnitRepository
     {
+        private IConnection _connection;
+
+        public MeasureUnitRepository(IConnection connection)
+        {
+            _connection = connection;
+        }
         public async Task Delete(int id)
         {
-            Connection _connection = new Connection();
             string sql = "DELETE FROM UNIDADEMEDIDA WHERE ID = @id";
 
             await _connection.Execute(sql, new { id });
@@ -24,7 +30,6 @@ namespace ApiRaizes.Repository
 
         public async Task<IEnumerable<MeasureUnitEntity>> GetAll()
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = $@"
@@ -40,7 +45,6 @@ namespace ApiRaizes.Repository
 
         public async Task<MeasureUnitEntity> GetById(int id)
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = $@"
@@ -58,7 +62,6 @@ namespace ApiRaizes.Repository
 
         public async Task Insert(MeasureUnitInsertDTO measureUnit)
         {
-            Connection _connection = new Connection();
             string sql = @"
                 INSERT INTO UNIDADEMEDIDA(NOME, SIGLA)
                 VALUES (@Nome, @Sigla)
@@ -68,7 +71,6 @@ namespace ApiRaizes.Repository
 
         public async Task Update(MeasureUnitEntity measure)
         {
-            Connection _connection = new Connection();
             string sql = @"
                 UPDATE UNIDADEMEDIDA
                    SET Nome = @Nome,

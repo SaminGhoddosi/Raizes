@@ -5,6 +5,7 @@ using ApiRaizes.Entity;
 using ApiRaizes.Repository;
 using ApiRaizes.Response;
 using ApiRaizes.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -19,6 +20,7 @@ namespace ApiRaizes.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class SoilHistoricController : ControllerBase
     {
         private ISoilHistoricService _service;

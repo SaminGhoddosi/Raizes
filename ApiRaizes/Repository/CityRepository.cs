@@ -1,8 +1,9 @@
-﻿using ApiRaizes.Infrastructure;
-using Dapper;
+﻿using ApiRaizes.Contracts.Infrastructure;
 using ApiRaizes.Contracts.Repository;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
+using ApiRaizes.Infrastructure;
+using Dapper;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,14 @@ namespace ApiRaizes.Repository
 {
     public class CityRepository : ICityRepository
     {
+        private IConnection _connection;
+
+        public CityRepository(IConnection connection)
+        {
+            _connection = connection;
+        }
         public async Task<IEnumerable<CityEntity>> GetAll()
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -33,7 +39,6 @@ namespace ApiRaizes.Repository
         }
         public async Task Insert(CityInsertDTO city)
         {
-            Connection _connection = new Connection();
             string sql = @$"
                  INSERT INTO CIDADE (NOME, ESTADO, REGIAO, PAIS)
                 VALUES (@Nome, @Estado, @Regiao, @Pais)                                     
@@ -42,13 +47,11 @@ namespace ApiRaizes.Repository
         }
         public async Task Delete(int id)
         {
-            Connection _connection = new Connection();
             string sql = "DELETE FROM CIDADE WHERE ID = @id";
             await _connection.Execute(sql, new { id });
         }
         public async Task<CityEntity> GetById(int id)
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -67,7 +70,6 @@ namespace ApiRaizes.Repository
         }
         public async Task Update(CityEntity city)
         {
-            Connection _connection = new Connection();
             string sql = @$"
                                       UPDATE   CIDADE
                                             SET NOME = @Nome,

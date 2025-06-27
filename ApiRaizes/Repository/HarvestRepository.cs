@@ -1,4 +1,5 @@
-﻿using ApiRaizes.Contracts.Repository;
+﻿using ApiRaizes.Contracts.Infrastructure;
+using ApiRaizes.Contracts.Repository;
 using ApiRaizes.Contracts.Services;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
@@ -15,9 +16,14 @@ namespace ApiRaizes.Repository
 {
     class HarvestRepository : IHarvestRepository
     {
+        private IConnection _connection;
+
+        public HarvestRepository(IConnection connection)
+        {
+            _connection = connection;
+        }
         public async Task<IEnumerable<HarvestEntity>> GetAll()
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -35,7 +41,6 @@ namespace ApiRaizes.Repository
         }
         public async Task Insert(HarvestInsertDTO harvest)
         {
-            Connection _connection = new Connection();
             string sql = @$"
                 INSERT INTO COLHEITA (PLANTIOID,DATACOLHEITA,QUANTIDADE,UNIDADEMEDIDAID,OBSERVACAO)
                                 VALUES (@PlantioId,@DataColheita,@Quantidade,@UnidadeMedidaId,@Observacao)                                                         
@@ -44,13 +49,11 @@ namespace ApiRaizes.Repository
         }
         public async Task Delete(int id)
         {
-            Connection _connection = new Connection();
             string sql = "DELETE FROM COLHEITA WHERE ID = @id";
             await _connection.Execute(sql, new { id });
         }
         public async Task<HarvestEntity> GetById(int id)
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -70,7 +73,6 @@ namespace ApiRaizes.Repository
         }
         public async Task Update(HarvestEntity harvest)
         {
-            Connection _connection = new Connection();
             string sql = @$"
                                         UPDATE   COLHEITA
                                  SET PLANTIOID = @PlantioId,

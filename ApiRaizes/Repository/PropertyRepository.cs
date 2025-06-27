@@ -1,8 +1,9 @@
-﻿using ApiRaizes.Infrastructure;
-using Dapper;
+﻿using ApiRaizes.Contracts.Infrastructure;
 using ApiRaizes.Contracts.Repository;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
+using ApiRaizes.Infrastructure;
+using Dapper;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,14 @@ namespace ApiRaizes.Repository
 {
     public class PropertyRepository : IPropertyRepository
     {
+        private IConnection _connection;
 
+        public PropertyRepository(IConnection connection)
+        {
+            _connection = connection;
+        }
         public async Task<IEnumerable<PropertyEntity>> GetAll()
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -37,7 +42,6 @@ namespace ApiRaizes.Repository
         }
         public async Task Insert(PropertyInsertDTO property)
         {
-            Connection _connection = new Connection();
             string sql = @"
                 INSERT INTO PROPRIEDADE (NOME, CIDADEID, USUARIOID, STATUS, TAMANHO, CULTURA, UNIDADEMEDIDAID)
                      VALUES (@Nome, @CidadeId, @UsuarioId, @Status, @Tamanho, @Cultura, @UnidadeMedidaId)
@@ -47,13 +51,11 @@ namespace ApiRaizes.Repository
         }
         public async Task Delete(int id)
         {
-            Connection _connection = new Connection();
             string sql = "DELETE FROM PROPRIEDADE WHERE ID = @id";
             await _connection.Execute(sql, new { id });
         }
         public async Task<PropertyEntity> GetById(int id)
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -75,7 +77,6 @@ namespace ApiRaizes.Repository
         }
         public async Task Update(PropertyEntity property)
         {
-            Connection _connection = new Connection();
             string sql = @$"
                                         UPDATE   PROPRIEDADE
                                  SET NOME = @Nome,

@@ -1,8 +1,9 @@
-﻿using ApiRaizes.Infrastructure;
-using Dapper;
+﻿using ApiRaizes.Contracts.Infrastructure;
 using ApiRaizes.Contracts.Repository;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
+using ApiRaizes.Infrastructure;
+using Dapper;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,14 @@ namespace ApiRaizes.Repository
 {
     class SaleRepository : ISaleRepository
     {
+        private IConnection _connection;
+
+        public SaleRepository(IConnection connection)
+        {
+            _connection = connection;
+        }
         public async Task<IEnumerable<SaleEntity>> GetAll()
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -37,7 +43,6 @@ namespace ApiRaizes.Repository
         }
         public async Task Insert(SaleInsertDTO sale)
         {
-            Connection _connection = new Connection();
             string sql = @$"
                 INSERT INTO VENDA (COLHEITAID,ESPECIEID,QUANTIDADE,PRECOUNITARIO,COMPRADORID,UNIDADEMEDIDAID,DATAVENDA)
                 VALUES (@ColheitaId,@EspecieId,@Quantidade,@PrecoUnitario,@CompradorId,@UnidadeMedidaId,@DataVenda)                                                         
@@ -46,13 +51,11 @@ namespace ApiRaizes.Repository
         }
         public async Task Delete(int id)
         {
-            Connection _connection = new Connection();
             string sql = "DELETE FROM VENDA WHERE ID = @id";
             await _connection.Execute(sql, new { id });
         }
         public async Task<SaleEntity> GetById(int id)
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -75,7 +78,6 @@ namespace ApiRaizes.Repository
         }
         public async Task Update(SaleEntity venda)
         {
-            Connection _connection = new Connection();
             string sql = @$"
                                          UPDATE   VENDA
                                  SET COLHEITAID = @ColheitaId,

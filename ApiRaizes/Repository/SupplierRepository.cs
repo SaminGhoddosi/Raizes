@@ -1,8 +1,9 @@
-﻿using ApiRaizes.Infrastructure;
-using Dapper;
+﻿using ApiRaizes.Contracts.Infrastructure;
 using ApiRaizes.Contracts.Repository;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
+using ApiRaizes.Infrastructure;
+using Dapper;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,14 @@ namespace ApiRaizes.Repository
 {
     public class SupplierRepository : ISupplierRepository
     {
+        private IConnection _connection;
+
+        public SupplierRepository(IConnection connection)
+        {
+            _connection = connection;
+        }
         public async Task Delete(int id)
         {
-            Connection _connection = new Connection();
             string sql = "DELETE FROM FORNECEDOR WHERE ID = @id";
 
             await _connection.Execute(sql, new { id });
@@ -24,7 +30,6 @@ namespace ApiRaizes.Repository
 
         public async Task<IEnumerable<SupplierEntity>> GetAll()
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = $@"
@@ -43,7 +48,6 @@ namespace ApiRaizes.Repository
 
         public async Task<SupplierEntity> GetById(int id)
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -64,7 +68,6 @@ namespace ApiRaizes.Repository
 
         public async Task Insert(SupplierInsertDTO supplier)
         {
-            Connection _connection = new Connection();
             string sql = @"
                 INSERT INTO FORNECEDOR(NOME,CNPJ,TELEFONE,EMAIL)
                                     VALUES(@Nome,@CNPJ,@Telefone,@Email)
@@ -74,7 +77,6 @@ namespace ApiRaizes.Repository
 
         public async Task Update(SupplierEntity supplier)
         {
-            Connection _connection = new Connection();
             string sql = @"
                 UPDATE FORNECEDOR
                 SET Nome = @Nome,

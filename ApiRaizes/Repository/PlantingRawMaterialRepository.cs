@@ -1,9 +1,10 @@
-﻿using ApiRaizes.Contracts.Repository;
+﻿using ApiRaizes.Contracts.Infrastructure;
+using ApiRaizes.Contracts.Repository;
+using ApiRaizes.DTO;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
 using ApiRaizes.Infrastructure;
 using Dapper;
-using ApiRaizes.DTO;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -14,18 +15,20 @@ namespace ApiRaizes.Repository
 {
     public class PlantingRawMaterialRepository : IPlantingRawMaterialRepository
     {
+        private IConnection _connection;
+
+        public PlantingRawMaterialRepository(IConnection connection)
+        {
+            _connection = connection;
+        }
         public async Task Delete(int id)
         {
-
-            Connection _connection = new Connection();
             string sql = "DELETE FROM PLANTIOINSUMO WHERE ID = @id";
             await _connection.Execute(sql, new { id });
         }
 
         public async Task<IEnumerable<PlantingRawMaterialEntity>> GetAll()
         {
-            Connection _connection = new Connection();
-
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -45,8 +48,6 @@ namespace ApiRaizes.Repository
 
         public async Task<PlantingRawMaterialEntity> GetById(int id)
         {
-            Connection _connection = new Connection();
-
             using (MySqlConnection con = _connection.GetConnection())
             {
 
@@ -70,7 +71,6 @@ namespace ApiRaizes.Repository
 
         public async Task Insert(PlantingRawMaterialInsertDTO plantingRawMaterial)
         {
-            Connection _connection = new Connection();
             string sql = @"
                 INSERT INTO PLANTIOINSUMO (PlantioId, InsumoId, Quantidade, DataAplicacao)
                             VALUE (@PlantioId, @InsumoId, @Quantidade, @DataAplicacao)
@@ -81,8 +81,6 @@ namespace ApiRaizes.Repository
 
         public async Task Update(PlantingRawMaterialEntity plantingRawMaterial)
         {
-            Connection _connection = new Connection();
-
             string sql = @"
                 UPDATE PLANTIOINSUMO
                    SET PlantioId = @PlantioId,

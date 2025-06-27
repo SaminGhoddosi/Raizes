@@ -1,15 +1,17 @@
-﻿using ApiRaizes.DTO;
+﻿using ApiRaizes.Contracts.Services;
+using ApiRaizes.DTO;
 using ApiRaizes.Entity;
 using ApiRaizes.Repository;
-using Microsoft.AspNetCore.Mvc;
-using ApiRaizes.Contracts.Services;
 using ApiRaizes.Response;
 using ApiRaizes.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ApiRaizes.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class SaleController : ControllerBase
     {
         private ISaleService _service;

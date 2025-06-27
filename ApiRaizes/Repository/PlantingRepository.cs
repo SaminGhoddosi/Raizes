@@ -1,8 +1,9 @@
-﻿using ApiRaizes.Infrastructure;
-using Dapper;
+﻿using ApiRaizes.Contracts.Infrastructure;
 using ApiRaizes.Contracts.Repository;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
+using ApiRaizes.Infrastructure;
+using Dapper;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,14 @@ namespace ApiRaizes.Repository
 {
     public class PlantingRepository : IPlantingRepository
     {
+        private IConnection _connection;
+
+        public PlantingRepository(IConnection connection)
+        {
+            _connection = connection;
+        }
         public async Task<IEnumerable<PlantingEntity>> GetAll()
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -37,7 +43,6 @@ namespace ApiRaizes.Repository
         }
         public async Task Insert(PlantingInsertDTO planting)
         {
-            Connection _connection = new Connection();
             string sql = @$"
                  INSERT INTO PLANTIO (ESPECIEID, PROPRIEDADEID, DATAINICIO, DATAFIM, AREAPLANTADA, MUDAS, DESCRICAO, UNIDADEMEDIDAID)
                       VALUES (@EspecieId, @PropriedadeId, @DataInicio, @DataFim, @AreaPlantada, @Mudas, @Descricao, @UnidadeMedidaId)                                     
@@ -46,13 +51,11 @@ namespace ApiRaizes.Repository
         }
         public async Task Delete(int id)
         {
-            Connection _connection = new Connection();
             string sql = "DELETE FROM PLANTIO WHERE ID = @id";
             await _connection.Execute(sql, new { id });
         }
         public async Task<PlantingEntity> GetById(int id)
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -64,7 +67,7 @@ namespace ApiRaizes.Repository
                                     AREAPLANTADA      AS {nameof(PlantingEntity.AreaPlantada)},
                                     MUDAS             AS {nameof(PlantingEntity.Mudas)},
                                     DESCRICAO         AS {nameof(PlantingEntity.Descricao)},
-                                    UNIDADEMEDIDAID AS {nameof(PlantingEntity.UnidadeMedidaId)}
+                                    UNIDADEMEDIDAID   AS {nameof(PlantingEntity.UnidadeMedidaId)}
                                FROM PLANTIO
                                WHERE ID = @Id
                               
@@ -75,7 +78,6 @@ namespace ApiRaizes.Repository
         }
         public async Task Update(PlantingEntity planting)
         {
-            Connection _connection = new Connection();
             string sql = @$"
                              UPDATE  PLANTIO
                              SET     ESPECIEID         = @EspecieId,

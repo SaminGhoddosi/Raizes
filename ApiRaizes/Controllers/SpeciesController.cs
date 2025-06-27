@@ -6,11 +6,13 @@ using ApiRaizes.Contracts.Services;
 using ApiRaizes.Response;
 using ApiRaizes.Services;
 using ApiRaizes.Contracts.Repository;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiRaizes.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class SpeciesController : ControllerBase
     {
         private ISpeciesService _service;

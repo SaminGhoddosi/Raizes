@@ -1,8 +1,9 @@
-﻿using ApiRaizes.Infrastructure;
-using Dapper;
+﻿using ApiRaizes.Contracts.Infrastructure;
 using ApiRaizes.Contracts.Repository;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
+using ApiRaizes.Infrastructure;
+using Dapper;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,14 @@ namespace ApiRaizes.Repository
 {
     class SoilHistoricRepository : ISoilHistoricRepository
     {
+        private IConnection _connection;
+
+        public SoilHistoricRepository(IConnection connection)
+        {
+            _connection = connection;
+        }
         public async Task<IEnumerable<SoilHistoricEntity>> GetAll()
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -34,7 +40,6 @@ namespace ApiRaizes.Repository
         }
         public async Task Insert(SoilHistoricInsertDTO sale)
         {
-            Connection _connection = new Connection();
             string sql = @$"
                 INSERT INTO HISTORICOSOLO (TIPOSOLOID,DATALEITURA,UMIDADE,OBSERVACOES,PROPRIEDADEID)
                 VALUES (@TipoSoloId,@DataLeitura,@Umidade,@Observacoes,@PropriedadeId)                                                         
@@ -43,13 +48,11 @@ namespace ApiRaizes.Repository
         }
         public async Task Delete(int id)
         {
-            Connection _connection = new Connection();
             string sql = "DELETE FROM HISTORICOSOLO WHERE ID = @id";
             await _connection.Execute(sql, new { id });
         }
         public async Task<SoilHistoricEntity> GetById(int id)
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -69,7 +72,6 @@ namespace ApiRaizes.Repository
         }
         public async Task Update(SoilHistoricEntity soilHistoric)
         {
-            Connection _connection = new Connection();
             string sql = @$"
                              UPDATE HISTORICOSOLO
                                  SET TIPOSOLOID   = @TipoSoloId,

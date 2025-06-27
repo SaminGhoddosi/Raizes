@@ -1,8 +1,9 @@
-﻿using ApiRaizes.Infrastructure;
-using Dapper;
+﻿using ApiRaizes.Contracts.Infrastructure;
 using ApiRaizes.Contracts.Repository;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
+using ApiRaizes.Infrastructure;
+using Dapper;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,14 @@ namespace ApiRaizes.Repository
 {
     public class RawMaterialStockRepository : IRawMaterialStockRepository
     {
+        private IConnection _connection;
+
+        public RawMaterialStockRepository(IConnection connection)
+        {
+            _connection = connection;
+        }
         public async Task<IEnumerable<RawMaterialStockEntity>> GetAll()
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -36,7 +42,6 @@ namespace ApiRaizes.Repository
         }
         public async Task Insert(RawMaterialStockInsertDTO rawMaterialStock)
         {
-            Connection _connection = new Connection();
             string sql = @$"
                  INSERT INTO INSUMOESTOQUE (PROPRIEDADEID, INSUMOID, QUANTIDADE, PRECOUNITARIO, DATAMOVIMENTACAO)
                                  VALUES (@PropriedadeId, @InsumoId, @Quantidade, @PrecoUnitario, @DataMovimentacao)                                                         
@@ -46,13 +51,11 @@ namespace ApiRaizes.Repository
         }
         public async Task Delete(int id)
         {
-            Connection _connection = new Connection();
             string sql = "DELETE FROM INSUMOESTOQUE WHERE ID = @id";
             await _connection.Execute(sql, new { id });
         }
         public async Task<RawMaterialStockEntity> GetById(int id)
         {
-            Connection _connection = new Connection();
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
@@ -73,7 +76,6 @@ namespace ApiRaizes.Repository
         }
         public async Task Update(RawMaterialStockEntity rawMaterialStock)
         {
-            Connection _connection = new Connection();
             string sql = @$"
                                UPDATE INSUMOESTOQUE
                           SET PROPRIEDADEID = @PropriedadeId,

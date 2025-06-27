@@ -1,6 +1,7 @@
 ﻿using ApiRaizes.DTO;
 using ApiRaizes.Entity;
 using ApiRaizes.Response;
+using ApiRaizes.Response.User;
 
 namespace ApiRaizes.Contracts.Services
 {
@@ -11,5 +12,6 @@ namespace ApiRaizes.Contracts.Services
         Task<UserEntity> GetById(int id);
         Task<MessageResponse> Post(UserInsertDTO user);
         Task<MessageResponse> Update(UserEntity user);
+        Task<UserLoginTokenResponse> Login(UserLoginDTO user);
     }
 }

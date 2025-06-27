@@ -1,16 +1,20 @@
 using ApiRaizes.Contracts.Infrastructure;
-using ApiRaizes.Infrastructure;
-using ApiRaizes.Repository;
-using Microsoft.AspNetCore.Mvc;
 using ApiRaizes.Contracts.Infrastructure;
 using ApiRaizes.Contracts.Repository;
 using ApiRaizes.Contracts.Services;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
 using ApiRaizes.Infrastructure;
+using ApiRaizes.Infrastructure;
+using ApiRaizes.Repository;
 using ApiRaizes.Repository;
 using ApiRaizes.Response;
 using ApiRaizes.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
 namespace MinhaPrimeiraApi
 {
     public class Program
@@ -19,6 +23,8 @@ namespace MinhaPrimeiraApi
         {
 
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddSingleton<IConnection, Connection>();
+            builder.Services.AddScoped<IAuthentication, Authentication>();
             //DEPENDENCE HARVEST --------
             builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IHarvestService, HarvestService>();
@@ -76,7 +82,52 @@ namespace MinhaPrimeiraApi
             builder.Services.AddScoped<IPlantingService, PlantingService>();
             builder.Services.AddScoped<IPlantingRepository, PlantingRepository>();
 
+            //ADD BEARER ON SWAGGER 
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    In = ParameterLocation.Header
+                });
 
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header
+                        },
+                        new List<string>() {}
+                    }
+                });
+            });
+
+            var key = Encoding.ASCII.GetBytes(builder.Configuration["JwtSettings:SecretKey"]);
+
+
+            //ADD JWT
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key)
+                    };
+                });
 
             // Add services to the container.
 
