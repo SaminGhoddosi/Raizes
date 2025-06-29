@@ -6,10 +6,10 @@ namespace ApiRaizes.Contracts.Services
 {
     public interface IPlantingService
     {
-        Task<MessageResponse> Delete(int id);
+        Task<MessageAllResponse> Delete(int id);
         Task<PlantingGetAllResponse> GetAll();
         Task<PlantingEntity> GetById(int id);
-        Task<MessageResponse> Post(PlantingInsertDTO planting);
-        Task<MessageResponse> Update(PlantingEntity planting);
+        Task<MessageAllResponse> Post(PlantingInsertDTO planting);
+        Task<MessageAllResponse> Update(PlantingEntity planting);
     }
 }

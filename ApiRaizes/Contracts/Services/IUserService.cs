@@ -7,11 +7,11 @@ namespace ApiRaizes.Contracts.Services
 {
     public interface IUserService
     {
-        Task<MessageResponse> Delete(int id);
+        Task<MessageAllResponse> Delete(int id);
         Task<UserGetAllResponse> GetAll();
         Task<UserEntity> GetById(int id);
-        Task<MessageResponse> Post(UserInsertDTO user);
-        Task<MessageResponse> Update(UserEntity user);
-        Task<UserLoginTokenResponse> Login(UserLoginDTO user);
+        Task<MessageAllResponse> Post(UserInsertDTO user);
+        Task<MessageAllResponse> Update(UserEntity user);
+        Task<UserLoginTokenAllResponse> Login(UserLoginInsertDTO user);
     }
 }

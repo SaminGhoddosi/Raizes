@@ -2,7 +2,7 @@
 
 namespace ApiRaizes.Response.User
 {
-    public class UserLoginTokenResponse
+    public class UserLoginTokenAllResponse
     {
         public string Token { get; set; }
         public UserEntity User { get; set; }

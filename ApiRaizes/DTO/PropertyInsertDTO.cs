@@ -1,6 +1,6 @@
 ﻿namespace ApiRaizes.DTO
 {
-    public enum StatusCultura
+    public enum StatusCulture
     {
         Monocultura,
         Policultura
@@ -11,8 +11,8 @@
         public int CidadeId { get; set; }
         public int UsuarioId { get; set; }
         public int Status { get; set; }
-        public int Tamanho { get; set; }
-        public StatusCultura Cultura { get; set; }
+        public decimal Tamanho { get; set; }
+        public StatusCulture Cultura { get; set; }
         public int UnidadeMedidaId { get; set; }
     }
 }

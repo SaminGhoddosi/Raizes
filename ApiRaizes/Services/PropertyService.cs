@@ -15,10 +15,10 @@ namespace ApiRaizes.Services
             _repository = repository;
         }
 
-        public async Task<MessageResponse> Delete(int id)
+        public async Task<MessageAllResponse> Delete(int id)
         {
             await _repository.Delete(id);
-            return new MessageResponse
+            return new MessageAllResponse
             {
                 Message = "Propriedade excluída com sucesso!"
             };
@@ -37,19 +37,19 @@ namespace ApiRaizes.Services
             return await _repository.GetById(id);
         }
 
-        public async Task<MessageResponse> Post(PropertyInsertDTO Property)
+        public async Task<MessageAllResponse> Post(PropertyInsertDTO Property)
         {
             await _repository.Insert(Property);
-            return new MessageResponse
+            return new MessageAllResponse
             {
                 Message = "Propriedade inserida com sucesso!"
             };
         }
 
-        public async Task<MessageResponse> Update(PropertyEntity Property)
+        public async Task<MessageAllResponse> Update(PropertyEntity Property)
         {
             await _repository.Update(Property);
-            return new MessageResponse
+            return new MessageAllResponse
             {
                 Message = "Propriedade alterada com sucesso"
             };

@@ -2,14 +2,8 @@
 using ApiRaizes.Contracts.Repository;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
-using ApiRaizes.Infrastructure;
 using Dapper;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApiRaizes.Repository
 {
@@ -31,8 +25,7 @@ namespace ApiRaizes.Repository
                                    SOBRENOME AS {nameof(UserEntity.Sobrenome)},
                                         CPF AS {nameof(UserEntity.Cpf)},
                                       EMAIL AS {nameof(UserEntity.Email)},
-                                      SENHA AS {nameof(UserEntity.Senha)},
-                                     STATUS AS {nameof(UserEntity.Status)}
+                                      SENHA AS {nameof(UserEntity.Senha)}
                                     FROM USUARIO
                 ";
 
@@ -43,8 +36,8 @@ namespace ApiRaizes.Repository
         public async Task Insert(UserInsertDTO user)
         {
             string sql = @$"
-                 INSERT INTO USUARIO (NOME, SOBRENOME, CPF, EMAIL, SENHA, STATUS)
-                                 VALUES (@Nome, @Sobrenome, @Cpf, @Email, @Senha, @Status)                                                         
+                 INSERT INTO USUARIO (NOME, SOBRENOME, CPF, EMAIL, SENHA)
+                                 VALUES (@Nome, @Sobrenome, @Cpf, @Email, @Senha)                                                         
             ";
 
             await _connection.Execute(sql, user);
@@ -64,8 +57,7 @@ namespace ApiRaizes.Repository
                                      SOBRENOME AS {nameof(UserEntity.Sobrenome)},
                                           CPF AS {nameof(UserEntity.Cpf)},
                                         EMAIL AS {nameof(UserEntity.Email)},
-                                        SENHA AS {nameof(UserEntity.Senha)},
-                                       STATUS AS {nameof(UserEntity.Status)}
+                                        SENHA AS {nameof(UserEntity.Senha)}
                                      FROM USUARIO
                                     WHERE ID = @Id
                 ";
@@ -82,14 +74,13 @@ namespace ApiRaizes.Repository
                                        SOBRENOME = @Sobrenome,
                                        CPF = @Cpf,
                                        EMAIL = @Email,
-                                       SENHA = @Senha,
-                                       STATUS = @Status
+                                       SENHA = @Senha
                                      WHERE ID = @Id
                           ";
 
             await _connection.Execute(sql, user);
         }
-        public async Task<UserEntity> Login(UserLoginDTO user)
+        public async Task<UserEntity> Login(UserLoginInsertDTO user)
         {
             using (MySqlConnection con = _connection.GetConnection())
             {

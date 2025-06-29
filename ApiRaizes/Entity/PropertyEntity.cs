@@ -1,6 +1,6 @@
 ﻿namespace ApiRaizes.Entity
 {
-    public enum StatusCultura2
+    public enum StatusCulture2
     {
         Monocultura,
         Policultura
@@ -12,8 +12,8 @@
         public int CidadeId { get; set; }
         public int UsuarioId { get; set; }
         public int Status { get; set; }
-        public int Tamanho { get; set; }
-        public StatusCultura2 Cultura { get; set; }
+        public decimal Tamanho { get; set; }
+        public StatusCulture2 Cultura { get; set; }
         public int UnidadeMedidaId { get; set; }
     }
 }

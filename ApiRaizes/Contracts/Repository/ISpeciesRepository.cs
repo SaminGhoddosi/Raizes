@@ -7,8 +7,8 @@ namespace ApiRaizes.Contracts.Repository
     {
         Task<IEnumerable<SpeciesEntity>> GetAll();
         Task<SpeciesEntity> GetById(int id);
-        Task Insert(SpeciesInsertDTO Species);
-        Task Update(SpeciesEntity Species);
+        Task Insert(SpeciesInsertDTO species);
+        Task Update(SpeciesEntity species);
         Task Delete(int id);
     }
 }

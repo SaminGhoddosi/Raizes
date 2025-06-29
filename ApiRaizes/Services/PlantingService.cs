@@ -15,10 +15,10 @@ namespace ApiRaizes.Services
             _repository = repository;
         }
 
-        public async Task<MessageResponse> Delete(int id)
+        public async Task<MessageAllResponse> Delete(int id)
         {
             await _repository.Delete(id);
-            return new MessageResponse
+            return new MessageAllResponse
             {
                 Message = "Plantio excluído com sucesso!"
             };
@@ -37,19 +37,19 @@ namespace ApiRaizes.Services
             return await _repository.GetById(id);
         }
 
-        public async Task<MessageResponse> Post(PlantingInsertDTO Planting)
+        public async Task<MessageAllResponse> Post(PlantingInsertDTO Planting)
         {
             await _repository.Insert(Planting);
-            return new MessageResponse
+            return new MessageAllResponse
             {
                 Message = "Plantio inserido com sucesso!"
             };
         }
 
-        public async Task<MessageResponse> Update(PlantingEntity Planting)
+        public async Task<MessageAllResponse> Update(PlantingEntity Planting)
         {
             await _repository.Update(Planting);
-            return new MessageResponse
+            return new MessageAllResponse
             {
                 Message = "Plantio alterado com sucesso"
             };

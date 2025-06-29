@@ -2,14 +2,9 @@
 using ApiRaizes.Contracts.Repository;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
-using ApiRaizes.Infrastructure;
 using Dapper;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ApiRaizes.Repository
 {
@@ -26,14 +21,14 @@ namespace ApiRaizes.Repository
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
-                              SELECT ID AS {nameof(HarvestStorageEntity.Id)},
-                             COLHEITAID AS {nameof(HarvestStorageEntity.ColheitaId)},
-                   QUANTIDADEDISPONIVEL AS {nameof(HarvestStorageEntity.QuantidadeDisponivel)},
-                     LOCALARMAZENAMENTO AS {nameof(HarvestStorageEntity.LocalArmazenamento)},
-                            DATAENTRADA AS {nameof(HarvestStorageEntity.DataEntrada)},
-                  DATAULTIMAATUALIZACAO AS {nameof(HarvestStorageEntity.DataUltimaAtualizacao)},
-                                 STATUS AS {nameof(HarvestStorageEntity.Status)}
-                                      FROM ARMAZENAMENTOCOLHEITA
+                               SELECT ID                    AS {nameof(HarvestStorageEntity.Id)},
+                                      COLHEITAID            AS {nameof(HarvestStorageEntity.ColheitaId)},
+                                      QUANTIDADEDISPONIVEL  AS {nameof(HarvestStorageEntity.QuantidadeDisponivel)},
+                                      LOCALARMAZENAMENTO    AS {nameof(HarvestStorageEntity.LocalArmazenamento)},
+                                      DATAENTRADA           AS {nameof(HarvestStorageEntity.DataEntrada)},
+                                      DATAULTIMAATUALIZACAO AS {nameof(HarvestStorageEntity.DataUltimaAtualizacao)},
+                                      STATUS                AS {nameof(HarvestStorageEntity.Status)}
+                               FROM   ARMAZENAMENTOCOLHEITA
                 ";
                 IEnumerable<HarvestStorageEntity> harvestStorageList = await con.QueryAsync<HarvestStorageEntity>(sql);
                 return harvestStorageList;
@@ -43,7 +38,7 @@ namespace ApiRaizes.Repository
         {
             string sql = @$"
                 INSERT INTO ARMAZENAMENTOCOLHEITA (COLHEITAID,QUANTIDADEDISPONIVEL,LOCALARMAZENAMENTO,DATAENTRADA,DATAULTIMAATUALIZACAO,STATUS)
-                                VALUES (@ColheitaId,@QuantidadeDisponivel,@LocalArmazenamento,@DataEntrada,@DataUltimaAtualizacao,@Status)                                                         
+                            VALUES                (@ColheitaId,@QuantidadeDisponivel,@LocalArmazenamento,@DataEntrada,@DataUltimaAtualizacao,@Status)                                                         
             ";
             await _connection.Execute(sql, harvestStorage);
         }
@@ -57,14 +52,14 @@ namespace ApiRaizes.Repository
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
-                              SELECT ID AS {nameof(HarvestStorageEntity.Id)},
-                             COLHEITAID AS {nameof(HarvestStorageEntity.ColheitaId)},
-                   QUANTIDADEDISPONIVEL AS {nameof(HarvestStorageEntity.QuantidadeDisponivel)},
-                     LOCALARMAZENAMENTO AS {nameof(HarvestStorageEntity.LocalArmazenamento)},
-                            DATAENTRADA AS {nameof(HarvestStorageEntity.DataEntrada)},
-                  DATAULTIMAATUALIZACAO AS {nameof(HarvestStorageEntity.DataUltimaAtualizacao)},
-                                 STATUS AS {nameof(HarvestStorageEntity.Status)}
-                                      FROM ARMAZENAMENTOCOLHEITA
+                                SELECT ID                    AS {nameof(HarvestStorageEntity.Id)},
+                                       COLHEITAID            AS {nameof(HarvestStorageEntity.ColheitaId)},
+                                       QUANTIDADEDISPONIVEL  AS {nameof(HarvestStorageEntity.QuantidadeDisponivel)},
+                                       LOCALARMAZENAMENTO    AS {nameof(HarvestStorageEntity.LocalArmazenamento)},
+                                       DATAENTRADA           AS {nameof(HarvestStorageEntity.DataEntrada)},
+                                       DATAULTIMAATUALIZACAO AS {nameof(HarvestStorageEntity.DataUltimaAtualizacao)},
+                                       STATUS                AS {nameof(HarvestStorageEntity.Status)}
+                                FROM   ARMAZENAMENTOCOLHEITA
                                 WHERE ID = @Id
                               
                             ";
@@ -75,14 +70,14 @@ namespace ApiRaizes.Repository
         public async Task Update(HarvestStorageEntity harvestStorage)
         {
             string sql = @$"
-                                         UPDATE   ARMAZENAMENTOCOLHEITA
-                                 SET COLHEITAID = @ColheitaId,
-                           QUANTIDADEDISPONIVEL = @QuantidadeDisponivel,
-                             LOCALARMAZENAMENTO = @LocalArmazenamento,
-                                    DATAENTRADA = @DataEntrada,
-                          DATAULTIMAATUALIZACAO = @DataUltimaAtualizacao,
-                                         STATUS = @Status
-                                       WHERE ID = @Id;
+                            UPDATE   ARMAZENAMENTOCOLHEITA
+                            SET      COLHEITAID            = @ColheitaId,
+                                     QUANTIDADEDISPONIVEL  = @QuantidadeDisponivel,
+                                     LOCALARMAZENAMENTO    = @LocalArmazenamento,
+                                     DATAENTRADA           = @DataEntrada,
+                                     DATAULTIMAATUALIZACAO = @DataUltimaAtualizacao,
+                                     STATUS                = @Status
+                            WHERE    ID                    = @Id;
                           ";
             await _connection.Execute(sql, harvestStorage);
         }

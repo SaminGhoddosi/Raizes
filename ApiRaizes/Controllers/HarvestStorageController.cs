@@ -1,9 +1,7 @@
 ﻿using ApiRaizes.Contracts.Services;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
-using ApiRaizes.Repository;
 using ApiRaizes.Response;
-using ApiRaizes.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,17 +28,17 @@ namespace ApiRaizes.Controllers
             return Ok(await _service.GetById(id));
         }
         [HttpPost]
-        public async Task<ActionResult<MessageResponse>> Post(HarvestStorageInsertDTO harvestStorage)
+        public async Task<ActionResult<MessageAllResponse>> Post(HarvestStorageInsertDTO harvestStorage)
         {
             return Ok(await _service.Post(harvestStorage));
         }
         [HttpDelete("{id}")]
-        public async Task<ActionResult<MessageResponse>> Delete(int id)
+        public async Task<ActionResult<MessageAllResponse>> Delete(int id)
         {
             return Ok(await _service.Delete(id));
         }
         [HttpPut]
-        public async Task<ActionResult<MessageResponse>> Update(HarvestStorageEntity harvestStorage)
+        public async Task<ActionResult<MessageAllResponse>> Update(HarvestStorageEntity harvestStorage)
         {
             return Ok(await _service.Update(harvestStorage));
         }

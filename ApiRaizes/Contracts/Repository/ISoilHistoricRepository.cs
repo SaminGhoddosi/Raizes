@@ -9,10 +9,10 @@ namespace ApiRaizes.Contracts.Repository
 
         Task<SoilHistoricEntity> GetById(int id);
 
-        Task Insert(SoilHistoricInsertDTO harvest);
+        Task Insert(SoilHistoricInsertDTO soilHistoric);
 
         Task Delete(int id);
 
-        Task Update(SoilHistoricEntity harvest);
+        Task Update(SoilHistoricEntity soilHistoric);
     }
 }

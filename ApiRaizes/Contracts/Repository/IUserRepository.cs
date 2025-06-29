@@ -14,6 +14,6 @@ namespace ApiRaizes.Contracts.Repository
         Task Delete(int id);
 
         Task Update(UserEntity user);
-        Task<UserEntity> Login(UserLoginDTO user);
+        Task<UserEntity> Login(UserLoginInsertDTO user);
     }
 }

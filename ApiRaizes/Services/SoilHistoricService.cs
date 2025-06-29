@@ -15,10 +15,10 @@ namespace ApiRaizes.Services
             _repository = repository;
         }
 
-        public async Task<MessageResponse> Delete(int id)
+        public async Task<MessageAllResponse> Delete(int id)
         {
             await _repository.Delete(id);
-            return new MessageResponse
+            return new MessageAllResponse
             {
                 Message = "Histórico de solo excluído com sucesso!"
             };
@@ -37,19 +37,19 @@ namespace ApiRaizes.Services
             return await _repository.GetById(id);
         }
 
-        public async Task<MessageResponse> Post(SoilHistoricInsertDTO SoilHistoric)
+        public async Task<MessageAllResponse> Post(SoilHistoricInsertDTO SoilHistoric)
         {
             await _repository.Insert(SoilHistoric);
-            return new MessageResponse
+            return new MessageAllResponse
             {
                 Message = "Histórico de solo inserido com sucesso!"
             };
         }
 
-        public async Task<MessageResponse> Update(SoilHistoricEntity SoilHistoric)
+        public async Task<MessageAllResponse> Update(SoilHistoricEntity SoilHistoric)
         {
             await _repository.Update(SoilHistoric);
-            return new MessageResponse
+            return new MessageAllResponse
             {
                 Message = "Histórico de solo alterado com sucesso"
             };

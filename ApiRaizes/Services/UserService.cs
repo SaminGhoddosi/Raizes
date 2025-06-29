@@ -3,9 +3,10 @@ using ApiRaizes.Contracts.Repository;
 using ApiRaizes.Contracts.Services;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
+using ApiRaizes.Infrastructure;
 using ApiRaizes.Response;
 using ApiRaizes.Response.User;
-using MinhaPrimeiraApi.Infrastructure;
+
 
 namespace ApiRaizes.Services
 {
@@ -21,10 +22,10 @@ namespace ApiRaizes.Services
             _authentication = authentication;
         }
 
-        public async Task<MessageResponse> Delete(int id)
+        public async Task<MessageAllResponse> Delete(int id)
         {
             await _repository.Delete(id);
-            return new MessageResponse
+            return new MessageAllResponse
             {
                 Message = "Usuário excluido com sucesso!"
             };
@@ -43,7 +44,7 @@ namespace ApiRaizes.Services
             return await _repository.GetById(id);
         }
 
-        public async Task<UserLoginTokenResponse> Login(UserLoginDTO user)
+        public async Task<UserLoginTokenAllResponse> Login(UserLoginInsertDTO user)
         {
             user.Senha = Criptografy.Criptografia(user.Senha);
             UserEntity newUser = await _repository.Login(user);
@@ -55,7 +56,7 @@ namespace ApiRaizes.Services
 
             string token = _authentication.GenerateToken(newUser);
 
-            return new UserLoginTokenResponse
+            return new UserLoginTokenAllResponse
             {
                 User = newUser,
                 Token = token
@@ -63,20 +64,20 @@ namespace ApiRaizes.Services
         }
 
 
-        public async Task<MessageResponse> Post(UserInsertDTO user)
+        public async Task<MessageAllResponse> Post(UserInsertDTO user)
         {
             user.Senha = Criptografy.Criptografia(user.Senha);
             await _repository.Insert(user);
-            return new MessageResponse
+            return new MessageAllResponse
             {
                 Message = "Usuário inserido com sucesso!"
             };
         }
 
-        public async Task<MessageResponse> Update(UserEntity user)
+        public async Task<MessageAllResponse> Update(UserEntity user)
         {
             await _repository.Update(user);
-            return new MessageResponse
+            return new MessageAllResponse
             {
                 Message = "Usuário alterado com sucesso!"
             };

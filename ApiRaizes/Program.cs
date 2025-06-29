@@ -1,21 +1,15 @@
 using ApiRaizes.Contracts.Infrastructure;
-using ApiRaizes.Contracts.Infrastructure;
 using ApiRaizes.Contracts.Repository;
 using ApiRaizes.Contracts.Services;
-using ApiRaizes.DTO;
-using ApiRaizes.Entity;
-using ApiRaizes.Infrastructure;
 using ApiRaizes.Infrastructure;
 using ApiRaizes.Repository;
-using ApiRaizes.Repository;
-using ApiRaizes.Response;
 using ApiRaizes.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-namespace MinhaPrimeiraApi
+
+namespace ApiRaizes
 {
     public class Program
     {
@@ -25,62 +19,97 @@ namespace MinhaPrimeiraApi
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddSingleton<IConnection, Connection>();
             builder.Services.AddScoped<IAuthentication, Authentication>();
-            //DEPENDENCE HARVEST --------
+
+            //DEPENDENCE HARVEST
             builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IHarvestService, HarvestService>();
             builder.Services.AddScoped<IHarvestRepository, HarvestRepository>();
-            //DEPENDENCE HARVESTSTORAGE -----------
+
+            //DEPENDENCE HARVESTSTORAGE
             builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IHarvestStorageService, HarvestStorageService>();
             builder.Services.AddScoped<IHarvestStorageRepository, HarvestStorageRepository>();
-            //DEPENDENCE SALE -------
+
+            //DEPENDENCE SALE
             builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<ISaleService, SaleService>();
             builder.Services.AddScoped<ISaleRepository, SaleRepository>();
-            //DEPENDENCE SPECIES -------
+
+            //DEPENDENCE SPECIES
             builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<ISpeciesService, SpeciesService>();
             builder.Services.AddScoped<ISpeciesRepository, SpeciesRepository>();
-            //DEPENDENCE CITY -----
+
+            //DEPENDENCE CITY
             builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<ICityService, CityService>();
             builder.Services.AddScoped<ICityRepository, CityRepository>();
-            //DEPENDENCE PROPERTY --------
+
+            //DEPENDENCE PROPERTY
             builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IPropertyService, PropertyService>();
             builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
-            //DEPENDENCE RAW MATERIAL STOCK --------
+
+            //DEPENDENCE RAW MATERIAL STOCK
             builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IRawMaterialStockService, RawMaterialStockService>();
             builder.Services.AddScoped<IRawMaterialStockRepository, RawMaterialStockRepository>();
-            //DEPENDENCE SOIL HISTORIC --------
+
+            //DEPENDENCE SOIL HISTORIC
             builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<ISoilHistoricService, SoilHistoricService>();
             builder.Services.AddScoped<ISoilHistoricRepository, SoilHistoricRepository>();
-            //DEPENDENCE USER --------
+
+            //DEPENDENCE USER
             builder.Services.AddSingleton<IConnection, Connection>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddTransient<IUserRepository, UserRepository>();
-            //DEPENDENCE SUPPLIER --------
+
+            //DEPENDENCE SUPPLIER
             builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<ISupplierService, SupplierService>();
             builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
-            //DEPENDENCE MEASUREUNIT --------
+
+            //DEPENDENCE MEASUREUNIT
             builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IMeasureUnitService, MeasureUnitService>();
             builder.Services.AddScoped<IMeasureUnitRepository, MeasureUnitRepository>();
-            // DEPENDENCE PLANTINGRAWMATERIAL -------
+
+            // DEPENDENCE PLANTINGRAWMATERIAL
             builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IPlantingRawMaterialService, PlantingRawMaterialService>();
             builder.Services.AddScoped<IPlantingRawMaterialRepository, PlantingRawMaterialRepository>();
-            // DEPENDENCE RAWMATERIAL ------
+
+            // DEPENDENCE RAWMATERIAL
             builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IRawMaterialService, RawMaterialService>();
             builder.Services.AddScoped<IRawMaterialRepository, RawMaterialRepository>();
+
             // DEPENDENCE PLANTING
             builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IPlantingService, PlantingService>();
             builder.Services.AddScoped<IPlantingRepository, PlantingRepository>();
+
+            //DEPENDENCE SOILTYPE
+            builder.Services.AddScoped<IConnection, Connection>();
+            builder.Services.AddScoped<ISoilTypeService, SoilTypeService>();
+            builder.Services.AddScoped<ISoilTypeRepository, SoilTypeRepository>();
+
+            //DEPENDENCE EQUIPMENT
+            builder.Services.AddScoped<IConnection, Connection>();
+            builder.Services.AddScoped<IEquipmentService, EquipmentService>();
+            builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
+
+            //DEPENDENCE PLANTINGEQUIPMENT
+            builder.Services.AddScoped<IConnection, Connection>();
+            builder.Services.AddScoped<IPlantingEquipmentService, PlantingEquipmentService>();
+            builder.Services.AddScoped<IPlantingEquipmentRepository, PlantingEquipmentRepository>();
+
+            //DEPENDENCE STOCKMOVEMENT
+            builder.Services.AddScoped<IConnection, Connection>();
+            builder.Services.AddScoped<IStockMovementService, StockMovementService>();
+            builder.Services.AddScoped<IStockMovementRepository, StockMovementRepository>();
+
 
             //ADD BEARER ON SWAGGER 
             builder.Services.AddSwaggerGen(c =>
@@ -129,8 +158,8 @@ namespace MinhaPrimeiraApi
                     };
                 });
 
-            // Add services to the container.
 
+            // Add services to the container.
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -146,7 +175,7 @@ namespace MinhaPrimeiraApi
             }
 
             app.UseHttpsRedirection();
-
+            //app.UseCors(); ver se funciona
             app.UseAuthorization();
 
             app.MapControllers();

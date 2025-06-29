@@ -6,10 +6,10 @@ namespace ApiRaizes.Contracts.Services
 {
     public interface IHarvestService
     {
-        Task<MessageResponse> Delete(int id);
+        Task<MessageAllResponse> Delete(int id);
         Task<HarvestGetAllResponse> GetAll();
         Task<HarvestEntity> GetById(int id);
-        Task<MessageResponse> Post(HarvestInsertDTO harvest);
-        Task<MessageResponse> Update(HarvestEntity harvest);
+        Task<MessageAllResponse> Post(HarvestInsertDTO harvest);
+        Task<MessageAllResponse> Update(HarvestEntity harvest);
     }
 }

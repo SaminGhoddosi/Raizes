@@ -9,8 +9,8 @@ namespace ApiRaizes.Infrastructure
 {
     public class Authentication : IAuthentication
     {
-
         private readonly IConfiguration _configuration;
+
         public Authentication(IConfiguration configuration)
         {
             _configuration = configuration;

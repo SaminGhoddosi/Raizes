@@ -1,5 +1,4 @@
-﻿
-namespace ApiRaizes.Entity
+﻿namespace ApiRaizes.Entity
 {
     public class SupplierEntity
     {
@@ -8,9 +7,6 @@ namespace ApiRaizes.Entity
         public string CNPJ { get; set; }
         public int Telefone { get; set; }
         public string Email { get; set; }
-
-
-
 
     }
 }

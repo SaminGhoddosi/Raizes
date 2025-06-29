@@ -15,10 +15,10 @@ namespace ApiRaizes.Services
             _repository = repository;
         }
 
-        public async Task<MessageResponse> Delete(int id)
+        public async Task<MessageAllResponse> Delete(int id)
         {
             await _repository.Delete(id);
-            return new MessageResponse
+            return new MessageAllResponse
             {
                 Message = "Fornecedor excluído com sucesso!"
             };
@@ -37,19 +37,19 @@ namespace ApiRaizes.Services
             return await _repository.GetById(id);
         }
 
-        public async Task<MessageResponse> Post(SupplierInsertDTO Supplier)
+        public async Task<MessageAllResponse> Post(SupplierInsertDTO Supplier)
         {
             await _repository.Insert(Supplier);
-            return new MessageResponse
+            return new MessageAllResponse
             {
                 Message = "Fornecedor inserido com sucesso!"
             };
         }
 
-        public async Task<MessageResponse> Update(SupplierEntity Supplier)
+        public async Task<MessageAllResponse> Update(SupplierEntity Supplier)
         {
             await _repository.Update(Supplier);
-            return new MessageResponse
+            return new MessageAllResponse
             {
                 Message = "Fornecedor alterado com sucesso"
             };

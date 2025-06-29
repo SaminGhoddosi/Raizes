@@ -1,16 +1,9 @@
-﻿
-using ApiRaizes.Contracts.Infrastructure;
+﻿using ApiRaizes.Contracts.Infrastructure;
 using ApiRaizes.Contracts.Repository;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
-using ApiRaizes.Infrastructure;
 using Dapper;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApiRaizes.Repository
 {

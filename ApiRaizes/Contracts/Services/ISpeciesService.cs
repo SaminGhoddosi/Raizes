@@ -6,10 +6,10 @@ namespace ApiRaizes.Contracts.Services
 {
     public interface ISpeciesService
     {
-        Task<MessageResponse> Delete(int id);
+        Task<MessageAllResponse> Delete(int id);
         Task<SpeciesGetAllResponse> GetAll();
         Task<SpeciesEntity> GetById(int id);
-        Task<MessageResponse> Post(SpeciesInsertDTO species);
-        Task<MessageResponse> Update(SpeciesEntity species);
+        Task<MessageAllResponse> Post(SpeciesInsertDTO species);
+        Task<MessageAllResponse> Update(SpeciesEntity species);
     }
 }

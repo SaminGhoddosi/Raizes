@@ -6,10 +6,10 @@ namespace ApiRaizes.Contracts.Services
 {
     public interface ISupplierService
     {
-        Task<MessageResponse> Delete(int id);
+        Task<MessageAllResponse> Delete(int id);
         Task<SupplierGetAllResponse> GetAll();
         Task<SupplierEntity> GetById(int id);
-        Task<MessageResponse> Post(SupplierInsertDTO supplier);
-        Task<MessageResponse> Update(SupplierEntity supplier);
+        Task<MessageAllResponse> Post(SupplierInsertDTO supplier);
+        Task<MessageAllResponse> Update(SupplierEntity supplier);
     }
 }

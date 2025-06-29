@@ -1,6 +1,6 @@
 ﻿namespace ApiRaizes.Response
 {
-    public class MessageResponse
+    public class MessageAllResponse
     {
         public string Message { get; set; }
     }

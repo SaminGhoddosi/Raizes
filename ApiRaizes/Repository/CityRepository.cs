@@ -2,14 +2,8 @@
 using ApiRaizes.Contracts.Repository;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
-using ApiRaizes.Infrastructure;
 using Dapper;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApiRaizes.Repository
 {
@@ -26,12 +20,12 @@ namespace ApiRaizes.Repository
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
-                                SELECT ID AS {nameof(CityEntity.Id)},
-                                    NOME AS {nameof(CityEntity.Nome)},
-                                    ESTADO AS {nameof(CityEntity.Estado)},
-                                    REGIAO AS {nameof(CityEntity.Regiao)},
-                                    PAIS AS {nameof(CityEntity.Pais)}
-                    FROM CIDADE
+                                SELECT ID     AS {nameof(CityEntity.Id)},
+                                       NOME   AS {nameof(CityEntity.Nome)},
+                                       ESTADO AS {nameof(CityEntity.Estado)},
+                                       REGIAO AS {nameof(CityEntity.Regiao)},
+                                       PAIS   AS {nameof(CityEntity.Pais)}
+                                FROM   CIDADE
                 ";
                 IEnumerable<CityEntity> cityList = await con.QueryAsync<CityEntity>(sql);
                 return cityList;
@@ -41,7 +35,7 @@ namespace ApiRaizes.Repository
         {
             string sql = @$"
                  INSERT INTO CIDADE (NOME, ESTADO, REGIAO, PAIS)
-                VALUES (@Nome, @Estado, @Regiao, @Pais)                                     
+                             VALUES (@Nome, @Estado, @Regiao, @Pais)                                     
             ";
             await _connection.Execute(sql, city);
         }
@@ -55,13 +49,13 @@ namespace ApiRaizes.Repository
             using (MySqlConnection con = _connection.GetConnection())
             {
                 string sql = @$"
-                                SELECT ID AS {nameof(CityEntity.Id)},
-                                     NOME AS {nameof(CityEntity.Nome)},
-                                   ESTADO AS {nameof(CityEntity.Estado)},
-                                   REGIAO AS {nameof(CityEntity.Regiao)},
-                                     PAIS AS {nameof(CityEntity.Pais)}
+                                SELECT ID      AS {nameof(CityEntity.Id)},
+                                       NOME    AS {nameof(CityEntity.Nome)},
+                                       ESTADO  AS {nameof(CityEntity.Estado)},
+                                       REGIAO  AS {nameof(CityEntity.Regiao)},
+                                       PAIS    AS {nameof(CityEntity.Pais)}
                                 FROM CIDADE
-                               WHERE ID = @Id
+                                WHERE ID = @Id
                               
                             ";
                 CityEntity city = await con.QueryFirstAsync<CityEntity>(sql, new { id });
@@ -71,12 +65,12 @@ namespace ApiRaizes.Repository
         public async Task Update(CityEntity city)
         {
             string sql = @$"
-                                      UPDATE   CIDADE
-                                            SET NOME = @Nome,
-                                            ESTADO = @Estado,
-                                            REGIAO = @Regiao,
-                                            PAIS = @Pais
-                                      WHERE ID = @Id
+                            UPDATE CIDADE
+                            SET    NOME   = @Nome,
+                                   ESTADO = @Estado,
+                                   REGIAO = @Regiao,
+                                   PAIS   = @Pais
+                            WHERE  ID     = @Id
                           ";
             await _connection.Execute(sql, city);
         }

@@ -9,10 +9,10 @@ namespace ApiRaizes.Contracts.Repository
 
         Task<RawMaterialStockEntity> GetById(int id);
 
-        Task Insert(RawMaterialStockInsertDTO harvest);
+        Task Insert(RawMaterialStockInsertDTO rawMaterialStock);
 
         Task Delete(int id);
 
-        Task Update(RawMaterialStockEntity harvest);
+        Task Update(RawMaterialStockEntity rawMaterialStock);
     }
 }

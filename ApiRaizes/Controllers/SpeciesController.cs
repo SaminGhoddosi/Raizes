@@ -1,12 +1,9 @@
-﻿using ApiRaizes.DTO;
+﻿using ApiRaizes.Contracts.Services;
+using ApiRaizes.DTO;
 using ApiRaizes.Entity;
-using ApiRaizes.Repository;
-using Microsoft.AspNetCore.Mvc;
-using ApiRaizes.Contracts.Services;
 using ApiRaizes.Response;
-using ApiRaizes.Services;
-using ApiRaizes.Contracts.Repository;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ApiRaizes.Controllers
 {
@@ -31,17 +28,17 @@ namespace ApiRaizes.Controllers
             return Ok(await _service.GetById(id));
         }
         [HttpPost]
-        public async Task<ActionResult<MessageResponse>> Post(SpeciesInsertDTO species)
+        public async Task<ActionResult<MessageAllResponse>> Post(SpeciesInsertDTO species)
         {
             return Ok(await _service.Post(species));
         }
         [HttpDelete("{id}")]
-        public async Task<ActionResult<MessageResponse>> Delete(int id)
+        public async Task<ActionResult<MessageAllResponse>> Delete(int id)
         {
             return Ok(await _service.Delete(id));
         }
         [HttpPut]
-        public async Task<ActionResult<MessageResponse>> Update(SpeciesEntity species)
+        public async Task<ActionResult<MessageAllResponse>> Update(SpeciesEntity species)
         {
             return Ok(await _service.Update(species));
         }

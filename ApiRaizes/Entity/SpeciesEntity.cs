@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ApiRaizes.DTO
+﻿namespace ApiRaizes.Entity
 {
     public class SpeciesEntity
     {
@@ -21,7 +15,7 @@ namespace ApiRaizes.DTO
         public decimal IdealUmidadeMax { get; set; }
         public string Caracteristicas { get; set; }
 
-        public List<string> EpocaDePlantioLista
+        public List<string> PlantingSeasonList
         {
             get
             {
@@ -32,7 +26,7 @@ namespace ApiRaizes.DTO
             }
         }
 
-        public List<string> EpocaDeColheitaLista
+        public List<string> HarvestSeasonList
         {
             get
             {

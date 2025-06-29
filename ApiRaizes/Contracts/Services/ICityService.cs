@@ -6,10 +6,10 @@ namespace ApiRaizes.Contracts.Services
 {
     public interface ICityService
     {
-        Task<MessageResponse> Delete(int id);
+        Task<MessageAllResponse> Delete(int id);
         Task<CityGetAllResponse> GetAll();
         Task<CityEntity> GetById(int id);
-        Task<MessageResponse> Post(CityInsertDTO city);
-        Task<MessageResponse> Update(CityEntity city);
+        Task<MessageAllResponse> Post(CityInsertDTO city);
+        Task<MessageAllResponse> Update(CityEntity city);
     }
 }

@@ -6,10 +6,10 @@ namespace ApiRaizes.Contracts.Services
 {
     public interface ISoilHistoricService
     {
-        Task<MessageResponse> Delete(int id);
+        Task<MessageAllResponse> Delete(int id);
         Task<SoilHistoricGetAllResponse> GetAll();
         Task<SoilHistoricEntity> GetById(int id);
-        Task<MessageResponse> Post(SoilHistoricInsertDTO rawMaterialStock);
-        Task<MessageResponse> Update(SoilHistoricEntity rawMaterialStock);
+        Task<MessageAllResponse> Post(SoilHistoricInsertDTO soilHistoric);
+        Task<MessageAllResponse> Update(SoilHistoricEntity soilHistoric);
     }
 }

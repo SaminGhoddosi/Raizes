@@ -8,9 +8,8 @@ namespace ApiRaizes.Contracts.Repository
         Task<IEnumerable<PlantingRawMaterialEntity>> GetAll();
 
         Task<PlantingRawMaterialEntity> GetById(int id);
-        Task Insert(PlantingRawMaterialInsertDTO planting);
+        Task Insert(PlantingRawMaterialInsertDTO plantingRawMaterial);
         Task Delete(int id);
-
-        Task Update(PlantingRawMaterialEntity planting);
+        Task Update(PlantingRawMaterialEntity plantingRawMaterial);
     }
 }

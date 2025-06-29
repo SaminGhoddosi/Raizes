@@ -9,10 +9,10 @@ namespace ApiRaizes.Contracts.Repository
 
         Task<PropertyEntity> GetById(int id);
 
-        Task Insert(PropertyInsertDTO harvest);
+        Task Insert(PropertyInsertDTO property);
 
         Task Delete(int id);
 
-        Task Update(PropertyEntity harvest);
+        Task Update(PropertyEntity property);
     }
 }

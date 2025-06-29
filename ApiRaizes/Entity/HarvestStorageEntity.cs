@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ApiRaizes.Entity
+﻿namespace ApiRaizes.Entity
 {
-    public enum StatusArmazenamento
+    public enum StatusStock2
     {
         Disponivel,
         Reservado,
@@ -21,6 +15,6 @@ namespace ApiRaizes.Entity
 
         public DateTime DataEntrada { get; set; }
         public DateTime DataUltimaAtualizacao { get; set; }
-        public StatusArmazenamento Status { get; set; }
+        public StatusStock2 Status { get; set; }
     }
 }

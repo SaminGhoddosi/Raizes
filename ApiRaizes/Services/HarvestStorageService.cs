@@ -15,10 +15,10 @@ namespace ApiRaizes.Services
             _repository = repository;
         }
 
-        public async Task<MessageResponse> Delete(int id)
+        public async Task<MessageAllResponse> Delete(int id)
         {
             await _repository.Delete(id);
-            return new MessageResponse
+            return new MessageAllResponse
             {
                 Message = "armazenamento de colheita excluída com sucesso!"
             };
@@ -37,19 +37,19 @@ namespace ApiRaizes.Services
             return await _repository.GetById(id);
         }
 
-        public async Task<MessageResponse> Post(HarvestStorageInsertDTO harvestStorage)
+        public async Task<MessageAllResponse> Post(HarvestStorageInsertDTO harvestStorage)
         {
             await _repository.Insert(harvestStorage);
-            return new MessageResponse
+            return new MessageAllResponse
             {
                 Message = "armazenamento de colheita inserida com sucesso!"
             };
         }
 
-        public async Task<MessageResponse> Update(HarvestStorageEntity harvestStorage)
+        public async Task<MessageAllResponse> Update(HarvestStorageEntity harvestStorage)
         {
             await _repository.Update(harvestStorage);
-            return new MessageResponse
+            return new MessageAllResponse
             {
                 Message = "armazenamento de colheita alterada com sucesso"
             };

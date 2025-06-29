@@ -1,7 +1,6 @@
 ﻿using System.Security.Cryptography;
-using System.Text;
 
-namespace MinhaPrimeiraApi.Infrastructure;
+namespace ApiRaizes.Infrastructure;
 
 public class Criptografy
 {

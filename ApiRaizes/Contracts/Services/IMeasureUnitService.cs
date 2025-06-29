@@ -6,10 +6,10 @@ namespace ApiRaizes.Contracts.Services
 {
     public interface IMeasureUnitService
     {
-        Task<MessageResponse> Delete(int id);
+        Task<MessageAllResponse> Delete(int id);
         Task<MeasureUnitGetAllResponse> GetAll();
         Task<MeasureUnitEntity> GetById(int id);
-        Task<MessageResponse> Post(MeasureUnitInsertDTO measureUnit);
-        Task<MessageResponse> Update(MeasureUnitEntity measureUnit);
+        Task<MessageAllResponse> Post(MeasureUnitInsertDTO measureUnit);
+        Task<MessageAllResponse> Update(MeasureUnitEntity measureUnit);
     }
 }

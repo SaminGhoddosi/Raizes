@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace ApiRaizes.DTO
+﻿namespace ApiRaizes.DTO
 {
     public class UserInsertDTO
     {
@@ -9,6 +7,5 @@ namespace ApiRaizes.DTO
         public string Cpf { get; set; }
         public string Email { get; set; }
         public string Senha { get; set; }
-        public int Status { get; set; }
     }
 }

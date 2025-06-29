@@ -1,20 +1,9 @@
-﻿using ApiRaizes.Contracts.Repository;
-using ApiRaizes.Contracts.Services;
+﻿using ApiRaizes.Contracts.Services;
 using ApiRaizes.DTO;
 using ApiRaizes.Entity;
-using ApiRaizes.Repository;
 using ApiRaizes.Response;
-using ApiRaizes.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.Globalization;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Net;
-using System.Security.Claims;
-using System.Text;
 
 namespace ApiRaizes.Controllers
 {
@@ -40,17 +29,17 @@ namespace ApiRaizes.Controllers
             return Ok(await _service.GetById(id));
         }
         [HttpPost]
-        public async Task<ActionResult<MessageResponse>> Post(MeasureUnitInsertDTO measureUnit)
+        public async Task<ActionResult<MessageAllResponse>> Post(MeasureUnitInsertDTO measureUnit)
         {
             return Ok(await _service.Post(measureUnit));
         }
         [HttpDelete("{id}")]
-        public async Task<ActionResult<MessageResponse>> Delete(int id)
+        public async Task<ActionResult<MessageAllResponse>> Delete(int id)
         {
             return Ok(await _service.Delete(id));
         }
         [HttpPut]
-        public async Task<ActionResult<MessageResponse>> Update(MeasureUnitEntity measureUnit)
+        public async Task<ActionResult<MessageAllResponse>> Update(MeasureUnitEntity measureUnit)
         {
             return Ok(await _service.Update(measureUnit));
         }
