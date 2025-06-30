@@ -20,6 +20,16 @@ namespace ApiRaizes.Controllers
         {
             _service = service;
         }
+        [HttpGet("HandShake")]
+        public IActionResult HandShake()
+        {
+            return Ok(new
+            {
+                message = "Token válido",
+                user = User.Identity?.Name,
+                authenticated = true
+            });
+        }
 
         [HttpGet]
         public async Task<ActionResult<UserGetAllResponse>> GetAll()
