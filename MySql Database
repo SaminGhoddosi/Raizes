@@ -429,7 +429,7 @@ CREATE TABLE IF NOT EXISTS `Raizes`.`Venda` (
   `Quantidade` DECIMAL(14,3) NOT NULL,
   `PrecoUnitario` DECIMAL(14,2) NOT NULL,
   `PrecoTotal` DECIMAL(20,2) GENERATED ALWAYS AS ((`Quantidade` * `PrecoUnitario`)) STORED,
-  `Comprador` INT NULL DEFAULT NULL,
+  `Comprador` VARCHAR(200) NULL DEFAULT NULL,
   `UnidadeMedidaId` INT NULL DEFAULT NULL,
   `DataVenda` DATE NOT NULL,
   PRIMARY KEY (`Id`),
