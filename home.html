@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAÍZES</title>
+    <title>Raízes</title>
+     <link rel="icon" type="image/png" href="assets/logo_perfil.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -35,6 +36,18 @@
                     <span class="font-semibold">19°C</span>
                 </div>
             </div>
+            <!-- Adicione isto no seu header ou sidebar -->
+            <button id="logoutButton" class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-600">
+            Sair
+            </button>
+
+          <script>
+          document.getElementById('logoutButton').addEventListener('click', function() {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          window.location.href = "index.html";
+});
+</script>
 
             <!-- Metrics Cards -->
             <div class="w-85 h-40 grid grid-cols-3 gap-6 mb-8">
@@ -200,10 +213,6 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
      <script src="api.js"></script>
-=======
-    <script src="sidebar.js"></script>
->>>>>>> 84caacc63fa4d372ae06078c2d15d15bbb250879
 </body>
 </html>
