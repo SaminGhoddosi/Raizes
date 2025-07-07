@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAÍZES - Cadastrar Propriedade</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'custom-green-dark': '#31572C',
+                        'custom-green-medium': '#4D841D',
+                        'custom-green-light': '#A5C96A'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'float': 'float 3s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+        <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, #4D841D 1px, transparent 0); background-size: 20px 20px;"></div>
+    </div>
+
+    <!-- Header with Logo -->
+    <header class="relative z-10 p-6">
+        <div class="flex items-center gap-3">
+            <img src="/images/logo_perfil.png" alt="Logo" class="w-12 h-12 object-cover rounded-lg shadow-md">
+            <div>
+                <h1 class="text-2xl font-bold text-custom-green-dark">RAÍZES</h1>
+                <p class="text-gray-600 text-sm">Sistema de Gestão Agrícola</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="relative min-h-screen flex items-center justify-center p-4 pt-0">
+        <div class="w-full max-w-6xl grid lg:grid-cols-2 gap-12 items-center">
+            
+            <!-- Left Side - Form -->
+            <div class="animate-slide-up">
+                <!-- Form Header -->
+                <div class="mb-8">
+                    <div class="space-y-2">
+                        <h2 class="text-3xl font-bold text-gray-900">Cadastrar Propriedade</h2>
+                        <p class="text-gray-600">Adicione uma nova propriedade ao seu sistema de gestão</p>
+                        <div class="w-20 h-1 bg-gradient-to-r from-custom-green-light to-custom-green-medium rounded-full"></div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <form class="space-y-6">
+                    <!-- Nome da Propriedade -->
+                    <div class="space-y-2">
+                        <label for="nome" class="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                            <i class="fas fa-home text-custom-green-medium"></i>
+                            Nome da Propriedade
+                        </label>
+                        <div class="relative">
+                            <input 
+                                type="text" 
+                                id="nome" 
+                                name="nome"
+                                placeholder="Ex: Fazenda São João"
+                                class="w-full px-4 py-4 bg-white border-2 border-gray-200 rounded-xl focus:border-custom-green-light focus:ring-4 focus:ring-custom-green-light focus:ring-opacity-20 transition-all duration-300 text-gray-900 placeholder-gray-500 shadow-sm hover:shadow-md"
+                            >
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-4">
+                                <i class="fas fa-edit text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Área -->
+                    <div class="space-y-2">
+                        <label for="area" class="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                            <i class="fas fa-ruler-combined text-custom-green-medium"></i>
+                            Área Total
+                        </label>
+                        <div class="relative">
+                            <input 
+                                type="number" 
+                                id="area" 
+                                name="area"
+                                placeholder="0,0"
+                                step="0.1"
+                                min="0"
+                                class="w-full px-4 py-4 bg-white border-2 border-gray-200 rounded-xl focus:border-custom-green-light focus:ring-4 focus:ring-custom-green-light focus:ring-opacity-20 transition-all duration-300 text-gray-900 placeholder-gray-500 shadow-sm hover:shadow-md pr-12"
+                            >
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-4">
+                                <span class="text-gray-500 font-medium">ha</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tipo de Cultivo -->
+                    <div class="space-y-2">
+                        <label for="cultivo" class="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                            <i class="fas fa-seedling text-custom-green-medium"></i>
+                            Tipo de Cultivo Principal
+                        </label>
+                        <div class="relative">
+                            <select 
+                                id="cultivo" 
+                                name="cultivo"
+                                class="w-full px-4 py-4 bg-white border-2 border-gray-200 rounded-xl focus:border-custom-green-light focus:ring-4 focus:ring-custom-green-light focus:ring-opacity-20 transition-all duration-300 text-gray-900 shadow-sm hover:shadow-md appearance-none cursor-pointer"
+                            >
+                                <option value="">Selecione o tipo de cultivo</option>
+                                <option value="milho">Milho</option>
+                                <option value="soja">Soja</option>
+                                <option value="tomate">Tomate</option>
+                                <option value="cebola">Cebola</option>
+                                <option value="alface">Alface</option>
+                                <option value="cenoura">Cenoura</option>
+                                <option value="batata">Batata</option>
+                                <option value="feijao">Feijão</option>
+                                <option value="outros">Outros</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                                <i class="fas fa-chevron-down text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Localização -->
+                    <div class="space-y-2">
+                        <label for="localizacao" class="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                            <i class="fas fa-map-marker-alt text-custom-green-medium"></i>
+                            Localização
+                        </label>
+                        <div class="relative">
+                            <input 
+                                type="text" 
+                                id="localizacao" 
+                                name="localizacao"
+                                placeholder="Ex: Zona Rural, Cidade - Estado"
+                                class="w-full px-4 py-4 bg-white border-2 border-gray-200 rounded-xl focus:border-custom-green-light focus:ring-4 focus:ring-custom-green-light focus:ring-opacity-20 transition-all duration-300 text-gray-900 placeholder-gray-500 shadow-sm hover:shadow-md"
+                            >
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-4">
+                                <i class="fas fa-location-arrow text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-6">
+                        <button 
+                            type="button"
+                            class="flex-1 px-6 py-4 bg-gray-100 text-gray-700 font-semibold rounded-xl hover:bg-gray-200 transition-all duration-300 border-2 border-transparent hover:border-gray-300"
+                        >
+                            <i class="fas fa-arrow-left mr-2"></i>
+                            Voltar
+                        </button>
+                        <button 
+                            type="submit"
+                            class="flex-1 px-6 py-4 bg-gradient-to-r from-custom-green-light to-custom-green-medium text-white font-semibold rounded-xl hover:from-custom-green-medium hover:to-custom-green-dark transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+                        >
+                            <i class="fas fa-plus mr-2"></i>
+                            Cadastrar Propriedade
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Additional Info -->
+                <div class="mt-8 p-4 bg-custom-green-light bg-opacity-10 rounded-xl border border-custom-green-light border-opacity-20">
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-info-circle text-custom-green-medium mt-1"></i>
+                        <div>
+                            <h4 class="font-semibold text-custom-green-dark mb-1">Dica</h4>
+                            <p class="text-sm text-gray-600">Certifique-se de inserir informações precisas. Você poderá editar estes dados posteriormente no painel de controle.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side - Illustration -->
+            <div class="hidden lg:block animate-fade-in">
+                <div class="relative">
+                    <!-- Main Illustration Container -->
+                    <div class="relative bg-gradient-to-br from-custom-green-light to-custom-green-medium rounded-3xl p-8 shadow-2xl animate-float">
+                        <!-- Background Pattern -->
+                        
+                        
+                        <!-- Farm Illustration -->
+                        <div class="relative z-10 text-center">
+                            <!-- Sky -->
+                            <div class="mb-6">
+                                <div class="flex justify-center gap-4 mb-4">
+                                    <i class="fas fa-sun text-yellow-300 text-3xl animate-pulse"></i>
+                                    <i class="fas fa-cloud text-white text-2xl opacity-80"></i>
+                                    <i class="fas fa-cloud text-white text-xl opacity-60"></i>
+                                </div>
+                            </div>
+                            
+                            <!-- Farm Fields -->
+                            <div class="space-y-4">
+                                <!-- Field Rows -->
+                                <div class="flex justify-center gap-2">
+                                    <div class="w-16 h-3 bg-white bg-opacity-30 rounded-full"></div>
+                                    <div class="w-20 h-3 bg-white bg-opacity-40 rounded-full"></div>
+                                    <div class="w-16 h-3 bg-white bg-opacity-30 rounded-full"></div>
+                                </div>
+                                <div class="flex justify-center gap-2">
+                                    <div class="w-20 h-3 bg-white bg-opacity-40 rounded-full"></div>
+                                    <div class="w-16 h-3 bg-white bg-opacity-30 rounded-full"></div>
+                                    <div class="w-18 h-3 bg-white bg-opacity-35 rounded-full"></div>
+                                </div>
+                                <div class="flex justify-center gap-2">
+                                    <div class="w-14 h-3 bg-white bg-opacity-25 rounded-full"></div>
+                                    <div class="w-22 h-3 bg-white bg-opacity-45 rounded-full"></div>
+                                    <div class="w-16 h-3 bg-white bg-opacity-30 rounded-full"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Farm Elements -->
+                            <div class="mt-8 flex justify-center gap-6">
+                                <div class="text-center">
+                                    <i class="fas fa-tractor text-white text-2xl mb-2 block"></i>
+                                    <span class="text-white text-xs opacity-80">Equipamentos</span>
+                                </div>
+                                <div class="text-center">
+                                    <i class="fas fa-seedling text-white text-2xl mb-2 block"></i>
+                                    <span class="text-white text-xs opacity-80">Cultivos</span>
+                                </div>
+                                <div class="text-center">
+                                    <i class="fas fa-chart-line text-white text-2xl mb-2 block"></i>
+                                    <span class="text-white text-xs opacity-80">Produtividade</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Floating Elements -->
+                    <div class="absolute -top-4 -right-4 w-8 h-8 bg-yellow-400 rounded-full animate-bounce opacity-80"></div>
+                    <div class="absolute -bottom-4 -left-4 w-6 h-6 bg-custom-green-dark rounded-full animate-pulse"></div>
+                    <div class="absolute top-1/2 -left-6 w-4 h-4 bg-white rounded-full opacity-60 animate-ping"></div>
+                </div>
+                
+                <!-- Stats Cards -->
+                <div class="mt-8 grid grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded-xl shadow-lg border border-gray-100">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-custom-green-light bg-opacity-20 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-map text-custom-green-medium"></i>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold text-gray-900">150+</p>
+                                <p class="text-xs text-gray-600">Propriedades</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-lg border border-gray-100">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-custom-green-light bg-opacity-20 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-users text-custom-green-medium"></i>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold text-gray-900">500+</p>
+                                <p class="text-xs text-gray-600">Produtores</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
