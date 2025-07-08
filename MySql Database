@@ -1,19 +1,26 @@
 -- MySQL Workbench Forward Engineering
--- PascalCase, Português
+
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
--- -----------------------------------------------------
--- Schema Raizes
--- -----------------------------------------------------
-
-CREATE SCHEMA IF NOT EXISTS `Raizes` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE `Raizes`;
 
 -- -----------------------------------------------------
--- Table `Raizes`.`TipoSolo`
+-- Schema mydb
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Raizes`.`TipoSolo` (
+-- -----------------------------------------------------
+-- Schema raizes
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema raizes
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `raizes` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `raizes` ;
+
+-- -----------------------------------------------------
+-- Table `raizes`.`tiposolo`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `raizes`.`tiposolo` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Nome` VARCHAR(100) NOT NULL,
   `Textura` ENUM('Arenoso', 'Argiloso', 'Medio', 'Siltoso') NULL DEFAULT NULL,
@@ -24,16 +31,17 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
+
 -- -----------------------------------------------------
--- Table `Raizes`.`Especie`
+-- Table `raizes`.`especie`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Raizes`.`Especie` (
+CREATE TABLE IF NOT EXISTS `raizes`.`especie` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `NomeComum` VARCHAR(100) NOT NULL,
   `NomeCientifico` VARCHAR(100) NULL DEFAULT NULL,
   `Variedade` VARCHAR(100) NULL DEFAULT NULL,
-  `EpocaDePlantio` SET('Primavera', 'Verão', 'Outono', 'Inverno', 'Continua') NULL DEFAULT _utf8mb4'Contínua',
-  `EpocaDeColheita` SET('Primavera', 'Verão', 'Outono', 'Inverno', 'Continua') NULL DEFAULT _utf8mb4'Contínua',
+  `EpocaDePlantio` SET('Primavera', 'Verão', 'Outono', 'Inverno', 'Continua') NULL DEFAULT 'Continua',
+  `EpocaDeColheita` SET('Primavera', 'Verão', 'Outono', 'Inverno', 'Continua') NULL DEFAULT 'Continua',
   `TempoDeColheita` INT NULL DEFAULT NULL,
   `TipoSoloIdealId` INT NULL DEFAULT NULL,
   `IdealUmidadeMin` DECIMAL(5,2) NULL DEFAULT NULL,
@@ -44,18 +52,18 @@ CREATE TABLE IF NOT EXISTS `Raizes`.`Especie` (
   INDEX `Idx_Especie_NomeComum` (`NomeComum` ASC) VISIBLE,
   CONSTRAINT `Fk_Especie_TipoSolo`
     FOREIGN KEY (`TipoSoloIdealId`)
-    REFERENCES `Raizes`.`TipoSolo` (`Id`)
+    REFERENCES `raizes`.`tiposolo` (`Id`)
     ON DELETE SET NULL
-    ON UPDATE CASCADE
-)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
+
 -- -----------------------------------------------------
--- Table `Raizes`.`Cidade`
+-- Table `raizes`.`cidade`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Raizes`.`Cidade` (
+CREATE TABLE IF NOT EXISTS `raizes`.`cidade` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Nome` VARCHAR(200) NOT NULL,
   `Estado` VARCHAR(100) NOT NULL,
@@ -66,10 +74,25 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
+
 -- -----------------------------------------------------
--- Table `Raizes`.`Usuario`
+-- Table `raizes`.`unidademedida`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Raizes`.`Usuario` (
+CREATE TABLE IF NOT EXISTS `raizes`.`unidademedida` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Sigla` VARCHAR(10) NOT NULL,
+  `Nome` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`Id`),
+  UNIQUE INDEX `Sigla` (`Sigla` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `raizes`.`usuario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `raizes`.`usuario` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Nome` VARCHAR(100) NOT NULL,
   `Sobrenome` VARCHAR(100) NOT NULL,
@@ -82,30 +105,18 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
--- -----------------------------------------------------
--- Table `Raizes`.`UnidadeMedida`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Raizes`.`UnidadeMedida` (
-  `Id` INT NOT NULL AUTO_INCREMENT,
-  `Sigla` VARCHAR(10) NOT NULL,
-  `Nome` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`Id`),
-  UNIQUE INDEX `Sigla` (`Sigla` ASC) VISIBLE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
 
 -- -----------------------------------------------------
--- Table `Raizes`.`Propriedade`
+-- Table `raizes`.`propriedade`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Raizes`.`Propriedade` (
+CREATE TABLE IF NOT EXISTS `raizes`.`propriedade` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Nome` VARCHAR(100) NOT NULL,
   `CidadeId` INT NULL DEFAULT NULL,
   `UsuarioId` INT NOT NULL,
   `Status` TINYINT(1) NOT NULL DEFAULT '1',
   `Tamanho` DECIMAL(10,2) NOT NULL,
-  `Cultura` ENUM('Monocultura', 'Policultura') NULL DEFAULT _utf8mb4'Policultura',
+  `Cultura` ENUM('Monocultura', 'Policultura') NULL DEFAULT 'Policultura',
   `UnidadeMedidaId` INT NULL DEFAULT NULL,
   PRIMARY KEY (`Id`),
   INDEX `Idx_Propriedade_Nome` (`Nome` ASC) VISIBLE,
@@ -114,27 +125,28 @@ CREATE TABLE IF NOT EXISTS `Raizes`.`Propriedade` (
   INDEX `Fk_Propriedade_UnidadeMedida` (`UnidadeMedidaId` ASC) VISIBLE,
   CONSTRAINT `Fk_Propriedade_Cidade`
     FOREIGN KEY (`CidadeId`)
-    REFERENCES `Raizes`.`Cidade` (`Id`)
+    REFERENCES `raizes`.`cidade` (`Id`)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
+  CONSTRAINT `Fk_Propriedade_UnidadeMedida`
+    FOREIGN KEY (`UnidadeMedidaId`)
+    REFERENCES `raizes`.`unidademedida` (`Id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE,
   CONSTRAINT `Fk_Propriedade_Usuario`
     FOREIGN KEY (`UsuarioId`)
-    REFERENCES `Raizes`.`Usuario` (`Id`)
+    REFERENCES `raizes`.`usuario` (`Id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `Fk_Propriedade_UnidadeMedida`
-    FOREIGN KEY (`UnidadeMedidaId`)
-    REFERENCES `Raizes`.`UnidadeMedida` (`Id`)
-    ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
+
 -- -----------------------------------------------------
--- Table `Raizes`.`Plantio`
+-- Table `raizes`.`plantio`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Raizes`.`Plantio` (
+CREATE TABLE IF NOT EXISTS `raizes`.`plantio` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `EspecieId` INT NULL DEFAULT NULL,
   `PropriedadeId` INT NOT NULL,
@@ -151,27 +163,28 @@ CREATE TABLE IF NOT EXISTS `Raizes`.`Plantio` (
   INDEX `Fk_Plantio_UnidadeMedida` (`UnidadeMedidaId` ASC) VISIBLE,
   CONSTRAINT `Fk_Plantio_Especie`
     FOREIGN KEY (`EspecieId`)
-    REFERENCES `Raizes`.`Especie` (`Id`)
+    REFERENCES `raizes`.`especie` (`Id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE,
   CONSTRAINT `Fk_Plantio_Propriedade`
     FOREIGN KEY (`PropriedadeId`)
-    REFERENCES `Raizes`.`Propriedade` (`Id`)
+    REFERENCES `raizes`.`propriedade` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `Fk_Plantio_UnidadeMedida`
     FOREIGN KEY (`UnidadeMedidaId`)
-    REFERENCES `Raizes`.`UnidadeMedida` (`Id`)
+    REFERENCES `raizes`.`unidademedida` (`Id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
+
 -- -----------------------------------------------------
--- Table `Raizes`.`Colheita`
+-- Table `raizes`.`colheita`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Raizes`.`Colheita` (
+CREATE TABLE IF NOT EXISTS `raizes`.`colheita` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `PlantioId` INT NOT NULL,
   `DataColheita` DATETIME NOT NULL,
@@ -184,12 +197,12 @@ CREATE TABLE IF NOT EXISTS `Raizes`.`Colheita` (
   INDEX `fk_Colheita_UnideadeMedida_Idx` (`UnidadeMedidaId` ASC) VISIBLE,
   CONSTRAINT `fk_Colheita_Plantio`
     FOREIGN KEY (`PlantioId`)
-    REFERENCES `Raizes`.`Plantio` (`Id`)
+    REFERENCES `raizes`.`plantio` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Colheita_UnidadeMedida`
     FOREIGN KEY (`UnidadeMedidaId`)
-    REFERENCES `Raizes`.`UnidadeMedida` (`Id`)
+    REFERENCES `raizes`.`unidademedida` (`Id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -198,9 +211,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `Raizes`.`ArmazenamentoColheita`
+-- Table `raizes`.`armazenamentocolheita`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Raizes`.`ArmazenamentoColheita` (
+CREATE TABLE IF NOT EXISTS `raizes`.`armazenamentocolheita` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `ColheitaId` INT NOT NULL,
   `QuantidadeDisponivel` DECIMAL(10,2) NOT NULL,
@@ -212,19 +225,18 @@ CREATE TABLE IF NOT EXISTS `Raizes`.`ArmazenamentoColheita` (
   INDEX `ColheitaId` (`ColheitaId` ASC) VISIBLE,
   CONSTRAINT `ArmazenamentoColheita_ibfk_1`
     FOREIGN KEY (`ColheitaId`)
-    REFERENCES `Raizes`.`Colheita` (`Id`)
+    REFERENCES `raizes`.`colheita` (`Id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE
-)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `Raizes`.`Fornecedor`
+-- Table `raizes`.`fornecedor`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Raizes`.`Fornecedor` (
+CREATE TABLE IF NOT EXISTS `raizes`.`fornecedor` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Nome` VARCHAR(100) NOT NULL,
   `CNPJ` VARCHAR(20) NULL DEFAULT NULL,
@@ -237,9 +249,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `Raizes`.`Equipamento`
+-- Table `raizes`.`equipamento`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Raizes`.`Equipamento` (
+CREATE TABLE IF NOT EXISTS `raizes`.`equipamento` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Nome` VARCHAR(100) NOT NULL,
   `Tipo` VARCHAR(50) NULL DEFAULT NULL,
@@ -251,7 +263,7 @@ CREATE TABLE IF NOT EXISTS `Raizes`.`Equipamento` (
   INDEX `fk_Equip_Fornecedor` (`FornecedorId` ASC) VISIBLE,
   CONSTRAINT `fk_Equip_Fornecedor`
     FOREIGN KEY (`FornecedorId`)
-    REFERENCES `Raizes`.`Fornecedor` (`Id`)
+    REFERENCES `raizes`.`fornecedor` (`Id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -260,26 +272,26 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `Raizes`.`PlantioEquipamento`
+-- Table `raizes`.`evento`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Raizes`.`PlantioEquipamento` (
+CREATE TABLE IF NOT EXISTS `raizes`.`evento` (
   `Id` INT NOT NULL AUTO_INCREMENT,
-  `PlantioId` INT NOT NULL,
-  `EquipamentoId` INT NOT NULL,
-  `Quantidade` DECIMAL(14,3) NOT NULL,
-  `DataAplicacao` DATETIME NOT NULL,
+  `UsuarioId` INT NOT NULL,
+  `Titulo` VARCHAR(100) NOT NULL,
+  `Local` VARCHAR(200) NULL DEFAULT NULL,
+  `DataInicio` DATETIME NOT NULL,
+  `DataFim` DATETIME NULL DEFAULT NULL,
+  `Descricao` VARCHAR(200) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`),
-  INDEX `Idx_pi_Data` (`DataAplicacao` ASC) VISIBLE,
-  INDEX `Idx_pi_Equipamento_Plantio` (`PlantioId` ASC, `EquipamentoId` ASC) VISIBLE,
-  INDEX `fk_pi_Insumo_EquipamentoPlantio` (`EquipamentoId` ASC) VISIBLE,
-  CONSTRAINT `fk_pi_Insumo_EquipamentoPlantio`
-    FOREIGN KEY (`EquipamentoId`)
-    REFERENCES `Raizes`.`Equipamento` (`Id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_pi_Plantio_EquipamentoPlantio`
-    FOREIGN KEY (`PlantioId`)
-    REFERENCES `Raizes`.`Plantio` (`Id`)
+  UNIQUE INDEX `Idx_Evento_Titulo` (`Titulo` ASC) VISIBLE,
+  UNIQUE INDEX `Idx_Evento_DataInicio` (`DataInicio` ASC) VISIBLE,
+  UNIQUE INDEX `Idx_Evento_Local` (`Local` ASC) VISIBLE,
+  UNIQUE INDEX `Idx_Evento_DataFim` (`DataFim` ASC) VISIBLE,
+  UNIQUE INDEX `Idx_Evento_Descricao` (`Descricao` ASC) VISIBLE,
+  INDEX `Fk_Evento_Usuario` (`UsuarioId` ASC) VISIBLE,
+  CONSTRAINT `Fk_Evento_Usuario`
+    FOREIGN KEY (`UsuarioId`)
+    REFERENCES `raizes`.`usuario` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -288,9 +300,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `Raizes`.`HistoricoSolo`
+-- Table `raizes`.`historicosolo`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Raizes`.`HistoricoSolo` (
+CREATE TABLE IF NOT EXISTS `raizes`.`historicosolo` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `TipoSoloId` INT NOT NULL,
   `DataLeitura` DATETIME NOT NULL,
@@ -303,24 +315,23 @@ CREATE TABLE IF NOT EXISTS `Raizes`.`HistoricoSolo` (
   INDEX `Idx_solo_Leitura` (`DataLeitura` ASC) VISIBLE,
   CONSTRAINT `fk_hsolo_Propriedade`
     FOREIGN KEY (`PropriedadeId`)
-    REFERENCES `Raizes`.`Propriedade` (`Id`)
+    REFERENCES `raizes`.`propriedade` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_hsolo_TipoSolo`
     FOREIGN KEY (`TipoSoloId`)
-    REFERENCES `Raizes`.`TipoSolo` (`Id`)
+    REFERENCES `raizes`.`tiposolo` (`Id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE
-    )
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `Raizes`.`Insumo`
+-- Table `raizes`.`insumo`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Raizes`.`Insumo` (
+CREATE TABLE IF NOT EXISTS `raizes`.`insumo` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Nome` VARCHAR(100) NOT NULL,
   `Tipo` VARCHAR(50) NULL DEFAULT NULL,
@@ -332,7 +343,7 @@ CREATE TABLE IF NOT EXISTS `Raizes`.`Insumo` (
   INDEX `Idx_Insumo_Nome` (`Nome` ASC) VISIBLE,
   CONSTRAINT `fk_Insumo_Fornecedor`
     FOREIGN KEY (`FornecedorId`)
-    REFERENCES `Raizes`.`Fornecedor` (`Id`)
+    REFERENCES `raizes`.`fornecedor` (`Id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -341,9 +352,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `Raizes`.`InsumoEstoque`
+-- Table `raizes`.`insumoestoque`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Raizes`.`InsumoEstoque` (
+CREATE TABLE IF NOT EXISTS `raizes`.`insumoestoque` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `PropriedadeId` INT NOT NULL,
   `InsumoId` INT NOT NULL,
@@ -357,12 +368,12 @@ CREATE TABLE IF NOT EXISTS `Raizes`.`InsumoEstoque` (
   INDEX `Idx_ie_Data_desc` (`InsumoId` ASC, `DataMovimentacao` DESC) VISIBLE,
   CONSTRAINT `fk_ie_Insumo`
     FOREIGN KEY (`InsumoId`)
-    REFERENCES `Raizes`.`Insumo` (`Id`)
+    REFERENCES `raizes`.`insumo` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_ie_prop`
     FOREIGN KEY (`PropriedadeId`)
-    REFERENCES `Raizes`.`Propriedade` (`Id`)
+    REFERENCES `raizes`.`propriedade` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -371,9 +382,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `Raizes`.`MovimentoArmazenamento`
+-- Table `raizes`.`movimentoarmazenamento`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Raizes`.`MovimentoArmazenamento` (
+CREATE TABLE IF NOT EXISTS `raizes`.`movimentoarmazenamento` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `ArmazenamentoId` INT NOT NULL,
   `TipoMovimentacao` ENUM('Venda', 'Transferencia', 'Ajuste') NOT NULL,
@@ -384,17 +395,46 @@ CREATE TABLE IF NOT EXISTS `Raizes`.`MovimentoArmazenamento` (
   INDEX `ArmazenamentoId` (`ArmazenamentoId` ASC) VISIBLE,
   CONSTRAINT `MovimentoArmazenamento_ibfk_1`
     FOREIGN KEY (`ArmazenamentoId`)
-    REFERENCES `Raizes`.`ArmazenamentoColheita` (`Id`)
+    REFERENCES `raizes`.`armazenamentocolheita` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
+
 -- -----------------------------------------------------
--- Table `Raizes`.`PlantioInsumo`
+-- Table `raizes`.`plantioequipamento`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Raizes`.`PlantioInsumo` (
+CREATE TABLE IF NOT EXISTS `raizes`.`plantioequipamento` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `PlantioId` INT NOT NULL,
+  `EquipamentoId` INT NOT NULL,
+  `Quantidade` DECIMAL(14,3) NOT NULL,
+  `DataAplicacao` DATETIME NOT NULL,
+  PRIMARY KEY (`Id`),
+  INDEX `Idx_pi_Data` (`DataAplicacao` ASC) VISIBLE,
+  INDEX `Idx_pi_Equipamento_Plantio` (`PlantioId` ASC, `EquipamentoId` ASC) VISIBLE,
+  INDEX `fk_pi_Insumo_EquipamentoPlantio` (`EquipamentoId` ASC) VISIBLE,
+  CONSTRAINT `fk_pi_Insumo_EquipamentoPlantio`
+    FOREIGN KEY (`EquipamentoId`)
+    REFERENCES `raizes`.`equipamento` (`Id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_pi_Plantio_EquipamentoPlantio`
+    FOREIGN KEY (`PlantioId`)
+    REFERENCES `raizes`.`plantio` (`Id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `raizes`.`plantioinsumo`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `raizes`.`plantioinsumo` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `PlantioId` INT NOT NULL,
   `InsumoId` INT NOT NULL,
@@ -406,12 +446,12 @@ CREATE TABLE IF NOT EXISTS `Raizes`.`PlantioInsumo` (
   INDEX `fk_pi_Insumo` (`InsumoId` ASC) VISIBLE,
   CONSTRAINT `fk_pi_Insumo`
     FOREIGN KEY (`InsumoId`)
-    REFERENCES `Raizes`.`Insumo` (`Id`)
+    REFERENCES `raizes`.`insumo` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_pi_Plantio`
     FOREIGN KEY (`PlantioId`)
-    REFERENCES `Raizes`.`Plantio` (`Id`)
+    REFERENCES `raizes`.`plantio` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -420,9 +460,31 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `Raizes`.`Venda`
+-- Table `raizes`.`tarefa`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Raizes`.`Venda` (
+CREATE TABLE IF NOT EXISTS `raizes`.`tarefa` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `UsuarioId` INT NOT NULL,
+  `Titulo` VARCHAR(100) NOT NULL,
+  `Descricao` VARCHAR(200) NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`),
+  UNIQUE INDEX `Idx_Tarefa_Titulo` (`Titulo` ASC) VISIBLE,
+  UNIQUE INDEX `Idx_Tarefa_Descricao` (`Descricao` ASC) VISIBLE,
+  INDEX `Fk_Tarefa_Usuario` (`UsuarioId` ASC) VISIBLE,
+  CONSTRAINT `Fk_Tarefa_Usuario`
+    FOREIGN KEY (`UsuarioId`)
+    REFERENCES `raizes`.`usuario` (`Id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `raizes`.`venda`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `raizes`.`venda` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `ColheitaId` INT NOT NULL,
   `EspecieId` INT NULL DEFAULT NULL,
@@ -440,22 +502,23 @@ CREATE TABLE IF NOT EXISTS `Raizes`.`Venda` (
   INDEX `fk_Venda_um` (`UnidadeMedidaId` ASC) VISIBLE,
   CONSTRAINT `fk_Venda_Colheita`
     FOREIGN KEY (`ColheitaId`)
-    REFERENCES `Raizes`.`Colheita` (`Id`)
+    REFERENCES `raizes`.`colheita` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Venda_Especie`
     FOREIGN KEY (`EspecieId`)
-    REFERENCES `Raizes`.`Especie` (`Id`)
+    REFERENCES `raizes`.`especie` (`Id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Venda_um`
     FOREIGN KEY (`UnidadeMedidaId`)
-    REFERENCES `Raizes`.`UnidadeMedida` (`Id`)
+    REFERENCES `raizes`.`unidademedida` (`Id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
