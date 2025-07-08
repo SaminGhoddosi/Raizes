@@ -20,29 +20,25 @@
     }
   </script>
 </head>
-<body class="bg-gray-light min-h-screen">
-
+<body class="bg-gray-100 min-h-screen">
   <!-- Container para a sidebar -->
   <div class="flex min-h-screen bg-white">
-
     <!-- Sidebar será inserida aqui -->
     <div id="sidebar-container"></div>
-
+    
     <!-- Conteúdo principal -->
     <div class="ml-16 flex-1 p-6">
-
-        <!-- Header com clima -->
-        <div class="flex justify-between items-center mb-6">
+      <!-- Header com clima -->
+      <div class="flex justify-between items-center mb-6">
         <div></div>
         <div class="bg-yellow-100 px-4 py-2 rounded-lg flex items-center space-x-2">
-            <img src="assets/sum.png" alt="Weather Icon" class="w-6 h-6" />
-            <span id="clima" class="font-semibold">Carregando clima</span>
+          <img src="assets/sum.png" alt="Weather Icon" class="w-6 h-6" onerror="this.style.display='none'" />
+          <span id="clima" class="font-semibold">Carregando clima</span>
         </div>
-        </div>
-
-
+      </div>
+      
       <!-- Cards de métricas -->
-      <div class="w-85 h-40 grid grid-cols-3 gap-6 mb-8">
+      <div class="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <!-- Lucro -->
         <div class="bg-white rounded-2xl p-6 shadow transition-shadow duration-300 hover:shadow-xl">
           <div class="flex items-center justify-between mb-2">
@@ -50,14 +46,14 @@
           </div>
           <div class="flex items-center space-x-3">
             <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-              <img src="assets/lucro.png" class="w-8 h-6" />
+              <img src="assets/lucro.png" class="w-8 h-6" onerror="this.style.display='none'" />
             </div>
             <div>
               <div class="text-2xl font-bold text-gray-800">R$ 1589,65</div>
             </div>
           </div>
         </div>
-
+        
         <!-- Prejuízo -->
         <div class="bg-white rounded-xl p-6 shadow transition-shadow duration-300 hover:shadow-xl">
           <div class="flex items-center justify-between mb-2">
@@ -65,14 +61,14 @@
           </div>
           <div class="flex items-center space-x-3">
             <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
-              <img src="assets/prejuizo.png" class="w-8 h-6" />
+              <img src="assets/prejuizo.png" class="w-8 h-6" onerror="this.style.display='none'" />
             </div>
             <div>
               <div class="text-2xl font-bold text-gray-800">R$ 3547,20</div>
             </div>
           </div>
         </div>
-
+        
         <!-- Itens Armazenados -->
         <div class="bg-white rounded-xl p-6 shadow transition-shadow duration-300 hover:shadow-xl">
           <div class="flex items-center justify-between mb-2">
@@ -80,7 +76,7 @@
           </div>
           <div class="flex items-center space-x-3">
             <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-              <img src="assets/estoque.png" class="w-8 h-6" />
+              <img src="assets/estoque.png" class="w-8 h-6" onerror="this.style.display='none'" />
             </div>
             <div>
               <div class="text-2xl font-bold text-gray-800">41</div>
@@ -88,17 +84,17 @@
           </div>
         </div>
       </div>
-
+      
       <!-- Próximos Eventos -->
       <div class="bg-white rounded-xl p-6 shadow-sm mb-8 border-2">
         <div class="flex items-center justify-between mb-4">
-          <h2 class="text-lg font-semibold text-gray-500">Proximos Eventos</h2>
-          <button class="bg-green-dark text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-medium">
+          <h2 class="text-lg font-semibold text-gray-500">Próximos Eventos</h2>
+          <button class="bg-green-dark text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-medium transition-colors">
             + Novo Evento
           </button>
         </div>
-
-        <!-- Lista de eventos (exemplo repetido 3 vezes) -->
+        
+        <!-- Lista de eventos -->
         <div class="space-y-3">
           <!-- Evento -->
           <div class="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
@@ -118,17 +114,16 @@
           </div>
         </div>
       </div>
-
+      
       <!-- Tarefas Agendadas -->
       <div class="mb-8">
-        <div class="flex items-center justify-between mb-4 px-7">
+        <div class="flex items-center justify-between mb-4 px-2">
           <h2 class="text-lg font-semibold text-gray-500">Tarefas Agendadas</h2>
-          <button class="bg-green-dark text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-medium">
+          <button class="bg-green-dark text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-medium transition-colors">
             + Nova Tarefa
           </button>
         </div>
-
-        <div class="grid grid-cols-5 gap-4 py-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 py-4">
           <!-- Exemplo de tarefa -->
           <div class="bg-green-light rounded-3xl p-4 text-white shadow transition-shadow duration-300 hover:shadow-xl">
             <h3 class="font-semibold mb-2">Irrigar</h3>
@@ -136,40 +131,66 @@
             <p class="text-sm opacity-90">Plantação de tomate</p>
             <p class="text-sm opacity-90">Plantação de alface</p>
           </div>
-
-          <!-- Copie esse bloco para mais tarefas -->
         </div>
-        
       </div>
     </div>
   </div>
-
+  
   <script>
-    
-  // Carrega a sidebar dinamicamente
-  fetch('sidebar.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('sidebar-container').innerHTML = data;
-
-      // Depois que a sidebar foi carregada, adiciona o listener do botão logout
-      const logoutBtn = document.getElementById('logout');
-      if (logoutBtn) {
-        logoutBtn.addEventListener('click', function () {
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
-          window.location.href = "index.html";
-        });
-      }
-       // Agora você pode alterar o estilo do elemento da navbar
-      const navbar = document.querySelector('#home'); 
-      if (navbar) {
-        navbar.classList.add('bg-white/20'); // ou qualquer cor Tailwind
-      }
-    });
-    </script>
-
+    // Carrega a sidebar dinamicamente
+    fetch('sidebar.html')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Sidebar não encontrada');
+        }
+        return response.text();
+      })
+      .then(data => {
+        document.getElementById('sidebar-container').innerHTML = data;
+        
+        // Depois que a sidebar foi carregada, adiciona o listener do botão logout
+        const logoutBtn = document.getElementById('logout');
+        if (logoutBtn) {
+          logoutBtn.addEventListener('click', function () {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = "login.html";
+          });
+        }
+        
+        // Agora você pode alterar o estilo do elemento da navbar
+        const navbar = document.querySelector('#home');
+        if (navbar) {
+          navbar.classList.add('bg-white/20');
+        }
+      })
+      .catch(error => {
+        console.error('Erro ao carregar sidebar:', error);
+        // Fallback caso a sidebar não carregue
+        document.getElementById('sidebar-container').innerHTML = '<div class="w-16 bg-gray-800 min-h-screen"></div>';
+      });
+  </script>
+  
   <!-- API ou outros scripts -->
-  <script src="api.js"></script>
+  <script>
+    // Fallback caso api.js não exista
+    if (typeof fetch !== 'undefined') {
+      fetch('api.js')
+        .then(response => {
+          if (response.ok) {
+            return response.text();
+          }
+          throw new Error('API script não encontrado');
+        })
+        .then(script => {
+          const scriptElement = document.createElement('script');
+          scriptElement.textContent = script;
+          document.head.appendChild(scriptElement);
+        })
+        .catch(error => {
+          console.warn('API script não carregado:', error);
+        });
+    }
+  </script>
 </body>
 </html>
