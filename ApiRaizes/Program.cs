@@ -58,6 +58,10 @@ namespace ApiRaizes
             builder.Services.AddScoped<IPlantingEquipmentRepository, PlantingEquipmentRepository>();
             builder.Services.AddScoped<IStockMovementService, StockMovementService>();
             builder.Services.AddScoped<IStockMovementRepository, StockMovementRepository>();
+            builder.Services.AddScoped<IEventService, EventService>();
+            builder.Services.AddScoped<IEventRepository, EventRepository>();
+            builder.Services.AddScoped<ITaskService, TaskService>();
+            builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 
             // JWT Authentication
             var key = Encoding.ASCII.GetBytes(builder.Configuration["JwtSettings:SecretKey"]);
