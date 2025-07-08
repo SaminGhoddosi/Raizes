@@ -20,7 +20,7 @@ namespace ApiRaizes.Services
             await _repository.Delete(id);
             return new MessageAllResponse
             {
-                Message = "armazenamento de colheita excluída com sucesso!"
+                Message = "armazenamento de colheita excluído com sucesso!"
             };
         }
 
@@ -42,7 +42,7 @@ namespace ApiRaizes.Services
             await _repository.Insert(harvestStorage);
             return new MessageAllResponse
             {
-                Message = "armazenamento de colheita inserida com sucesso!"
+                Message = "armazenamento de colheita inserido com sucesso!"
             };
         }
 
@@ -51,7 +51,7 @@ namespace ApiRaizes.Services
             await _repository.Update(harvestStorage);
             return new MessageAllResponse
             {
-                Message = "armazenamento de colheita alterada com sucesso"
+                Message = "armazenamento de colheita alterado com sucesso"
             };
         }
     }

@@ -15,136 +15,52 @@ namespace ApiRaizes
     {
         public static void Main(string[] args)
         {
-
             var builder = WebApplication.CreateBuilder(args);
+
+            // Serviços compartilhados
             builder.Services.AddSingleton<IConnection, Connection>();
             builder.Services.AddScoped<IAuthentication, Authentication>();
 
-            //DEPENDENCE HARVEST
-            builder.Services.AddScoped<IConnection, Connection>();
+            // Injeções de dependência
             builder.Services.AddScoped<IHarvestService, HarvestService>();
             builder.Services.AddScoped<IHarvestRepository, HarvestRepository>();
-
-            //DEPENDENCE HARVESTSTORAGE
-            builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IHarvestStorageService, HarvestStorageService>();
             builder.Services.AddScoped<IHarvestStorageRepository, HarvestStorageRepository>();
-
-            //DEPENDENCE SALE
-            builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<ISaleService, SaleService>();
             builder.Services.AddScoped<ISaleRepository, SaleRepository>();
-
-            //DEPENDENCE SPECIES
-            builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<ISpeciesService, SpeciesService>();
             builder.Services.AddScoped<ISpeciesRepository, SpeciesRepository>();
-
-            //DEPENDENCE CITY
-            builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<ICityService, CityService>();
             builder.Services.AddScoped<ICityRepository, CityRepository>();
-
-            //DEPENDENCE PROPERTY
-            builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IPropertyService, PropertyService>();
             builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
-
-            //DEPENDENCE RAW MATERIAL STOCK
-            builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IRawMaterialStockService, RawMaterialStockService>();
             builder.Services.AddScoped<IRawMaterialStockRepository, RawMaterialStockRepository>();
-
-            //DEPENDENCE SOIL HISTORIC
-            builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<ISoilHistoricService, SoilHistoricService>();
             builder.Services.AddScoped<ISoilHistoricRepository, SoilHistoricRepository>();
-
-            //DEPENDENCE USER
-            builder.Services.AddSingleton<IConnection, Connection>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddTransient<IUserRepository, UserRepository>();
-
-            //DEPENDENCE SUPPLIER
-            builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<ISupplierService, SupplierService>();
             builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
-
-            //DEPENDENCE MEASUREUNIT
-            builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IMeasureUnitService, MeasureUnitService>();
             builder.Services.AddScoped<IMeasureUnitRepository, MeasureUnitRepository>();
-
-            // DEPENDENCE PLANTINGRAWMATERIAL
-            builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IPlantingRawMaterialService, PlantingRawMaterialService>();
             builder.Services.AddScoped<IPlantingRawMaterialRepository, PlantingRawMaterialRepository>();
-
-            // DEPENDENCE RAWMATERIAL
-            builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IRawMaterialService, RawMaterialService>();
             builder.Services.AddScoped<IRawMaterialRepository, RawMaterialRepository>();
-
-            // DEPENDENCE PLANTING
-            builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IPlantingService, PlantingService>();
             builder.Services.AddScoped<IPlantingRepository, PlantingRepository>();
-
-            //DEPENDENCE SOILTYPE
-            builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<ISoilTypeService, SoilTypeService>();
             builder.Services.AddScoped<ISoilTypeRepository, SoilTypeRepository>();
-
-            //DEPENDENCE EQUIPMENT
-            builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IEquipmentService, EquipmentService>();
             builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
-
-            //DEPENDENCE PLANTINGEQUIPMENT
-            builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IPlantingEquipmentService, PlantingEquipmentService>();
             builder.Services.AddScoped<IPlantingEquipmentRepository, PlantingEquipmentRepository>();
-
-            //DEPENDENCE STOCKMOVEMENT
-            builder.Services.AddScoped<IConnection, Connection>();
             builder.Services.AddScoped<IStockMovementService, StockMovementService>();
             builder.Services.AddScoped<IStockMovementRepository, StockMovementRepository>();
 
-
-            //ADD BEARER ON SWAGGER 
-            builder.Services.AddSwaggerGen(c =>
-            {
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-                {
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer",
-                    In = ParameterLocation.Header
-                });
-
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            },
-                            Scheme = "oauth2",
-                            Name = "Bearer",
-                            In = ParameterLocation.Header
-                        },
-                        new List<string>() {}
-                    }
-                });
-            });
-
+            // JWT Authentication
             var key = Encoding.ASCII.GetBytes(builder.Configuration["JwtSettings:SecretKey"]);
-
-
-            //ADD JWT
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -158,26 +74,63 @@ namespace ApiRaizes
                     };
                 });
 
+            // CORS - FIXED: Allow requests from any origin during development
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy.AllowAnyOrigin() // Allow any origin during development
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
 
-            // Add services to the container.
+            // Swagger com suporte a Bearer
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    In = ParameterLocation.Header
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header
+                        },
+                        new List<string>()
+                    }
+                });
+            });
+
+            // Outros serviços
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Pipeline
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
+            app.UseCors("AllowFrontend");
             app.UseHttpsRedirection();
-            //app.UseCors(); ver se funciona
+            app.UseAuthentication();
             app.UseAuthorization();
-
             app.MapControllers();
 
             app.Run();

@@ -26,7 +26,7 @@ namespace ApiRaizes.Repository
                          QUANTIDADE AS {nameof(SaleEntity.Quantidade)},
                       PRECOUNITARIO AS {nameof(SaleEntity.PrecoUnitario)},
                          PRECOTOTAL AS {nameof(SaleEntity.PrecoTotal)},
-                        COMPRADORID AS {nameof(SaleEntity.CompradorId)},
+                        COMPRADOR   AS {nameof(SaleEntity.Comprador)},
                     UNIDADEMEDIDAID AS {nameof(SaleEntity.UnidadeMedidaId)},
                           DATAVENDA AS {nameof(SaleEntity.DataVenda)}
                                       FROM VENDA
@@ -38,8 +38,8 @@ namespace ApiRaizes.Repository
         public async Task Insert(SaleInsertDTO sale)
         {
             string sql = @$"
-                INSERT INTO VENDA (COLHEITAID,ESPECIEID,QUANTIDADE,PRECOUNITARIO,COMPRADORID,UNIDADEMEDIDAID,DATAVENDA)
-                VALUES (@ColheitaId,@EspecieId,@Quantidade,@PrecoUnitario,@CompradorId,@UnidadeMedidaId,@DataVenda)                                                         
+                INSERT INTO VENDA (COLHEITAID,ESPECIEID,QUANTIDADE,PRECOUNITARIO,COMPRADOR,UNIDADEMEDIDAID,DATAVENDA)
+                VALUES (@ColheitaId,@EspecieId,@Quantidade,@PrecoUnitario,@Comprador,@UnidadeMedidaId,@DataVenda)                                                         
             ";
             await _connection.Execute(sql, sale);
         }
@@ -59,7 +59,7 @@ namespace ApiRaizes.Repository
                          QUANTIDADE AS {nameof(SaleEntity.Quantidade)},
                       PRECOUNITARIO AS {nameof(SaleEntity.PrecoUnitario)},
                          PRECOTOTAL AS {nameof(SaleEntity.PrecoTotal)},
-                        COMPRADORID AS {nameof(SaleEntity.CompradorId)},
+                        COMPRADOR AS {nameof(SaleEntity.Comprador)},
                     UNIDADEMEDIDAID AS {nameof(SaleEntity.UnidadeMedidaId)},
                           DATAVENDA AS {nameof(SaleEntity.DataVenda)}
                                       FROM VENDA
@@ -78,7 +78,7 @@ namespace ApiRaizes.Repository
                                       ESPECIEID = @EspecieId,
                                      QUANTIDADE = @Quantidade,
                                   PRECOUNITARIO = @PrecoUnitario,
-                                    COMPRADORID = @CompradorId,
+                                    COMPRADOR = @Comprador,
                                 UNIDADEMEDIDAID = @UnidadeMedidaId,
                                       DATAVENDA = @DataVenda
                                        WHERE ID = @Id;

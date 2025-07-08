@@ -8,7 +8,7 @@
 
         public decimal PrecoUnitario { get; set; }
 
-        public int CompradorId { get; set; }
+        public string Comprador { get; set; }
         public int UnidadeMedidaId { get; set; }
         public DateTime DataVenda { get; set; }
 
