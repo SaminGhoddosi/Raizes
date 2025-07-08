@@ -1,4 +1,3 @@
-
 apiHandShake();
 
 const user = JSON.parse(localStorage.getItem('user'));
@@ -12,13 +11,14 @@ let isLoading = false;
 document.addEventListener('DOMContentLoaded', function () {
     lucide.createIcons();
     carregarMecanicos();
+    carregarClima(); // Função que busca o clima
 });
 
 // Método para buscar mecânicos do backend
 async function buscarMecanicos() {
     try {
         setLoading(true);
-        const data = await apiGet('Mecanico')
+        const data = await apiGet('Mecanico');
         mecanicos = data;
         renderizarTabela();
     } catch (error) {
@@ -37,12 +37,48 @@ async function carregarMecanicos() {
     renderizarSelect();
 }
 
+// Carregar clima usando wttr.in e geolocalização
+async function carregarClima() {
+    if (!navigator.geolocation) {
+        atualizarClimaDisplay('Geolocalização não suportada');
+        return;
+    }
 
+    navigator.geolocation.getCurrentPosition(async (pos) => {
+        try {
+            const lat = pos.coords.latitude;
+            const lon = pos.coords.longitude;
+
+            const response = await fetch(`https://wttr.in/${lat},${lon}?format=j1`);
+            const data = await response.json();
+
+            const temp = data.current_condition[0].temp_C;
+            const desc = data.current_condition[0].weatherDesc[0].value;
+
+            atualizarClimaDisplay(`${temp}°C - ${desc}`);
+        } catch (err) {
+            console.error('Erro ao buscar clima:', err);
+            atualizarClimaDisplay('Erro ao obter clima');
+        }
+    }, () => {
+        atualizarClimaDisplay('Permissão negada para localização');
+    });
+}
+
+// Atualiza o texto do clima na interface
+function atualizarClimaDisplay(text) {
+    const climaEl = document.getElementById('clima');
+    if (climaEl) {
+        climaEl.textContent = text;
+    }
+}
+
+// Renderizar select de mecânicos
 function renderizarSelect() {
     const mecanicosSelect = document.getElementById("mecanicos-select-area");    
     const options = mecanicos.data.map(mec => {
-        return `<option value="${mec.id}">${mec.nome}</option>`
-    })
+        return `<option value="${mec.id}">${mec.nome}</option>`;
+    });
 
     mecanicosSelect.innerHTML = `
         <select id="mecanico-select">
@@ -51,7 +87,7 @@ function renderizarSelect() {
     `;    
 }
 
-// Renderizar tabela
+// Renderizar tabela de mecânicos
 function renderizarTabela() {
     const tbody = document.getElementById('mecanicos-tbody');
     const emptyState = document.getElementById('empty-state');
@@ -108,11 +144,8 @@ async function cadastrarMecanico() {
         btn.disabled = true;
         btn.textContent = 'Cadastrando...';
 
-        const result = await apiPost("Mecanico", {
-            nome: nome
-        });
+        const result = await apiPost("Mecanico", { nome: nome });
         
-
         carregarMecanicos();
 
         // Limpar formulário e fechar modal
@@ -216,4 +249,3 @@ function showToast(title, message, type = 'info') {
 function hideToast() {
     document.getElementById('toast').classList.add('hidden');
 }
-
