@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Sidebar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'green-dark': '#31572C',
+                        'green-medium': '#4D841D',
+                        'green-light': '#A5C96F'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 p-8">
+    <!-- Sidebar Container -->
+    <div class="w-16 h-screen bg-green-dark flex flex-col items-center py-4 rounded-lg shadow-lg">
+        
+        <!-- Logo Section -->
+        <div class="mb-6">
+            <div class="w-10 h-10 bg-green-dark rounded-full flex items-center justify-center relative">
+                <img src="assets/logo_perfil.png">
+            </div>
+        </div>
+
+        <!-- Top Separator -->
+        <div class="w-8 h-px bg-white mb-6"></div>
+
+        <!-- Navigation Icons -->
+        <nav class="flex flex-col items-center space-y-6 flex-1">
+            <!-- Home Icon -->
+            <button class="w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 rounded transition-colors">
+                <img src="assets/home.png"class="w-5 h-5">
+            </button>
+
+            <!-- cultivo Icon -->
+            <button class="w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 rounded transition-colors">
+                <img src="assets/leaf.png"class="w-5 h-5">
+            </button>
+
+            <!-- Document Icon -->
+            <button class="w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 rounded transition-colors">
+                <img src="assets/coins.png"class="w-5 h-5">
+            </button>
+
+            <!-- estoque  -->
+            <button class="w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 rounded transition-colors">
+                <img src="assets/box.png"class="w-5 h-5">
+            </button>
+                        <!-- estoque  -->
+            <button class="w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 rounded transition-colors">
+                <img src="assets/sensor.png"class="w-5 h-5">
+            </button>
+
+            <!-- Chart Icon -->
+            <button class="w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 rounded transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+            </button>
+        </nav>
+
+        <!-- Bottom Separator -->
+        <div class="w-8 h-px bg-white mb-6"></div>
+
+        <!-- Bottom Section -->
+        <div class="flex flex-col items-center space-y-4">
+            <!-- Profile Picture -->
+            <div class="w-8 h-8 rounded-full overflow-hidden">
+                <img src="assets/logo_perfil.png" alt="Profile" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Logout Icon -->
+            <button class="w-8 h-8 flex items-center justify-center text-white hover:bg-white/10 rounded transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
