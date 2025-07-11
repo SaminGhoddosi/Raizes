@@ -16,7 +16,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `raizes` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `raizes` ;
-
 -- -----------------------------------------------------
 -- Table `raizes`.`tiposolo`
 -- -----------------------------------------------------
@@ -30,7 +29,6 @@ CREATE TABLE IF NOT EXISTS `raizes`.`tiposolo` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
 
 -- -----------------------------------------------------
 -- Table `raizes`.`especie`
@@ -80,8 +78,8 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `raizes`.`unidademedida` (
   `Id` INT NOT NULL AUTO_INCREMENT,
-  `Sigla` VARCHAR(10) NOT NULL,
   `Nome` VARCHAR(50) NOT NULL,
+  `Sigla` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE INDEX `Sigla` (`Sigla` ASC) VISIBLE)
 ENGINE = InnoDB
@@ -104,8 +102,6 @@ CREATE TABLE IF NOT EXISTS `raizes`.`usuario` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
 -- -----------------------------------------------------
 -- Table `raizes`.`propriedade`
 -- -----------------------------------------------------
@@ -114,7 +110,6 @@ CREATE TABLE IF NOT EXISTS `raizes`.`propriedade` (
   `Nome` VARCHAR(100) NOT NULL,
   `CidadeId` INT NULL DEFAULT NULL,
   `UsuarioId` INT NOT NULL,
-  `Status` TINYINT(1) NOT NULL DEFAULT '1',
   `Tamanho` DECIMAL(10,2) NOT NULL,
   `Cultura` ENUM('Monocultura', 'Policultura') NULL DEFAULT 'Policultura',
   `UnidadeMedidaId` INT NULL DEFAULT NULL,
@@ -327,7 +322,6 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-
 -- -----------------------------------------------------
 -- Table `raizes`.`insumo`
 -- -----------------------------------------------------
@@ -487,7 +481,6 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `raizes`.`venda` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `ColheitaId` INT NOT NULL,
-  `EspecieId` INT NULL DEFAULT NULL,
   `Quantidade` DECIMAL(14,3) NOT NULL,
   `PrecoUnitario` DECIMAL(14,2) NOT NULL,
   `PrecoTotal` DECIMAL(20,2) GENERATED ALWAYS AS ((`Quantidade` * `PrecoUnitario`)) STORED,
@@ -498,17 +491,11 @@ CREATE TABLE IF NOT EXISTS `raizes`.`venda` (
   INDEX `Idx_Venda_Data` (`DataVenda` ASC) VISIBLE,
   INDEX `Idx_Venda_PrecoTotal` (`PrecoTotal` ASC) VISIBLE,
   INDEX `fk_Venda_Colheita` (`ColheitaId` ASC) VISIBLE,
-  INDEX `fk_venda_Especie` (`EspecieId` ASC) VISIBLE,
   INDEX `fk_Venda_um` (`UnidadeMedidaId` ASC) VISIBLE,
   CONSTRAINT `fk_Venda_Colheita`
     FOREIGN KEY (`ColheitaId`)
     REFERENCES `raizes`.`colheita` (`Id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_Venda_Especie`
-    FOREIGN KEY (`EspecieId`)
-    REFERENCES `raizes`.`especie` (`Id`)
-    ON DELETE SET NULL
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Venda_um`
     FOREIGN KEY (`UnidadeMedidaId`)
