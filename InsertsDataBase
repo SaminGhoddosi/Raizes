@@ -1,0 +1,141 @@
+USE Raizes;
+-- Cidade
+INSERT INTO Cidade (Nome, Estado, Regiao, Pais) VALUES
+  ('Blumenau', 'Santa Catarina', 'Vale do Itajaí', 'Brasil'),
+  ('Gaspar', 'Santa Catarina', 'Vale do Itajaí', 'Brasil'),
+  ('Indaial', 'Santa Catarina', 'Vale do Itajaí', 'Brasil');
+-- Unidade de Medida
+INSERT INTO unidademedida (Id, Sigla, Nome) VALUES
+(1, 'kg', 'Quilograma'),
+(2, 'g', 'Grama'),
+(3, 'L', 'Litro'),
+(4, 'm', 'Metro'),
+(5, 'un', 'Unidade'),
+(6, 'hc', 'Hectar');
+-- Propriedade
+INSERT INTO Propriedade (Nome, CidadeId, UsuarioId, Tamanho, Cultura, UnidadeMedidaId) VALUES
+('Boa família', 1, 1, 2, 'Monocultura', 6);
+-- Evento
+INSERT INTO evento (Id, UsuarioId, Titulo, Local, DataInicio, DataFim, Descricao) VALUES
+(1, 1, 'Reunião de equipe', 'Sala de conferência 2', '2025-07-11 09:00:00', '2025-07-11 10:00:00', 'Reunião semanal para alinhamento de tarefas.'),
+(2, 1, 'Apresentação do projeto', 'Auditório principal', '2025-07-13 14:00:00', '2025-07-13 15:30:00', 'Apresentação do projeto final para stakeholders.'),
+(3, 1, 'Treinamento interno', 'Sala 105', '2025-07-15 13:00:00', '2025-07-15 17:00:00', 'Capacitação sobre ferramentas ágeis.'),
+(4, 1, 'Almoço com cliente', 'Restaurante Gourmet', '2025-07-12 12:30:00', '2025-07-12 14:00:00', 'Encontro informal para alinhamento de expectativas.'),
+(5, 1, 'Webinar sobre IA', 'Online', '2025-07-16 19:00:00', '2025-07-16 21:00:00', 'Participação em evento ao vivo sobre inteligência artificial.'),
+(6, 1, 'Planejamento trimestral', 'Sala de reuniões A', '2025-07-17 10:00:00', '2025-07-17 12:00:00', 'Definição de metas e OKRs para o próximo trimestre.');
+-- Tarefa
+INSERT INTO tarefa (Id, UsuarioId, Titulo, Descricao) VALUES
+(1, 1, 'Finalizar relatório', 'Terminar o relatório financeiro do segundo trimestre.'),
+(2, 1, 'Revisar código', 'Fazer revisão do código do módulo de autenticação.'),
+(3, 1, 'Atualizar currículo', 'Adicionar cursos recentes ao currículo e ao LinkedIn.'),
+(4, 1, 'Estudar Docker', 'Assistir à playlist de Docker e fazer anotações.'),
+(5, 1, 'Agendar consulta médica', 'Marcar retorno com clínico geral para semana que vem.'),
+(6, 1, 'Enviar e-mail para equipe', 'Compartilhar feedbacks da última sprint.');
+-- TipoSolo
+INSERT INTO tiposolo (Id, Nome, Textura, Descricao) VALUES
+(1, 'Latossolo Vermelho', 'Argiloso', 'Solo profundo, bem drenado e com alta fertilidade natural.'),
+(2, 'Gleissolo', 'Siltoso', 'Solo mal drenado, comum em áreas alagadas, com acúmulo de matéria orgânica.'),
+(3, 'Neossolo Quartzarênico', 'Arenoso', 'Solo raso, muito arenoso, com baixa fertilidade e capacidade de retenção de água.');
+-- HistoricoSolo
+INSERT INTO historicosolo (Id, TipoSoloId, DataLeitura, Umidade, Observacoes, PropriedadeId) VALUES
+(1, 1, '2025-07-01 08:30:00', 35.5, 'Latossolo com boa drenagem e moderada umidade.', 1),
+(2, 2, '2025-07-02 09:00:00', 48.0, 'Gleissolo encharcado após fortes chuvas.', 1),
+(3, 3, '2025-07-03 10:15:00', 15.2, 'Neossolo seco e pobre em matéria orgânica.', 1),
+(4, 1, '2025-07-04 07:20:00', 38.1, 'Latossolo em condições ideais para cultivo de milho.', 1),
+(5, 2, '2025-07-05 11:45:00', 52.7, 'Alta umidade no Gleissolo durante o período de alagamento.', 1),
+(6, 3, '2025-07-06 06:50:00', 13.9, 'Neossolo apresentou baixa capacidade de retenção.', 1);
+-- Fornecedor
+INSERT INTO fornecedor (Id, Nome, CNPJ, Telefone, Email) VALUES
+(1, 'AgroSupra LTDA', '12.345.678/0001-90', '(11) 99999-1111', 'contato@agrosupra.com'),
+(2, 'Verde Campo Insumos', '23.456.789/0001-01', '(21) 98888-2222', 'vendas@verdecampo.com'),
+(3, 'TecRural Equipamentos', '34.567.890/0001-12', '(31) 97777-3333', 'suporte@tecrural.com');
+-- Insumo
+INSERT INTO insumo (Id, Nome, Tipo, DataDeValidade, Descricao, FornecedorId) VALUES
+(1, 'Fertilizante NPK 10-10-10', 'Fertilizante', '2026-12-01', 'Fertilizante granulado para culturas diversas.', 1),
+(2, 'Herbicida Glifosato', 'Defensivo Agrícola', '2025-11-15', 'Controle de plantas daninhas em lavouras.', 2),
+(3, 'Calcário Dolomítico', 'Corretivo de solo', '2028-01-01', 'Corretivo utilizado para elevar o pH do solo.', 1),
+(4, 'Inoculante Biológico', 'Bioinsumo', '2025-10-20', 'Favorece fixação de nitrogênio em leguminosas.', 2);
+-- Equipamento
+INSERT INTO equipamento (Id, Nome, Tipo, Descricao, PrecoUnitario, FornecedorId, DataCompra) VALUES
+(1, 'Pulverizador Costal 20L', 'Pulverizador', 'Equipamento para aplicação de defensivos agrícolas.', 350.00, 3, '2025-06-15'),
+(2, 'Trator Agrícola 75cv', 'Trator', 'Trator médio porte, ideal para pequenas e médias propriedades.', 135000.00, 3, '2024-09-20'),
+(3, 'Semeadora Manual', 'Plantio', 'Semeadora para pequenas culturas e hortas.', 420.00, 1, '2025-03-10'),
+(4, 'Roçadeira Lateral', 'Corte', 'Equipamento para limpeza de pastagem.', 2750.00, 3, '2025-05-22');
+-- InsumoEstoque
+INSERT INTO insumoestoque (Id, PropriedadeId, InsumoId, Quantidade, PrecoUnitario, DataMovimentacao) VALUES
+(1, 1, 1, 100.000, 5.50, '2025-07-01 08:00:00'),
+(2, 1, 2, 50.000, 12.90, '2025-07-03 09:15:00'),
+(3, 1, 3, 200.000, 3.25, '2025-07-05 10:30:00'),
+(4, 1, 4, 75.000, 8.75, '2025-07-07 11:45:00');
+-- Especie
+INSERT INTO especie (Id, NomeComum, NomeCientifico, Variedade, EpocaDePlantio, EpocaDeColheita, TempoDeColheita, TipoSoloIdealId, IdealUmidadeMin, IdealUmidadeMax, Caracteristicas) VALUES
+(1, 'Milho', 'Zea mays', 'Milho Verde', 'Primavera,Verão', 'Verão,Outono', 90, 1, 30.00, 50.00, 'Cereal de ciclo curto, exigente em nutrientes'),
+(2, 'Feijão', 'Phaseolus vulgaris', 'Carioca', 'Primavera,Verão', 'Verão,Outono', 75, 1, 25.00, 45.00, 'Leguminosa de ciclo médio, fixadora de nitrogênio'),
+(3, 'Arroz', 'Oryza sativa', 'Agulhinha', 'Verão', 'Outono', 120, 2, 40.00, 60.00, 'Cereal que se adapta bem a solos úmidos'),
+(4, 'Soja', 'Glycine max', 'BRS 284', 'Primavera', 'Outono', 110, 1, 35.00, 55.00, 'Oleaginosa de alto valor comercial'),
+(5, 'Trigo', 'Triticum aestivum', 'BRS 264', 'Outono', 'Primavera', 150, 3, 20.00, 40.00, 'Cereal de inverno, base para farinhas');
+-- Plantio
+INSERT INTO plantio (Id, EspecieId, PropriedadeId, DataInicio, DataFim, AreaPlantada, Mudas, Descricao, UnidadeMedidaId) VALUES
+(1, 1, 1, '2025-09-15 08:00:00', '2025-12-15 17:00:00', 1.5, 15000, 'Plantio de milho para silagem', 6),
+(2, 2, 1, '2025-10-01 08:00:00', '2026-01-15 17:00:00', 0.5, 5000, 'Cultivo de feijão para consumo próprio', 6),
+(3, 4, 1, '2025-10-20 08:00:00', '2026-02-10 17:00:00', 1.0, 10000, 'Soja para venda no mercado', 6),
+(4, 5, 1, '2025-04-01 08:00:00', '2025-08-30 17:00:00', 0.8, 8000, 'Trigo para produção de farinha', 6);
+
+-- Colheita
+INSERT INTO colheita (Id, PlantioId, DataColheita, Quantidade, UnidadeMedidaId, Observacao) VALUES
+(1, 1, '2025-12-10 08:00:00', 7500.00, 1, 'Colheita antecipada por clima'),
+(2, 1, '2025-12-20 07:30:00', 4500.00, 1, 'Colheita principal'),
+(3, 2, '2026-01-10 09:00:00', 1200.00, 1, 'Colheita total feijão'),
+(4, 3, '2026-02-05 08:00:00', 3500.00, 1, 'Primeira colheita soja'),
+(5, 3, '2026-02-15 07:00:00', 2800.00, 1, 'Segunda colheita soja'),
+(6, 4, '2025-08-25 10:00:00', 5000.00, 1, 'Colheita trigo completa');
+
+-- Plantioinsumo
+INSERT INTO plantioinsumo (Id, PlantioId, InsumoId, Quantidade, DataAplicacao) VALUES
+(1, 1, 1, 300.00, '2025-09-10 08:00:00'),
+(2, 1, 2, 15.00, '2025-10-05 07:30:00'),
+(3, 2, 4, 5.00, '2025-09-28 09:00:00'),
+(4, 3, 1, 250.00, '2025-10-15 08:00:00'),
+(5, 3, 3, 500.00, '2025-09-01 10:00:00'),
+(6, 4, 1, 200.00, '2025-03-20 07:00:00');
+
+-- Plantioequipamento
+INSERT INTO plantioequipamento (Id, PlantioId, EquipamentoId, Quantidade, DataAplicacao) VALUES
+(1, 1, 2, 1.000, '2025-09-14 08:00:00'),
+(2, 1, 3, 2.000, '2025-09-15 07:30:00'),
+(3, 2, 3, 1.000, '2025-09-30 09:00:00'),
+(4, 3, 2, 1.500, '2025-10-19 08:00:00'),
+(5, 3, 1, 3.000, '2025-11-10 10:00:00'),
+(6, 4, 2, 1.200, '2025-03-31 07:00:00'); 
+
+-- Venda
+INSERT INTO venda (Id, ColheitaId, Quantidade, PrecoUnitario, Comprador, UnidadeMedidaId, DataVenda) VALUES
+(1, 1, 5000.000, 1.20, 'Cooperativa Agropecuária Vale', 1, '2025-12-12'),
+(2, 2, 4500.000, 1.15, 'Indústria de Rações Santa Clara', 1, '2025-12-22'),
+(3, 3, 1200.000, 4.50, 'Mercado Municipal de Blumenau', 1, '2026-01-12'),
+(4, 4, 3500.000, 2.80, 'Trading Soja Brasil', 1, '2026-02-08'),
+(5, 5, 2800.000, 2.75, 'Trading Soja Brasil', 1, '2026-02-18'),
+(6, 6, 5000.000, 1.60, 'Moinho Farináceo', 1, '2025-08-28');
+
+-- Armazenamentocolheita
+INSERT INTO armazenamentocolheita (Id, ColheitaId, QuantidadeDisponivel, LocalArmazenamento, DataEntrada, Status) VALUES
+(1, 1, 2500.00, 'Silo 1 - Propriedade Boa Família', '2025-12-10 10:00:00', 'Disponivel'),
+(2, 2, 4500.00, 'Silo 2 - Propriedade Boa Família', '2025-12-20 08:30:00', 'Reservado'),
+(3, 3, 1200.00, 'Celeiro A - Propriedade Boa Família', '2026-01-10 10:00:00', 'Vendido'),
+(4, 4, 3500.00, 'Silo 3 - Propriedade Boa Família', '2026-02-05 09:00:00', 'Disponivel'),
+(5, 5, 2800.00, 'Silo 3 - Propriedade Boa Família', '2026-02-15 08:00:00', 'Disponivel'),
+(6, 6, 5000.00, 'Celeiro B - Propriedade Boa Família', '2025-08-25 11:00:00', 'Disponivel');
+-- Movimentoarmazenamento
+INSERT INTO movimentoarmazenamento (Id, ArmazenamentoId, TipoMovimentacao, Quantidade, DataMovimentacao, Observacoes) VALUES
+(1, 1, 'Venda', 7500.00, '2025-12-10 10:00:00', 'Recebimento da colheita de milho'),
+(2, 1, 'Transferencia', 5000.00, '2025-12-12 14:00:00', 'Venda para cooperativa'),
+(3, 2, 'Ajuste', 4500.00, '2025-12-20 08:30:00', 'Recebimento da colheita de milho'),
+(4, 2, 'Venda', 4500.00, '2025-12-22 09:00:00', 'Venda para indústria de rações'),
+(5, 3, 'Venda', 1200.00, '2026-01-10 10:00:00', 'Recebimento da colheita de feijão'),
+(6, 3, 'Venda', 1200.00, '2026-01-12 08:00:00', 'Venda para mercado municipal'),
+(7, 4, 'Venda', 3500.00, '2026-02-05 09:00:00', 'Recebimento da colheita de soja'),
+(8, 4, 'Ajuste', 3500.00, '2026-02-08 10:00:00', 'Venda para trading'),
+(9, 5, 'Venda', 2800.00, '2026-02-15 08:00:00', 'Recebimento da colheita de soja'),
+(10, 5, 'Venda', 2800.00, '2026-02-18 09:30:00', 'Venda para trading'),
+(11, 6, 'Transferencia', 5000.00, '2025-08-25 11:00:00', 'Recebimento da colheita de trigo'),
+(12, 6, 'Ajuste', 5000.00, '2025-08-28 10:00:00', 'Venda para moinho');
