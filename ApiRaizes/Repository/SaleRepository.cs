@@ -22,7 +22,6 @@ namespace ApiRaizes.Repository
                 string sql = @$"
                           SELECT ID AS {nameof(SaleEntity.Id)},
                          COLHEITAID AS {nameof(SaleEntity.ColheitaId)},
-                          ESPECIEID AS {nameof(SaleEntity.EspecieId)},
                          QUANTIDADE AS {nameof(SaleEntity.Quantidade)},
                       PRECOUNITARIO AS {nameof(SaleEntity.PrecoUnitario)},
                          PRECOTOTAL AS {nameof(SaleEntity.PrecoTotal)},
@@ -38,8 +37,8 @@ namespace ApiRaizes.Repository
         public async Task Insert(SaleInsertDTO sale)
         {
             string sql = @$"
-                INSERT INTO VENDA (COLHEITAID,ESPECIEID,QUANTIDADE,PRECOUNITARIO,COMPRADOR,UNIDADEMEDIDAID,DATAVENDA)
-                VALUES (@ColheitaId,@EspecieId,@Quantidade,@PrecoUnitario,@Comprador,@UnidadeMedidaId,@DataVenda)                                                         
+                INSERT INTO VENDA (COLHEITAID,QUANTIDADE,PRECOUNITARIO,COMPRADOR,UNIDADEMEDIDAID,DATAVENDA)
+                VALUES (@ColheitaId,@Quantidade,@PrecoUnitario,@Comprador,@UnidadeMedidaId,@DataVenda)                                                         
             ";
             await _connection.Execute(sql, sale);
         }
@@ -55,7 +54,6 @@ namespace ApiRaizes.Repository
                 string sql = @$"
                              SELECT ID AS {nameof(SaleEntity.Id)},
                          COLHEITAID AS {nameof(SaleEntity.ColheitaId)},
-                          ESPECIEID AS {nameof(SaleEntity.EspecieId)},
                          QUANTIDADE AS {nameof(SaleEntity.Quantidade)},
                       PRECOUNITARIO AS {nameof(SaleEntity.PrecoUnitario)},
                          PRECOTOTAL AS {nameof(SaleEntity.PrecoTotal)},
@@ -75,7 +73,6 @@ namespace ApiRaizes.Repository
             string sql = @$"
                                          UPDATE   VENDA
                                  SET COLHEITAID = @ColheitaId,
-                                      ESPECIEID = @EspecieId,
                                      QUANTIDADE = @Quantidade,
                                   PRECOUNITARIO = @PrecoUnitario,
                                     COMPRADOR = @Comprador,

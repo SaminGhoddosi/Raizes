@@ -10,7 +10,6 @@
         public string Nome { get; set; }
         public int CidadeId { get; set; }
         public int UsuarioId { get; set; }
-        public int Status { get; set; }
         public decimal Tamanho { get; set; }
         public StatusCulture Cultura { get; set; }
         public int UnidadeMedidaId { get; set; }

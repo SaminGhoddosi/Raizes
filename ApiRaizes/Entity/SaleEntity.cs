@@ -4,7 +4,6 @@
     {
         public int Id { get; set; }
         public int ColheitaId { get; set; }
-        public int EspecieId { get; set; }
         public decimal Quantidade { get; set; }
 
         public decimal PrecoUnitario { get; set; }

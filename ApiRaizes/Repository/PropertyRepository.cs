@@ -24,7 +24,6 @@ namespace ApiRaizes.Repository
                                          NOME AS {nameof(PropertyEntity.Nome)},
                                      CIDADEID AS {nameof(PropertyEntity.CidadeId)},
                                     USUARIOID AS {nameof(PropertyEntity.UsuarioId)},
-                                       STATUS AS {nameof(PropertyEntity.Status)},
                                      TAMANHO AS {nameof(PropertyEntity.Tamanho)},
                                       CULTURA AS {nameof(PropertyEntity.Cultura)},
                               UNIDADEMEDIDAID AS {nameof(PropertyEntity.UnidadeMedidaId)}
@@ -37,8 +36,8 @@ namespace ApiRaizes.Repository
         public async Task Insert(PropertyInsertDTO property)
         {
             string sql = @"
-                INSERT INTO PROPRIEDADE (NOME, CIDADEID, USUARIOID, STATUS, TAMANHO, CULTURA, UNIDADEMEDIDAID)
-                     VALUES (@Nome, @CidadeId, @UsuarioId, @Status, @Tamanho, @Cultura, @UnidadeMedidaId)
+                INSERT INTO PROPRIEDADE (NOME, CIDADEID, USUARIOID, TAMANHO, CULTURA, UNIDADEMEDIDAID)
+                     VALUES (@Nome, @CidadeId, @UsuarioId, @Tamanho, @Cultura, @UnidadeMedidaId)
             ";
 
             await _connection.Execute(sql, property);
@@ -57,7 +56,6 @@ namespace ApiRaizes.Repository
                           NOME AS {nameof(PropertyEntity.Nome)},
                       CIDADEID AS {nameof(PropertyEntity.CidadeId)},
                      USUARIOID AS {nameof(PropertyEntity.UsuarioId)},
-                        STATUS AS {nameof(PropertyEntity.Status)},
                       TAMANHO AS {nameof(PropertyEntity.Tamanho)},
                        CULTURA AS {nameof(PropertyEntity.Cultura)},
                UNIDADEMEDIDAID AS {nameof(PropertyEntity.UnidadeMedidaId)}
@@ -76,7 +74,6 @@ namespace ApiRaizes.Repository
                                  SET NOME = @Nome,
                                        CIDADEID = @CidadeId,
                                       USUARIOID = @UsuarioId,
-                                         STATUS = @Status,
                                        TAMANHO = @Tamanho,
                                         CULTURA = @Cultura,
                                UNIDADEMEDIDAID = @UnidadeMedidaId
