@@ -1,7 +1,7 @@
 function apiHandShake() {
     const token = localStorage.getItem('token');
     if (!token) {
-        window.location.href = "index.html";
+        window.location.href = "login.html";
     } else {
         fetch("https://localhost:7027/User/HandShake", {
             method: "GET",
@@ -15,7 +15,7 @@ function apiHandShake() {
         })
             .catch((error) => {
                 localStorage.clear();
-                window.location.href = "index.html";
+                window.location.href = "login.html";
             })
     }
 }
