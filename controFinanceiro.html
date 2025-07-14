@@ -137,13 +137,13 @@
   <div class="flex-1 ml-16 p-8">
     <!-- Header -->
     <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-800 mb-2">Controle Financeiro</h1>
+      <h1 class="text-3xl font-bold text-gray-800 mb-2">Gestão Financeira</h1>
       <p class="text-gray-600">Gerencie suas finanças de forma eficiente</p>
     </div>
 
     <!-- Cards de Resumo -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-      <!-- Card Lucro -->
+      <!-- Card Saldo -->
       <div class="bg-white rounded-xl shadow-md p-6 card-hover">
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center">
@@ -152,7 +152,7 @@
                 <path d="M7 14l5-5 5 5z"/>
               </svg>
             </div>
-            <span class="ml-3 text-gray-600 font-medium">Lucro</span>
+            <span class="ml-3 text-gray-600 font-medium">Saldo</span>
           </div>
         </div>
         <div class="text-2xl font-bold text-gray-800">R$ 1589,65</div>
@@ -167,7 +167,7 @@
                 <path d="M7 10l5 5 5-5z"/>
               </svg>
             </div>
-            <span class="ml-3 text-gray-600 font-medium">Prejuízo</span>
+            <span class="ml-3 text-gray-600 font-medium">Despesas</span>
           </div>
         </div>
         <div class="text-2xl font-bold text-gray-800">R$ 1589,65</div>
@@ -214,9 +214,10 @@
         <div class="bg-white rounded-xl shadow-md p-6">
           <div class="flex items-center justify-between mb-6">
             <h2 class="text-xl font-bold text-gray-800">Transações Recentes</h2>
-            <button class="bg-green-medium hover:bg-green-dark text-white px-4 py-2 rounded-lg transition-colors">
-              + Novo Item
+            <button class="bg-[#16A34A] hover:bg-[#31572C] text-white px-4 py-2 rounded-lg transition-colors">
+             + Novo Item
             </button>
+
           </div>
           
           <div class="overflow-x-auto">
@@ -288,13 +289,13 @@
     const financialChart = new Chart(ctx, {
       type: 'pie',
       data: {
-        labels: ['Receitas', 'Despesas', 'Lucro'],
+        labels: ['Receitas', 'Despesas', 'Saldo '],
         datasets: [{
           data: [45, 35, 20],
           backgroundColor: [
-            '#4D841D',
-            '#A5C96F', 
-            '#FF6B35'
+            '#2563EB',
+            '#DC2626',
+            '#16A34A'
           ],
           borderWidth: 0
         }]
