@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sidebar Tailwind Expandida</title>
+  <title>Sidebar</title>
+  <link rel="icon" type="image/png" href="assets/logo_perfil.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -95,12 +96,14 @@
     body.sidebar-expanded #main-content {
       margin-left: 16rem;
     }
+    
   </style>
 </head>
 <body class="bg-gray-100">
 
   <!-- Sidebar -->
-  <div class="sidebar flex flex-col py-4 shadow-lg" id="sidebar">
+  <div class="sidebar flex flex-col justify-between py-4 shadow-lg" id="sidebar">
+
     <!-- Logo -->
     <div class="mb-6 flex items-center justify-center overflow-hidden">
       <div class="logo-container">
