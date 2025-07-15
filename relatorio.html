@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios</title>
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'green-dark': '#31572C',
+              'green-medium': '#4D841D',
+              'green-light': '#A5C96F',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      .sidebar {
+        transition: width 0.3s ease;
+        width: 4rem;
+        overflow-x: hidden;
+      }
+      .sidebar:hover {
+        width: 16rem;
+      }
+      .sidebar:hover .nav-text {
+        opacity: 1;
+        margin-left: 1rem;
+        pointer-events: auto;
+      }
+      .nav-text {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease, margin-left 0.3s ease;
+        white-space: nowrap;
+      }
+      /* Troca de logo conforme expansão da sidebar */
+      .sidebar .logo-expandida {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .sidebar:hover .logo-expandida {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .sidebar .logo-retraida {
+        opacity: 1;
+      }
+      .sidebar:hover .logo-retraida {
+        opacity: 0;
+      }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="flex min-h-screen bg-gray-100">
+        <div id="sidebar-container"></div>
+        <main class="flex-1 ml-16 p-12">
+            <h1 class="text-5xl font-bold text-gray-400 mb-8">Relatórios</h1>
+            <div class="flex items-center gap-8 mb-8">
+                <!-- Botão de download -->
+                <button class="bg-white border-2 border-[#245937] text-[#245937] rounded-full w-16 h-16 flex items-center justify-center shadow hover:bg-[#245937] hover:text-white transition">
+                    <img src="assets/relatorio.png" alt="Download" class="w-8 h-8">
+                </button>
+                <!-- Campo de busca -->
+                <div class="relative w-full max-w-xl">
+                    <input type="text" placeholder="Buscar relatório..." class="w-full pl-12 pr-4 py-3 rounded-lg border-2 border-[#b6d7b9] focus:outline-none focus:ring-2 focus:ring-[#245937] bg-white text-gray-700 text-lg shadow-sm">
+                    <span class="absolute left-4 top-3 text-[#245937]">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            <!-- Card da tabela -->
+            <div class="bg-white rounded-2xl shadow p-6 overflow-x-auto">
+                <table class="min-w-full">
+                    <thead>
+                        <tr>
+                            <th class="px-6 py-3 text-left text-base font-semibold text-gray-400">Data</th>
+                            <th class="px-6 py-3 text-left text-base font-semibold text-gray-400">Tipo</th>
+                            <th class="px-6 py-3 text-left text-base font-semibold text-gray-400">Descrição</th>
+                            <th class="px-6 py-3 text-left text-base font-semibold text-gray-400">Responsável</th>
+                            <th class="px-6 py-3 text-left text-base font-semibold text-gray-400">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Exemplo de linhas fictícias, substitua por dados dinâmicos futuramente -->
+                        <tr class="bg-gray-100 rounded-lg">
+                            <td class="px-6 py-3 rounded-l-lg">12/04/2024</td>
+                            <td class="px-6 py-3">Financeiro</td>
+                            <td class="px-6 py-3">Relatório mensal de receitas e despesas.</td>
+                            <td class="px-6 py-3">João Silva</td>
+                            <td class="px-6 py-3 rounded-r-lg flex gap-2">
+                                <button class="bg-[#245937] text-white px-4 py-1 rounded hover:bg-green-800 transition text-sm">Ver</button>
+                                <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded hover:bg-gray-300 transition text-sm">Baixar</button>
+                            </td>
+                        </tr>
+                        <tr class="bg-gray-200 rounded-lg">
+                            <td class="px-6 py-3 rounded-l-lg">10/04/2024</td>
+                            <td class="px-6 py-3">Produção</td>
+                            <td class="px-6 py-3">Resumo da produção agrícola do mês.</td>
+                            <td class="px-6 py-3">Maria Souza</td>
+                            <td class="px-6 py-3 rounded-r-lg flex gap-2">
+                                <button class="bg-[#245937] text-white px-4 py-1 rounded hover:bg-green-800 transition text-sm">Ver</button>
+                                <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded hover:bg-gray-300 transition text-sm">Baixar</button>
+                            </td>
+                        </tr>
+                        <tr class="bg-gray-100 rounded-lg">
+                            <td class="px-6 py-3 rounded-l-lg">08/04/2024</td>
+                            <td class="px-6 py-3">Clima</td>
+                            <td class="px-6 py-3">Análise climática semanal da fazenda.</td>
+                            <td class="px-6 py-3">Carlos Lima</td>
+                            <td class="px-6 py-3 rounded-r-lg flex gap-2">
+                                <button class="bg-[#245937] text-white px-4 py-1 rounded hover:bg-green-800 transition text-sm">Ver</button>
+                                <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded hover:bg-gray-300 transition text-sm">Baixar</button>
+                            </td>
+                        </tr>
+                        <!-- Repita ou popule dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- Comentários para JS: -->
+            <!--
+                - Popular a tabela de relatórios via JS futuramente
+                - Implementar filtro de busca
+                - Implementar ação do botão de download
+            -->
+        </main>
+    </div>
+    <script>
+      // Carrega a sidebar dinamicamente
+      fetch('sidebar.html')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Sidebar não encontrada');
+          }
+          return response.text();
+        })
+        .then(data => {
+          document.getElementById('sidebar-container').innerHTML = data;
+
+          // Depois que a sidebar foi carregada, adiciona o listener do botão logout
+          const logoutBtn = document.getElementById('logout');
+          if (logoutBtn) {
+            logoutBtn.addEventListener('click', function () {
+              localStorage.removeItem('token');
+              localStorage.removeItem('user');
+              window.location.href = "login.html";
+            });
+          }
+
+          // Destaca o menu atual se quiser
+          const navbar = document.querySelector('#home');
+          if (navbar) {
+            navbar.classList.add('bg-white/20');
+          }
+        })
+        .catch(error => {
+          console.error('Erro ao carregar sidebar:', error);
+          // Fallback caso a sidebar não carregue
+          document.getElementById('sidebar-container').innerHTML = '<div class="w-16 bg-gray-800 min-h-screen"></div>';
+        });
+    </script>
+</body>
+</html>

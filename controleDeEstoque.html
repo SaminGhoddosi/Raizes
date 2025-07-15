@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controle de Estoque</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'green-dark': '#31572C',
+            'green-medium': '#4D841D',
+            'green-light': '#A5C96F',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <div class="flex min-h-screen bg-gray-100">
+    <div id="sidebar-container"></div>
+    <main class="flex-1 ml-16 p-4 sm:p-8 md:p-12">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+        <h1 class="text-3xl sm:text-4xl font-bold text-gray-500">Controle de Estoque</h1>
+        <button class="bg-green-dark text-white px-6 py-2 rounded-lg shadow hover:bg-green-medium transition-colors text-base font-semibold w-full sm:w-auto">+ Novo Item</button>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 max-w-3xl mx-auto">
+        <!-- Card Insumos -->
+        <div class="bg-white rounded-2xl shadow p-6 flex items-center gap-4 min-w-[260px]">
+          <div class="bg-green-light/30 rounded-full w-14 h-14 flex items-center justify-center">
+            <img src="assets/leaf.png" alt="Insumos" class="w-8 h-8">
+          </div>
+          <div>
+            <div class="text-gray-400 text-lg font-medium leading-tight">Insumos<br>Armazenados</div>
+            <div class="text-3xl font-bold text-gray-400 mt-2">41</div>
+          </div>
+        </div>
+        <!-- Card Equipamentos -->
+        <div class="bg-white rounded-2xl shadow p-6 flex items-center gap-4 min-w-[260px]">
+          <div class="bg-green-light/30 rounded-full w-14 h-14 flex items-center justify-center">
+            <img src="assets/estoque.png" alt="Equipamentos" class="w-8 h-8">
+          </div>
+          <div>
+            <div class="text-gray-400 text-lg font-medium leading-tight">Equipamentos<br>Armazenados</div>
+            <div class="text-3xl font-bold text-gray-400 mt-2">41</div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white rounded-2xl shadow p-6 max-w-4xl mx-auto mt-4">
+        <div class="text-gray-500 text-lg font-semibold mb-4">Itens Armazenados</div>
+        <div class="space-y-2">
+          <!-- Exemplo de Item -->
+          <div class="flex items-center justify-between bg-gray-100 rounded-lg p-3 shadow-sm">
+            <div class="flex items-center gap-4">
+              <span class="px-3 py-1 rounded-lg bg-green-light text-white text-sm font-semibold min-w-[90px] text-center">Ferramenta</span>
+              <span class="text-gray-700 font-medium">xxxxxxxxxxxx</span>
+            </div>
+            <span class="text-gray-400 text-sm whitespace-nowrap">Data de Manutenção: xx/xx/xx</span>
+          </div>
+          <div class="flex items-center justify-between bg-gray-100 rounded-lg p-3 shadow-sm">
+            <div class="flex items-center gap-4">
+              <span class="px-3 py-1 rounded-lg bg-green-light text-white text-sm font-semibold min-w-[90px] text-center">Insumo</span>
+              <span class="text-gray-700 font-medium">xxxxxxxxxxxx</span>
+            </div>
+            <span class="text-gray-400 text-sm whitespace-nowrap">Data de Validade: xx/xx/xx</span>
+          </div>
+          <!-- Repita os itens conforme necessário -->
+        </div>
+      </div>
+    </main>
+  </div>
+  <script>
+    // Carrega a sidebar dinamicamente
+    fetch('sidebar.html')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Sidebar não encontrada');
+        }
+        return response.text();
+      })
+      .then(data => {
+        document.getElementById('sidebar-container').innerHTML = data;
+
+        // Depois que a sidebar foi carregada, adiciona o listener do botão logout
+        const logoutBtn = document.getElementById('logout');
+        if (logoutBtn) {
+          logoutBtn.addEventListener('click', function () {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = "login.html";
+          });
+        }
+
+        // Destaca o menu de estoque se desejar
+        // const estoqueBtn = document.querySelector('#estoque');
+        // if (estoqueBtn) {
+        //   estoqueBtn.classList.add('bg-white/20');
+        // }
+      })
+      .catch(error => {
+        console.error('Erro ao carregar sidebar:', error);
+        document.getElementById('sidebar-container').innerHTML = '<div class="w-16 bg-gray-800 min-h-screen"></div>';
+      });
+  </script>
+</body>
+</html> 
