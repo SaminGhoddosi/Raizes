@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios</title>
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'green-dark': '#31572C',
+              'green-medium': '#4D841D',
+              'green-light': '#A5C96F',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      .sidebar {
+        transition: width 0.3s ease;
+        width: 4rem;
+        overflow-x: hidden;
+      }
+      .sidebar:hover {
+        width: 16rem;
+      }
+      .sidebar:hover .nav-text {
+        opacity: 1;
+        margin-left: 1rem;
+        pointer-events: auto;
+      }
+      .nav-text {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease, margin-left 0.3s ease;
+        white-space: nowrap;
+      }
+      /* Troca de logo conforme expansão da sidebar */
+      .sidebar .logo-expandida {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .sidebar:hover .logo-expandida {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .sidebar .logo-retraida {
+        opacity: 1;
+      }
+      .sidebar:hover .logo-retraida {
+        opacity: 0;
+      }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex">
+    <!-- Sidebar expandida -->
+    <div class="sidebar h-screen bg-green-dark flex flex-col py-4 rounded-lg shadow-lg fixed left-0 top-0 z-10">
+      <!-- Logo dinâmica -->
+      <div class="mb-6 flex items-center justify-center">
+        <div class="relative w-40 flex items-center justify-center">
+          <!-- Logo grande (aparece só quando expandida) -->
+          <img src="assets/logo.png" alt="Logo Raízes" class="logo-expandida absolute left-0 top-0 w-40 h-12 object-contain opacity-0 pointer-events-none transition-all duration-300" />
+          <!-- Logo pequena (aparece quando retraída) -->
+          <img src="assets/logo_perfil.png" alt="Logo Perfil" class="logo-retraida w-10 h-10 object-contain transition-all duration-300" />
+        </div>
+      </div>
+      <!-- Separador -->
+      <div class="w-8 h-px bg-white mb-6 mx-auto"></div>
+      <!-- Navegação -->
+      <nav class="flex flex-col space-y-6 flex-1 px-2">
+        <button id="home" class="flex items-center text-white hover:bg-white/10 rounded px-3 py-2 transition-colors w-full justify-start">
+          <img src="assets/home.png" class="w-5 h-5 flex-shrink-0" alt="Home" />
+          <span class="nav-text font-semibold">Home</span>
+        </button>
+        <button class="flex items-center text-white hover:bg-white/10 rounded px-3 py-2 transition-colors w-full justify-start">
+          <img src="assets/leaf.png" class="w-5 h-5 flex-shrink-0" alt="Cultivo" />
+          <span class="nav-text font-semibold">Gestão de Cultivo</span>
+        </button>
+        <button class="flex items-center text-white hover:bg-white/10 rounded px-3 py-2 transition-colors w-full justify-start">
+          <img src="assets/coins.png" class="w-5 h-5 flex-shrink-0" alt="Documentos" />
+          <span class="nav-text font-semibold">Gestão Financeira</span>
+        </button>
+        <button class="flex items-center text-white hover:bg-white/10 rounded px-3 py-2 transition-colors w-full justify-start">
+          <img src="assets/box.png" class="w-5 h-5 flex-shrink-0" alt="Estoque" />
+          <span class="nav-text font-semibold">Controle de Estoque</span>
+        </button>
+        <button class="flex items-center text-white hover:bg-white/10 rounded px-3 py-2 transition-colors w-full justify-start">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </svg>
+          <span class="nav-text font-semibold">Relatórios</span>
+        </button>
+      </nav>
+      <!-- Separador -->
+      <div class="w-8 h-px bg-white mb-6 mx-auto"></div>
+      <!-- Rodapé -->
+      <div class="flex flex-col items-center space-y-4 px-3">
+        <div class="w-8 h-8 rounded-full overflow-hidden">
+          <img src="assets/user.png" alt="Profile" class="w-full h-full object-cover" />
+        </div>
+        <button id="logout" class="flex items-center text-white hover:bg-white/10 rounded px-3 py-2 transition-colors w-full justify-start">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
+          <span class="nav-text font-semibold">Logout</span>
+        </button>
+      </div>
+    </div>
+    <main class="flex-1 ml-24 p-12">
+        <h1 class="text-5xl font-bold text-gray-400 mb-8">Relatórios</h1>
+        <div class="flex items-center gap-8 mb-8">
+            <!-- Botão de download -->
+            <button class="bg-white border-2 border-[#245937] text-[#245937] rounded-full w-16 h-16 flex items-center justify-center shadow hover:bg-[#245937] hover:text-white transition">
+                <img src="assets/relatorio.png" alt="Download" class="w-8 h-8">
+            </button>
+            <!-- Campo de busca -->
+            <div class="relative w-full max-w-xl">
+                <input type="text" placeholder="Buscar relatório..." class="w-full pl-12 pr-4 py-3 rounded-lg border-2 border-[#b6d7b9] focus:outline-none focus:ring-2 focus:ring-[#245937] bg-white text-gray-700 text-lg shadow-sm">
+                <span class="absolute left-4 top-3 text-[#245937]">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+                    </svg>
+                </span>
+            </div>
+        </div>
+        <!-- Card da tabela -->
+        <div class="bg-white rounded-2xl shadow p-6 overflow-x-auto">
+            <table class="min-w-full">
+                <thead>
+                    <tr>
+                        <th class="px-6 py-3 text-left text-base font-semibold text-gray-400">Data</th>
+                        <th class="px-6 py-3 text-left text-base font-semibold text-gray-400">Tipo</th>
+                        <th class="px-6 py-3 text-left text-base font-semibold text-gray-400">Descrição</th>
+                        <th class="px-6 py-3 text-left text-base font-semibold text-gray-400">Responsável</th>
+                        <th class="px-6 py-3 text-left text-base font-semibold text-gray-400">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Exemplo de linhas fictícias, substitua por dados dinâmicos futuramente -->
+                    <tr class="bg-gray-100 rounded-lg">
+                        <td class="px-6 py-3 rounded-l-lg">12/04/2024</td>
+                        <td class="px-6 py-3">Financeiro</td>
+                        <td class="px-6 py-3">Relatório mensal de receitas e despesas.</td>
+                        <td class="px-6 py-3">João Silva</td>
+                        <td class="px-6 py-3 rounded-r-lg flex gap-2">
+                            <button class="bg-[#245937] text-white px-4 py-1 rounded hover:bg-green-800 transition text-sm">Ver</button>
+                            <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded hover:bg-gray-300 transition text-sm">Baixar</button>
+                        </td>
+                    </tr>
+                    <tr class="bg-gray-200 rounded-lg">
+                        <td class="px-6 py-3 rounded-l-lg">10/04/2024</td>
+                        <td class="px-6 py-3">Produção</td>
+                        <td class="px-6 py-3">Resumo da produção agrícola do mês.</td>
+                        <td class="px-6 py-3">Maria Souza</td>
+                        <td class="px-6 py-3 rounded-r-lg flex gap-2">
+                            <button class="bg-[#245937] text-white px-4 py-1 rounded hover:bg-green-800 transition text-sm">Ver</button>
+                            <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded hover:bg-gray-300 transition text-sm">Baixar</button>
+                        </td>
+                    </tr>
+                    <tr class="bg-gray-100 rounded-lg">
+                        <td class="px-6 py-3 rounded-l-lg">08/04/2024</td>
+                        <td class="px-6 py-3">Clima</td>
+                        <td class="px-6 py-3">Análise climática semanal da fazenda.</td>
+                        <td class="px-6 py-3">Carlos Lima</td>
+                        <td class="px-6 py-3 rounded-r-lg flex gap-2">
+                            <button class="bg-[#245937] text-white px-4 py-1 rounded hover:bg-green-800 transition text-sm">Ver</button>
+                            <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded hover:bg-gray-300 transition text-sm">Baixar</button>
+                        </td>
+                    </tr>
+                    <!-- Repita ou popule dinamicamente -->
+                </tbody>
+            </table>
+        </div>
+        <!-- Comentários para JS: -->
+        <!--
+            - Popular a tabela de relatórios via JS futuramente
+            - Implementar filtro de busca
+            - Implementar ação do botão de download
+        -->
+    </main>
+    <script>
+      document.getElementById('logout').addEventListener('click', function () {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = "index.html";
+      });
+    </script>
+</body>
+</html>
