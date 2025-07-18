@@ -133,59 +133,66 @@
         </div>
       </div>
       
-      <div class="bg-white rounded-2xl shadow p-3 md:p-6 overflow-x-auto">
-        <div class="min-w-[600px]">
-          <table class="w-full">
-            <thead>
-              <tr>
-                <th class="px-3 md:px-6 py-3 text-left text-sm md:text-base font-semibold text-gray-400">Data</th>
-                <th class="px-3 md:px-6 py-3 text-left text-sm md:text-base font-semibold text-gray-400">Tipo</th>
-                <th class="px-3 md:px-6 py-3 text-left text-sm md:text-base font-semibold text-gray-400">Descrição</th>
-                <th class="px-3 md:px-6 py-3 text-left text-sm md:text-base font-semibold text-gray-400">Responsável</th>
-                <th class="px-3 md:px-6 py-3 text-left text-sm md:text-base font-semibold text-gray-400">Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Linhas de exemplo -->
-              <tr class="bg-gray-100 rounded-lg">
-                <td class="px-3 md:px-6 py-3 rounded-l-lg text-sm md:text-base">12/04/2024</td>
-                <td class="px-3 md:px-6 py-3 text-sm md:text-base">Financeiro</td>
-                <td class="px-3 md:px-6 py-3 text-sm md:text-base">Relatório mensal de receitas e despesas.</td>
-                <td class="px-3 md:px-6 py-3 text-sm md:text-base">João Silva</td>
-                <td class="px-3 md:px-6 py-3 rounded-r-lg">
-                  <div class="flex flex-col sm:flex-row gap-2">
-                    <button class="bg-[#245937] text-white px-3 md:px-4 py-1 rounded hover:bg-green-800 transition text-xs md:text-sm whitespace-nowrap">Ver</button>
-                    <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded hover:bg-gray-300 transition text-xs md:text-sm whitespace-nowrap">Baixar</button>
-                  </div>
-                </td>
-              </tr>
-              <tr class="bg-gray-100 rounded-lg">
-                <td class="px-3 md:px-6 py-3 rounded-l-lg text-sm md:text-base">10/04/2024</td>
-                <td class="px-3 md:px-6 py-3 text-sm md:text-base">Vendas</td>
-                <td class="px-3 md:px-6 py-3 text-sm md:text-base">Relatório de vendas do primeiro trimestre.</td>
-                <td class="px-3 md:px-6 py-3 text-sm md:text-base">Maria Santos</td>
-                <td class="px-3 md:px-6 py-3 rounded-r-lg">
-                  <div class="flex flex-col sm:flex-row gap-2">
-                    <button class="bg-[#245937] text-white px-3 md:px-4 py-1 rounded hover:bg-green-800 transition text-xs md:text-sm whitespace-nowrap">Ver</button>
-                    <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded hover:bg-gray-300 transition text-xs md:text-sm whitespace-nowrap">Baixar</button>
-                  </div>
-                </td>
-              </tr>
-              <tr class="bg-gray-100 rounded-lg">
-                <td class="px-3 md:px-6 py-3 rounded-l-lg text-sm md:text-base">08/04/2024</td>
-                <td class="px-3 md:px-6 py-3 text-sm md:text-base">Estoque</td>
-                <td class="px-3 md:px-6 py-3 text-sm md:text-base">Relatório de controle de estoque mensal.</td>
-                <td class="px-3 md:px-6 py-3 text-sm md:text-base">Pedro Costa</td>
-                <td class="px-3 md:px-6 py-3 rounded-r-lg">
-                  <div class="flex flex-col sm:flex-row gap-2">
-                    <button class="bg-[#245937] text-white px-3 md:px-4 py-1 rounded hover:bg-green-800 transition text-xs md:text-sm whitespace-nowrap">Ver</button>
-                    <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded hover:bg-gray-300 transition text-xs md:text-sm whitespace-nowrap">Baixar</button>
-                  </div>
-                </td>
-              </tr>
-              <!-- Adicione mais conforme necessário -->
-            </tbody>
-          </table>
+      <!-- Tabela de Relatórios -->
+      <div class="grid grid-cols-1 gap-8">
+        <div class="bg-white rounded-xl shadow-md p-6">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-bold text-gray-800">Relatórios Recentes</h2>
+            <button class="bg-[#16A34A] hover:bg-[#31572C] text-white px-4 py-2 rounded-lg transition-colors">
+              + Novo Relatório
+            </button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="border-b border-gray-200">
+                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Data</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Tipo</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Descrição</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Responsável</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="hover:bg-gray-50 transition">
+                  <td class="py-3 px-4">12/04/2024</td>
+                  <td class="py-3 px-4">Financeiro</td>
+                  <td class="py-3 px-4">Relatório mensal de receitas e despesas.</td>
+                  <td class="py-3 px-4">João Silva</td>
+                  <td class="py-3 px-4">
+                    <div class="flex gap-2">
+                      <button class="bg-[#245937] text-white px-3 py-1 rounded hover:bg-green-800 transition text-xs whitespace-nowrap">Ver</button>
+                      <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded hover:bg-gray-300 transition text-xs whitespace-nowrap">Baixar</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="hover:bg-gray-50 transition">
+                  <td class="py-3 px-4">10/04/2024</td>
+                  <td class="py-3 px-4">Vendas</td>
+                  <td class="py-3 px-4">Relatório de vendas do primeiro trimestre.</td>
+                  <td class="py-3 px-4">Maria Santos</td>
+                  <td class="py-3 px-4">
+                    <div class="flex gap-2">
+                      <button class="bg-[#245937] text-white px-3 py-1 rounded hover:bg-green-800 transition text-xs whitespace-nowrap">Ver</button>
+                      <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded hover:bg-gray-300 transition text-xs whitespace-nowrap">Baixar</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="hover:bg-gray-50 transition">
+                  <td class="py-3 px-4">08/04/2024</td>
+                  <td class="py-3 px-4">Estoque</td>
+                  <td class="py-3 px-4">Relatório de controle de estoque mensal.</td>
+                  <td class="py-3 px-4">Pedro Costa</td>
+                  <td class="py-3 px-4">
+                    <div class="flex gap-2">
+                      <button class="bg-[#245937] text-white px-3 py-1 rounded hover:bg-green-800 transition text-xs whitespace-nowrap">Ver</button>
+                      <button class="bg-gray-200 text-gray-700 px-3 py-1 rounded hover:bg-gray-300 transition text-xs whitespace-nowrap">Baixar</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </main>
