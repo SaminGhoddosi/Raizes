@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sidebar</title>
+  <link rel="icon" type="image/png" href="assets/logo_perfil.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'green-dark': '#31572C',
+            'green-medium': '#4D841D',
+            'green-light': '#A5C96F',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 4rem;
+      transition: width 0.3s ease;
+      background-color: #31572C;
+      overflow-x: hidden;
+      z-index: 40;
+    }
+
+    .sidebar:hover {
+      width: 16rem;
+    }
+
+    .sidebar:hover .nav-text {
+      opacity: 1;
+      margin-left: 1rem;
+      pointer-events: auto;
+    }
+
+    .nav-text {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, margin-left 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .logo-container {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      transition: all 0.3s ease;
+    }
+
+    .logo-default,
+    .logo-expanded {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .logo-default {
+      opacity: 1;
+      width: 40px;
+    }
+
+    .logo-expanded {
+      opacity: 0;
+      width: 120px;
+      margin-left: -10px;
+    }
+
+    .sidebar:hover .logo-container {
+      width: 120px;
+    }
+
+    .sidebar:hover .logo-default {
+      opacity: 0;
+    }
+
+    .sidebar:hover .logo-expanded {
+      opacity: 1;
+    }
+
+    /* Mover conteúdo principal quando sidebar expandir */
+    #main-content {
+      margin-left: 4rem;
+      transition: margin-left 0.3s ease;
+    }
+
+    body.sidebar-expanded #main-content {
+      margin-left: 16rem;
+    }
+    
+  </style>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Sidebar -->
+  <div class="sidebar flex flex-col justify-between py-4 shadow-lg" id="sidebar">
+
+    <!-- Logo -->
+    <div class="mb-6 flex items-center justify-center overflow-hidden">
+      <div class="logo-container">
+        <img src="assets/logo_perfil.png" alt="Logo" class="logo-default w-10 h-10 rounded-full" />
+        <img src="assets/logo raizes.png" alt="Logo Expandida" class="logo-expanded h-10 rounded-full" />
+      </div>
+    </div>
+
+    <div class="w-8 h-px bg-white mb-6 mx-auto"></div>
+
+    <!-- Navegação -->
+    <nav class="flex flex-col space-y-6 flex-1 px-2">
+      <a href="home.html" class="flex items-center text-white hover:bg-white/10 rounded px-3 py-2 transition-colors">
+        <img src="assets/home.png" class="w-5 h-5" alt="Home" />
+        <span class="nav-text font-semibold">Home</span>
+      </a>
+
+      <a href="gestaoDeCultivo.html" class="flex items-center text-white hover:bg-white/10 rounded px-3 py-2 transition-colors">
+        <img src="assets/leaf.png" class="w-5 h-5" alt="Cultivo" />
+        <span class="nav-text font-semibold">Gestão de Cultivo</span>
+      </a>
+
+      <a href="controFinanceiro.html" class="flex items-center text-white hover:bg-white/10 rounded px-3 py-2 transition-colors">
+        <img src="assets/coins.png" class="w-5 h-5" alt="Financeiro" />
+        <span class="nav-text font-semibold">Gestão Financeira</span>
+      </a>
+
+      <button class="flex items-center text-white hover:bg-white/10 rounded px-3 py-2 transition-colors w-full justify-start">
+        <img src="assets/box.png" class="w-5 h-5 flex-shrink-0" alt="Estoque" />
+         <a href="controleDeEstoque.html">
+             <span class="nav-text font-semibold">Controle de Estoque</span>
+        </a>
+      </button>
+
+      <a href="relatorio.html" class="flex items-center text-white hover:bg-white/10 rounded px-3 py-2 transition-colors">
+        <img src="assets/relatorio.png" class="w-5 h-5" alt="Relatorio" />
+        <span class="nav-text font-semibold">Relatórios</span>
+      </a>
+
+    <!-- Rodapé -->
+    <div class="w-8 h-px bg-white my-6 mx-auto"></div>
+
+    <div class="flex flex-col items-center space-y-4 px-3">
+      <div class="w-8 h-8 rounded-full overflow-hidden">
+        <img src="assets/logo_perfil.png" alt="Perfil" class="w-full h-full object-cover" />
+      </div>
+      <button id="logout" class="flex items-center text-white hover:bg-white/10 rounded px-3 py-2 transition-colors w-full justify-start">
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+        </svg>
+        <span class="nav-text font-semibold">Logout</span>
+      </button>
+    </div>
+  </div>
+  <!-- Scripts -->
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    sidebar.addEventListener('mouseenter', () => {
+      document.body.classList.add('sidebar-expanded');
+    });
+    sidebar.addEventListener('mouseleave', () => {
+      document.body.classList.remove('sidebar-expanded');
+    });
+
+    document.getElementById('logout').addEventListener('click', function () {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>
