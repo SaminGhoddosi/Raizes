@@ -232,25 +232,32 @@
   </script>
 
   <!-- API ou outros scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // Fallback caso api.js não exista
-    if (typeof fetch !== 'undefined') {
-      fetch('api.js')
-        .then(response => {
-          if (response.ok) {
-            return response.text();
+    document.addEventListener('DOMContentLoaded', function () {
+      const ctx = document.getElementById('financialChart');
+      if (ctx && window.Chart) {
+        new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Receita', 'Despesas', 'Saldo'],
+            datasets: [{
+              data: [1200, 800, 1589.65],
+              backgroundColor: ['#2563EB', '#DC2626', '#16A34A'],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            plugins: {
+              legend: {
+                display: true,
+                position: 'bottom',
+              }
+            }
           }
-          throw new Error('API script não encontrado');
-        })
-        .then(script => {
-          const scriptElement = document.createElement('script');
-          scriptElement.textContent = script;
-          document.head.appendChild(scriptElement);
-        })
-        .catch(error => {
-          console.warn('API script não carregado:', error);
         });
-    }
+      }
+    });
   </script>
 </body>
 </html>
