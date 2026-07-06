@@ -4,142 +4,142 @@
 [![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-8.0-blue.svg)](https://dotnet.microsoft.com/)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-orange.svg)](https://www.mysql.com/)
 
-Um ERP completo desenvolvido para fortalecer a agricultura familiar, oferecendo aos pequenos produtores ferramentas simples e acessíveis para organizar finanças, planejar safras e tomar decisões com base em dados reais.
+A complete ERP built to strengthen family farming, giving small producers simple and accessible tools to organize their finances, plan harvests, and make decisions based on real data.
 
-## Sobre o Projeto
+## About the Project
 
-**Raízes** é uma solução ERP desenvolvida para atender às necessidades específicas da agricultura familiar. Como **Desenvolvedor Back-End**, fui responsável pela criação completa da API, implementando funcionalidades críticas para gestão agrícola.
+**Raízes** is an ERP solution developed to meet the specific needs of family farming. As **Back-End Developer**, I was responsible for the entire API build, implementing critical features for agricultural management.
 
-**Contexto:** Projeto apresentado na **Amostra de Talentos do Entra-21**, entregue no prazo e funcionando eficientemente.
+**Context:** Project presented at the **Entra-21 Talent Showcase**, delivered on time and running efficiently.
 
-## Estrutura do Projeto
+## Project Structure
 
 ```
 ApiRaizes/
-├── 📁 Contracts/                 # Contratos e interfaces
-│   ├── 📁 Infrastructure/        # Interfaces de infraestrutura
-│   ├── 📁 Repository/            # Interfaces dos repositórios
-│   └── 📁 Services/              # Interfaces dos serviços
-├── 📁 Controllers/               # Controladores da API
-│   ├── SaleController.cs         # Gestão de vendas
-│   ├── HarvestController.cs      # Gestão de colheitas
-│   ├── PlantingController.cs     # Gestão de plantios
-│   ├── UserController.cs         # Gestão de usuários
-│   └── (Outros controllers)
+├── 📁 Contracts/                 # Contracts and interfaces
+│   ├── 📁 Infrastructure/        # Infrastructure interfaces
+│   ├── 📁 Repository/            # Repository interfaces
+│   └── 📁 Services/              # Service interfaces
+├── 📁 Controllers/               # API controllers
+│   ├── SaleController.cs         # Sales management
+│   ├── HarvestController.cs      # Harvest management
+│   ├── PlantingController.cs     # Planting management
+│   ├── UserController.cs         # User management
+│   └── (Other controllers)
 ├── 📁 DTO/                       # Data Transfer Objects
-├── 📁 Entity/                    # Entidades do domínio
-├── 📁 Infrastructure/            # Implementações de infraestrutura
-│   └── Connection.cs             # Conexão com banco de dados
-├── 📁 Repository/                # Implementações dos repositórios
-├── 📁 Response/                  # Modelos de resposta padronizados
-├── 📁 Services/                  # Camada de serviços
-├── Program.cs                    # Configuração e startup
-└── appsettings.json              # Configurações da aplicação
+├── 📁 Entity/                    # Domain entities
+├── 📁 Infrastructure/            # Infrastructure implementations
+│   └── Connection.cs             # Database connection
+├── 📁 Repository/                # Repository implementations
+├── 📁 Response/                  # Standardized response models
+├── 📁 Services/                  # Service layer
+├── Program.cs                    # App configuration and startup
+└── appsettings.json              # Application settings
 ```
 
-## Tecnologias e Conceitos Implementados
+## Technologies and Concepts Implemented
 
 ### Core Framework
-- **ASP.NET Core 8** - Framework principal
-- **Entity Framework Core** - ORM para acesso a dados
-- **MySQL** - Banco de dados relacional
+- **ASP.NET Core 8** - Main framework
+- **Entity Framework Core** - ORM for data access
+- **MySQL** - Relational database
 
-### Segurança e Autenticação
-- **JWT (JSON Web Tokens)** - Autenticação stateless
-- **Bearer Authentication** - Controle de acesso
-- **Token Validation** - Validação de tokens JWT
+### Security and Authentication
+- **JWT (JSON Web Tokens)** - Stateless authentication
+- **Bearer Authentication** - Access control
+- **Token Validation** - JWT token validation
 
-### Arquitetura e Padrões
-- **Repository Pattern** - Abstração da camada de dados
-- **Dependency Injection** - Inversão de controle
-- **DTO Pattern** - Separação entre modelos de domínio e transferência
-- **Service Layer** - Separação de responsabilidades
-- **Clean Architecture** - Arquitetura limpa e organizada
+### Architecture and Patterns
+- **Repository Pattern** - Data layer abstraction
+- **Dependency Injection** - Inversion of control
+- **DTO Pattern** - Separation between domain models and transfer objects
+- **Service Layer** - Separation of concerns
+- **Clean Architecture** - Clean, organized architecture
 
-### Documentação e API
-- **Swagger/OpenAPI** - Documentação interativa da API
-- **API Versioning** - Controle de versões
+### Documentation and API
+- **Swagger/OpenAPI** - Interactive API documentation
+- **API Versioning** - Version control
 - **CORS** - Cross-Origin Resource Sharing
 
-## Funcionalidades
+## Features
 
-###  Autenticação e Autorização
-- **Autenticação JWT** com tokens seguros
-- **Autorização baseada em claims** 
-- **Validação de tokens** com assinatura simétrica
+### Authentication and Authorization
+- **JWT Authentication** with secure tokens
+- **Claims-based authorization**
+- **Token validation** with symmetric signing
 
-###  Módulos do ERP Agrícola
-- **Gestão de Plantio** - Espécies, planejamento, matérias-primas
-- **Controle de Colheita** - Acompanhamento, armazenamento
-- **Gestão de Vendas** - CRM, histórico financeiro
-- **Controle de Estoque** - Matérias-primas, insumos
-- **Gestão de Equipamentos** - Maquinário agrícola
-- **Análise de Solo** - Histórico e tipos de solo
-- **Fornecedores** - Cadastro e gestão de parceiros
+### Agricultural ERP Modules
+- **Planting Management** - Species, planning, raw materials
+- **Harvest Control** - Tracking, storage
+- **Sales Management** - CRM, financial history
+- **Inventory Control** - Raw materials, supplies
+- **Equipment Management** - Farm machinery
+- **Soil Analysis** - History and soil types
+- **Suppliers** - Partner registration and management
 
-##  Configuração e Instalação
+## Setup and Installation
 
-### Pré-requisitos
+### Prerequisites
 - .NET 8 SDK
 - MySQL Server
-- Visual Studio 2022 ou VS Code
+- Visual Studio 2022 or VS Code
 
-### Configuração
-1. **Clone o repositório**
+### Configuration
+1. **Clone the repository**
    ```bash
-   git clone [url-do-repositorio]
+   git clone [repository-url]
    cd ApiRaizes
    ```
 
-2. **Configure a connection string** no `appsettings.json`:
+2. **Configure the connection string** in `appsettings.json`:
    ```json
    {
      "ConnectionStrings": {
-       "DefaultConnection": "Server=localhost;Database=RaizesERP;Uid=usuario;Pwd=senha;"
+       "DefaultConnection": "Server=localhost;Database=RaizesERP;Uid=user;Pwd=password;"
      },
      "JwtSettings": {
-       "SecretKey": "sua-chave-secreta-super-segura-aqui"
+       "SecretKey": "your-super-secure-secret-key-here"
      }
    }
    ```
 
-3. **Execute as migrations**:
+3. **Run the migrations**:
    ```bash
    dotnet ef database update
    ```
 
-4. **Execute a aplicação**:
+4. **Run the application**:
    ```bash
    dotnet run
    ```
 
-##  Uso da API
+## Using the API
 
-### Autenticação
+### Authentication
 
-1. **Login** (exemplo genérico):
+1. **Login** (generic example):
    ```http
    POST /api/auth/login
    Content-Type: application/json
 
    {
-     "email": "produtor@exemplo.com",
-     "password": "senha123"
+     "email": "producer@example.com",
+     "password": "password123"
    }
    ```
 
-### Exemplos de Requisições
+### Request Examples
 
-**Listar vendas (requer autenticação)**:
+**List sales (requires authentication)**:
 ```http
 GET /api/Sale
-Authorization: Bearer {seu-jwt-token}
+Authorization: Bearer {your-jwt-token}
 ```
 
-**Criar novo plantio (requer autenticação)**:
+**Create a new planting (requires authentication)**:
 ```http
 POST /api/Planting
-Authorization: Bearer {seu-jwt-token}
+Authorization: Bearer {your-jwt-token}
 Content-Type: application/json
 
 {
@@ -150,83 +150,83 @@ Content-Type: application/json
 }
 ```
 
-**Consultar colheitas**:
+**Query harvests**:
 ```http
 GET /api/Harvest
-Authorization: Bearer {seu-jwt-token}
+Authorization: Bearer {your-jwt-token}
 ```
 
-##  Segurança
+## Security
 
-- **JWT Authentication** com chaves simétricas
-- **Validação de tempo de vida** do token
-- **Bearer Token** em headers de autorização
-- **CORS** configurado para frontend
-- **Validação de dados** na camada de serviços
+- **JWT Authentication** with symmetric keys
+- **Token lifetime validation**
+- **Bearer Token** in authorization headers
+- **CORS** configured for the frontend
+- **Data validation** at the service layer
 
-##  Arquitetura
+## Architecture
 
-### Padrões de Design
-- **Repository Pattern** - Abstração completa da camada de dados
-- **Dependency Injection** - Injeção nativa do ASP.NET Core
-- **DTO Pattern** - Separação entre modelos de domínio e API
-- **Service Layer** - Centralização da lógica de negócio
+### Design Patterns
+- **Repository Pattern** - Full data layer abstraction
+- **Dependency Injection** - Native ASP.NET Core injection
+- **DTO Pattern** - Separation between domain models and API
+- **Service Layer** - Centralized business logic
 
-### Camadas da Aplicação
+### Application Layers
 ```
 ApiRaizes/
-├── Controllers/     # Endpoints da API
-├── Services/        # Lógica de negócio
-├── Repository/      # Acesso a dados
-├── Contracts/       # Interfaces e contratos
-├── Entity/          # Modelos de domínio
-└── DTO/            # Objetos de transferência
+├── Controllers/     # API endpoints
+├── Services/        # Business logic
+├── Repository/      # Data access
+├── Contracts/       # Interfaces and contracts
+├── Entity/          # Domain models
+└── DTO/            # Transfer objects
 ```
 
-##  Módulos Implementados
+## Implemented Modules
 
-### Gestão Agrícola
-- `Planting` - Plantio e planejamento
-- `Harvest` - Colheita e acompanhamento
-- `Species` - Espécies cultivadas
-- `SoilType` - Tipos de solo
+### Agricultural Management
+- `Planting` - Planting and planning
+- `Harvest` - Harvest and tracking
+- `Species` - Cultivated species
+- `SoilType` - Soil types
 
-### Gestão Comercial
-- `Sale` - Vendas e finanças
-- `Supplier` - Fornecedores
-- `StockMovement` - Movimentação de estoque
+### Commercial Management
+- `Sale` - Sales and finance
+- `Supplier` - Suppliers
+- `StockMovement` - Stock movement
 
-### Recursos
-- `Equipment` - Equipamentos agrícolas
-- `RawMaterial` - Matérias-primas
-- `Property` - Propriedades rurais
+### Resources
+- `Equipment` - Farm equipment
+- `RawMaterial` - Raw materials
+- `Property` - Rural properties
 
 
-##  Aprendizados
+## Key Takeaways
 
-### Conceitos Dominados
--  **ASP.NET Core 8** e Web APIs
--  **Entity Framework Core** com MySQL
--  **JWT Authentication** e segurança
--  **Repository Pattern** e Dependency Injection
--  **Clean Architecture** e separação de concerns
--  **Swagger/OpenAPI** para documentação
--  **CORS** e configuração de frontend
+### Concepts Mastered
+- **ASP.NET Core 8** and Web APIs
+- **Entity Framework Core** with MySQL
+- **JWT Authentication** and security
+- **Repository Pattern** and Dependency Injection
+- **Clean Architecture** and separation of concerns
+- **Swagger/OpenAPI** for documentation
+- **CORS** and frontend configuration
 
-### Habilidades Desenvolvidas
-- Desenvolvimento de ERP completo
-- Arquitetura de software escalável
-- Gestão de projetos com prazo definido
-- Trabalho em equipe e integração front/back
-- Apresentação de projetos para público
+### Skills Developed
+- Full ERP development
+- Scalable software architecture
+- Project management under a fixed deadline
+- Teamwork and front/back-end integration
+- Presenting projects to an audience
 
-### Competências Técnicas
-- **Backend:** ASP.NET Core, APIs RESTful, Entity Framework
-- **Banco de Dados:** MySQL, Migrations, Design de Schema
-- **Segurança:** JWT, Authentication, Authorization
-- **Arquitetura:** Clean Architecture, Design Patterns
-- **Ferramentas:** Swagger, Dependency Injection, CORS
+### Technical Competencies
+- **Backend:** ASP.NET Core, RESTful APIs, Entity Framework
+- **Database:** MySQL, Migrations, Schema Design
+- **Security:** JWT, Authentication, Authorization
+- **Architecture:** Clean Architecture, Design Patterns
+- **Tools:** Swagger, Dependency Injection, CORS
 
 ---
 
-**🌱 Desenvolvido com 💙 para fortalecer a agricultura familiar**
+**🌱 Built with 💙 to strengthen family farming**
